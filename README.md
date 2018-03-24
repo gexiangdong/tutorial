@@ -1,6 +1,6 @@
 # 用spring boot编写RESTful API教程
 
-    spring boot做RESTful API项目中用到的各种知识的整理和相关示例，主要通过代码和代码的注视来展现说明用法和注意事项。
+spring boot做RESTful API项目中用到的各种知识的整理和相关示例，主要通过代码和代码的注视来展现说明用法和注意事项。
 
 ****
 
