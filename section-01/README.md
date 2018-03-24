@@ -51,7 +51,7 @@ curl -X DELETE http://localhost:8080/tvseries/101?delete_reason=duplicated
 curl -X DELETE http://localhost:8080/tvseries/101
 ```
 
-#### 根据编号查询某个电视剧详情
+#### 给某个电视剧上传一个剧照
 HTTP Action: POST /tvseries/{id}/photos
 对应的方法： TvSeriesController.addPhoto(int id, MultipartFile imgFile)
 测试方法(当前目录下有img.jpg文件）：
