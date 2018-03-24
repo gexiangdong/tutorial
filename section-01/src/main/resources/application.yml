@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd  #或下面的，两个都有此行优先
+    serialization:
+      write-dates-as-timestamps: true  #使用数值timestamp表示日期
+
+logging:
+  file: target/app.log
+  level:
+    ROOT: WARN
+    cn.devmgr: TRACE
+    cn.devmgr.tutorial.springboot.dao: WARN
+           
