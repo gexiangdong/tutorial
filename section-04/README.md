@@ -6,7 +6,7 @@ README
 
 ### 准备数据库
     如果没有PostgreSQL Server，请先安装一份。可从http://www.postgres.org下载。
-    创建一个数据库，名为tvseries，并在此数据库内创建2个表，建表语句可参考[sq.sql](../sql.sql)文件。
+    创建一个数据库，名为tvseries，并在此数据库内创建2个表，建表语句可参考[sql.sql](../sql.sql)文件。
     修改application(./src/main/resources/applicaiton.yml)中的数据库连接字符串
 
 ### 运行
@@ -20,7 +20,7 @@ mvn test
 |TvSeriesServiceTest | testGetAllWithoutMockit | 没有使用mockit来做桩模块替代掉数据访问层时，判断测试是否成功的条件比较难编写，这是个负面例子。 |
 |TvSeriesServiceTest | testGetAll |  |
 |TvSeriesServiceTest | testGetOne |  |
-|AppTests | contextLoads |  |
-|AppTests | testGetAll |  |
-|AppTests | testAddSeries |  |
-|AppTests | testFileUpload |   |
+|AppTests | contextLoads |一个空测试用例  |
+|AppTests | testGetAll |GET方法的测试，数据访问层被桩模块代替  |
+|AppTests | testAddSeries |POST方法的测试，数据访问层被桩模块代替  |
+|AppTests | testFileUpload |MockWebMvc模拟文件上传，来测试文件上传的例子，内有如何修改某个spring bean属性的语句。 |
