@@ -42,7 +42,7 @@ HTTP Action: POST /tvseries
 对应的方法： TvSeriesController.insertOne(TvSeriesVo tvSeriesVo)
 测试方法：
 ```Bash
-curl -H "Content-Type:application/json" -X POST --data '{"name":"西部世界", "episodeCount":1, "originalRelease":"2016-10-02"}' http://localhost:8080/tvseries
+curl -H "Content-Type:application/json" -X POST --data '{"name":"West World", "episodeCount":1, "originalRelease":"2016-10-02", "tvCharacters":[{"name":"Waytt"},{"name":"Dolores"}]}' http://localhost:8080/tvseries
 ````
 
 #### 更新一个电视剧的信息
