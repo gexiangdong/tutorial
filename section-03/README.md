@@ -9,8 +9,8 @@ README
 |参数传递 |PO在控制层、逻辑层、数据访问层之间传递 |控制层和逻辑层通过DTO传递参数，逻辑层和数据结构层通过PO传递值，因此在逻辑层多了DTO和PO之间的转换，转换类在cn.devmgr.tutorial.springboot.service.BeanConverter内实现 |
 
 ### 代码简介
-    有两个dao类，都在cn.devmgr.tutorial.springboot.dao包内，对应的在src/main/resource/cn/devmgr/tutorial/springboot/dao目录下有2个XML文件。
-    dao类中方法用到的SQL，简单的有用注解写在接口内，稍微长点的写在了XML内。
+    有两个dao类，都在cn.devmgr.tutorial.springboot.dao包内，因为继承了JpaRepository，一些基本的增删改查被自动实现。
+    每个dao类都有一个自定义的方法，TvSeriesDao.logicDelete实现由Query注解对应的SQL负责；TvCharacterDao.getAllByTvSeriesId则是根据spring jpa的方法规则，由spring jpa猜测出来，根据tvSeriesId查询。
     TvSeriesService是业务逻辑处理类。属于业务逻辑层。 TvSeriesController是web层控制器，接收请求并处理。
     此例子涉及到类较少，采用Package by Feature not by Layer理念分package，所以controller, service, bo等都在同一package内，未区分。
 
