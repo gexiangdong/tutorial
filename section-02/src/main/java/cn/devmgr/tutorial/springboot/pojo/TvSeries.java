@@ -1,4 +1,4 @@
-package cn.devmgr.tutorial.springboot;
+package cn.devmgr.tutorial.springboot.pojo;
 
 import java.util.Date;
 import java.util.List;

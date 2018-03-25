@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import cn.devmgr.tutorial.springboot.TvSeries;
+import cn.devmgr.tutorial.springboot.pojo.TvSeries;
 
 public interface TvSeriesDao {
     

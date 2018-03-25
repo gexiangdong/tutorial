@@ -1,4 +1,4 @@
-package cn.devmgr.tutorial.springboot;
+package cn.devmgr.tutorial.springboot.service;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.devmgr.tutorial.springboot.dao.TvCharacterDao;
 import cn.devmgr.tutorial.springboot.dao.TvSeriesDao;
+import cn.devmgr.tutorial.springboot.pojo.TvCharacter;
+import cn.devmgr.tutorial.springboot.pojo.TvSeries;
 
 @Service
 public class TvSeriesService {

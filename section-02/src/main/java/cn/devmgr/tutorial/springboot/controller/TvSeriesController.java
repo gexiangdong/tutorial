@@ -1,4 +1,4 @@
-package cn.devmgr.tutorial.springboot;
+package cn.devmgr.tutorial.springboot.controller;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import cn.devmgr.tutorial.springboot.pojo.TvSeries;
+import cn.devmgr.tutorial.springboot.service.TvSeriesService;
 
 /**
  * RestController的一个例子，展示了各种基本操作在RestController的实现方式。

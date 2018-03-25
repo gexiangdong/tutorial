@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
-import cn.devmgr.tutorial.springboot.TvCharacter;
+import cn.devmgr.tutorial.springboot.pojo.TvCharacter;
 
 @Repository
 public interface TvCharacterDao {

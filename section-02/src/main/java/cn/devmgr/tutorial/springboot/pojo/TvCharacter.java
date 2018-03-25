@@ -1,4 +1,4 @@
-package cn.devmgr.tutorial.springboot;
+package cn.devmgr.tutorial.springboot.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

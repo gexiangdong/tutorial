@@ -5,14 +5,13 @@ README
 实现方式 | section-02 | section-03 |
 | :----: |:--------- |:--------- |
 |DAO层   |Mybatis    |JPA  |
-|包划分方法   |Package By Feature <br>大部分类都在同一个包下 |Package By Layer <br>会看到service, controller, dao, po, dto等多个包，每个包内类很少 |
-|参数传递 |PO在控制层、逻辑层、数据访问层之间传递 |控制层和逻辑层通过DTO传递参数，逻辑层和数据结构层通过PO传递值，因此在逻辑层多了DTO和PO之间的转换，转换类在cn.devmgr.tutorial.springboot.service.BeanConverter内实现 |
+|参数传递 |未区分PO和DTO，一套POJO在控制层、逻辑层、数据访问层之间传递 |控制层和逻辑层通过DTO传递参数，逻辑层和数据结构层通过PO传递值，因此在逻辑层多了DTO和PO之间的转换，转换类在cn...service.BeanConverter内实现 |
 
 ### 代码简介
     有两个dao类，都在cn.devmgr.tutorial.springboot.dao包内，因为继承了JpaRepository，一些基本的增删改查被自动实现。
     每个dao类都有一个自定义的方法，TvSeriesDao.logicDelete实现由Query注解对应的SQL负责；TvCharacterDao.getAllByTvSeriesId则是根据spring jpa的方法规则，由spring jpa猜测出来，根据tvSeriesId查询。
     TvSeriesService是业务逻辑处理类。属于业务逻辑层。 TvSeriesController是web层控制器，接收请求并处理。
-    此例子涉及到类较少，采用Package by Feature not by Layer理念分package，所以controller, service, bo等都在同一package内，未区分。
+    为了清晰的区分出各个类所属的层，每层放在了不同的package内，controller是web控制层，service是业务逻辑层，dao是数据访问层，po内放置的类是持久对象，供业务逻辑层和数据访问层使用，dto内放置的数据传输对象，供web控制层和业务逻辑层用，之间的转换通过BeanConverter来实现，使用了dozer，此例中转换比较简单，也可用apache commons-beanutils实现。
 
 ### 准备数据库
     如果没有PostgreSQL Server，请先安装一份。可从http://www.postgres.org下载。

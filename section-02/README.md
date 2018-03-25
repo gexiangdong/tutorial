@@ -6,7 +6,7 @@ README
     有两个dao类，都在cn.devmgr.tutorial.springboot.dao包内，对应的在src/main/resource/cn/devmgr/tutorial/springboot/dao目录下有2个XML文件。
     dao类中方法用到的SQL，简单的有用注解写在接口内，稍微长点的写在了XML内。
     TvSeriesService是业务逻辑处理类。属于业务逻辑层。 TvSeriesController是web层控制器，接收请求并处理。
-    此例子涉及到类较少，采用Package by Feature not by Layer理念分package，所以controller, service, bo等都在同一package内，未区分。
+    为了清晰的区分出各个类所属的层，每层放在了不同的package内，controller是web控制层，service是业务逻辑层，dao是数据访问层，pojo内放置的类是dto po，此例中没有区分dto和po，几个层级共用同一套pojo。
 
 ### 准备数据库
     如果没有PostgreSQL Server，请先安装一份。可从http://www.postgres.org下载。
