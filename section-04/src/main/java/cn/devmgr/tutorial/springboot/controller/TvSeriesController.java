@@ -67,7 +67,7 @@ public class TvSeriesController {
     @PostMapping
     public TvSeries insertOne(@RequestBody TvSeries tvSeries) {
         if(log.isTraceEnabled()) {
-            log.trace("这里应该写新增TvSeries到数据库的代码, 传递进来的参数是：" + tvSeries);
+            log.trace("insertOne 传递进来的参数是：" + tvSeries);
         }
         tvSeriesService.addTvSeries(tvSeries);
         return tvSeries;

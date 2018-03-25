@@ -24,8 +24,4 @@ logging:
     ROOT: WARN
     cn.devmgr: TRACE
     cn.devmgr.tutorial.springboot.dao: WARN
-
-#此项目的自定义属性  
-tutorial:
-  uploadFolder: target/upload-files/    #文件上传目录，可以用/开头的绝对路径
      
