@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>cn.devmgr.tutorial.springboot</groupId>
-	<artifactId>spring-boot-tutorial-section05</artifactId>
+	<artifactId>tutorial-section05</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-tutorial</name>
-	<description>Demo project for Spring Boot</description>
+	<name>tutorial-05</name>
+	<description>用Spring Boot编写RESTful API教程 05</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

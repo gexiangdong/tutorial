@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>cn.devmgr.tutorial.springboot</groupId>
-	<artifactId>spring-boot-tutorial-section04</artifactId>
+	<groupId>cn.devmgr.tutorial</groupId>
+	<artifactId>tutorial-section04</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-tutorial</name>
-	<description>Demo project for Spring Boot</description>
+	<name>tutorial-04</name>
+	<description>用Spring Boot编写RESTful API教程 04</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
