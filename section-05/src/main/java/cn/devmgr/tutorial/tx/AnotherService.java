@@ -1,5 +1,7 @@
 package cn.devmgr.tutorial.tx;
 
+import java.sql.SQLException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +81,26 @@ public class AnotherService {
         }
     }
     
+    /**
+     * 方法定义抛出异常，但是只有SQLException被回滚，其他异常不回滚
+     */
+    @Transactional(rollbackFor=SQLException.class)
+    public void insertRollbackForSQLException(PersonDto p1, Exception e) throws Exception {
+        personDao.insert(p1);
+        if(e != null) {
+            throw(e);
+        }
+    }
+    /**
+     * 方法定义抛出异常，但是只有SQLException被回滚，其他异常不回滚
+     */
+    @Transactional(rollbackFor=RuntimeException.class, noRollbackFor=NullPointerException.class)
+    public void insertNoRollbackForSQLException(PersonDto p1, Exception e) throws Exception {
+        personDao.insert(p1);
+        if(e != null) {
+            throw(e);
+        }
+    }
     /**
      * 测试timeout参数用
      */

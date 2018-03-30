@@ -1,5 +1,6 @@
 package cn.devmgr.tutorial.tx.test;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -44,6 +45,7 @@ public class AppTests {
 //        testNested();
 //        testMandatory();
 //        testThrowException();
+//        testThrowExceptionAndCommit();
 //        testTranscationalTimeoutParamter();
     }
 
@@ -139,7 +141,44 @@ public class AppTests {
 
         dao.deleteAll();
     }
+    public void testThrowExceptionAndCommit() {
+        dao.deleteAll();
+        PersonDto p = new PersonDto(1, "甲");
+        try {
+            anotherService.insertRollbackForSQLException(p,  new SQLException("sql exception"));
+        }catch (Exception e) {
 
+        }
+        List<PersonDto> list = serv.getAll();
+        if (log.isTraceEnabled()) {
+            log.trace("query all list.size()=" + list.size());
+        }
+        Assert.assertTrue(list.size() == 0);
+        
+        //设置了rollbackFor之后，仅仅rollbackFor的会回滚，不是rollbackFor或其子类的就不回滚了
+        try {
+            anotherService.insertRollbackForSQLException(p,  new Exception("common exception"));
+        }catch (Exception e) {
+
+        }
+        List<PersonDto> list2 = serv.getAll();
+        if (log.isTraceEnabled()) {
+            log.trace("query all list2.size()=" + list2.size());
+        }
+        Assert.assertTrue(list2.size() == 1);
+        
+      //设置了noRollbackFor NullPointerException，rollBackFor RuntimeException，NullPointerException是RuntimeException的子类
+        try {
+            anotherService.insertNoRollbackForSQLException(p,  new NullPointerException("null"));
+        }catch (Exception e) {
+
+        }
+        List<PersonDto> list3 = serv.getAll();
+        if (log.isTraceEnabled()) {
+            log.trace("query all list2.size()=" + list3.size());
+        }
+        Assert.assertTrue(list3.size() == 1);
+    }
     /**
      * 一个事务中，调用一个Propagation.REQUIRED_NEW的方法，两个不互相影响，各自负责自己的事务。
      * 内部的失败回滚了，外部一样会提交成功
