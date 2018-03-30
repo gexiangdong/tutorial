@@ -21,10 +21,10 @@ public class AnotherService {
     public void insert2trans(PersonDto p1, PersonDto p2, boolean throwEception) {
         personDao.insert(p1);
         try {
-            personService.insertRequireNew(p2, true);
+            personService.insertRequireNew(p2, true);   
         }catch(Exception e) {
             //如果不写这个catch，那么异常会继续向上级抛出，就会导致这个方法也会被回滚了
-            //
+            //e.printStackTrace();
         }
         if(throwEception) {
             throw new RuntimeException("ERROR");
@@ -78,4 +78,42 @@ public class AnotherService {
             throw(e);
         }
     }
+    
+    /**
+     * 测试timeout参数用
+     */
+    @Transactional(propagation=Propagation.REQUIRES_NEW, timeout=5)
+    public void insertWithTimeout(PersonDto p1, PersonDto p2, int sleepSecond0, int sleepSecond1, int sleepSecond2) {
+        try {
+            Thread.sleep(sleepSecond0 * 1000);
+        }catch(InterruptedException e) {
+            if(log.isTraceEnabled()) {
+                log.trace("sleep 被中断 InterruptedException");
+            }
+        }
+        personDao.insert(p1);
+        try {
+            Thread.sleep(sleepSecond1 * 1000);
+        }catch(InterruptedException e) {
+            if(log.isTraceEnabled()) {
+                log.trace("sleep 被中断 InterruptedException");
+            }
+        }
+        personDao.insert(p2);
+        try {
+            Thread.sleep(sleepSecond2 * 1000);
+        }catch(InterruptedException e) {
+            if(log.isTraceEnabled()) {
+                log.trace("sleep 被中断 InterruptedException");
+            }
+        }
+    }
+    
+    @Transactional(propagation=Propagation.REQUIRED)
+    public void lockTable(int secounds) throws InterruptedException{
+        personDao.lockTablePerson();
+        Thread.sleep(secounds * 1000);
+    }
+    
+    
 }

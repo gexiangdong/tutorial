@@ -6,12 +6,13 @@ spring:
     name: spring-boot-tutorial
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://127.0.0.1:5432/tvseries?stringtype=unspecified&ApplicationName=Spring
+    url: jdbc:postgresql://127.0.0.1:5432/tvseries?stringtype=unspecified&ApplicationName=tutorial&loggerLevel=DEBUG&loggerFile=target/postgres.log
     username: pgdbo
     password: sql
     maxTotal: 50
     maxIdle: 1
     maxWaitMillis: 10000
+  dbc.template.queryTimeout: 2   
   jackson:
     serialization:
       write-dates-as-timestamps: true  #使用数值timestamp表示日期

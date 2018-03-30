@@ -29,4 +29,7 @@ public interface PersonDao {
     
     @Delete("delete from person")
     public int deleteAll();
+    
+    @Select("lock table person in  ACCESS EXCLUSIVE mode")
+    public void lockTablePerson();
 }

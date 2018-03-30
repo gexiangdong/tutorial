@@ -38,12 +38,13 @@ public class AppTests {
     @Test
     public void testSomething() {
         //为了看的清晰，每次只执行一个测试
-         testRequiredNewAndNewFailed();
-//        testThrowException();
+        testRequiredNewAndNewFailed();
 //        testInsertNoTransInsideTrans();
 //        testInsertNoAnnotationInsideTrans();
 //        testNested();
 //        testMandatory();
+//        testThrowException();
+//        testTranscationalTimeoutParamter();
     }
 
     /**
@@ -148,7 +149,7 @@ public class AppTests {
         try {
             anotherService.insert2trans(new PersonDto(1, "甲"), new PersonDto(2, "乙"), false);
         } catch (RuntimeException e) {
-
+            e.printStackTrace();
         }
         List<PersonDto> list = serv.getAll();
         if (log.isTraceEnabled()) {
@@ -157,4 +158,114 @@ public class AppTests {
         Assert.assertTrue(list.size() == 1);
     }
 
+    /**
+     * 测试Transactional注解的timeout参数
+     */
+    public void testTranscationalTimeoutParamter() {
+        dao.deleteAll();
+        //这里开启一个线程把table person锁住10秒，以便后续sql在10秒内无法完成
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    anotherService.lockTable(10);
+                } catch (InterruptedException e) {
+                    //e.printStackTrace();
+                }
+            }
+        };
+        t.start();
+        //insertWithTimeout方法有设置timeout是5秒，上面锁了15秒，这里等待时间会超过5秒，看看是否抛出异常
+        boolean noException = false;
+        long t1 = System.currentTimeMillis();
+        try {
+            anotherService.insertWithTimeout(new PersonDto(1, "甲"), new PersonDto(2, "乙"), 0, 0, 0);
+        }catch(Exception e) {
+            //应该是抛出异常的
+            noException = true;
+            if(log.isTraceEnabled()) {
+                log.trace("捕获异常", e);
+            }
+        }
+        long cost = System.currentTimeMillis() - t1;
+        Assert.assertTrue(noException);
+        
+        if(cost < 5000) {
+            //表一直被锁住，insert无法执行，需要等待；事务5秒超时，这个方法如果执行实际小于5秒，说明哪里出错了
+            Assert.fail("cost=" + cost + "这个测试有问题");
+        }else {
+            if(log.isTraceEnabled()) {
+                log.trace("@Transcational(timeout=5)，实际执行花费了" + cost / 1000 + "秒。");
+            }
+        }
+        
+        //执行下一个测试前，先把锁表线程结束掉
+        t.interrupt();
+        while(t.isAlive()) {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                
+            }
+            if(log.isTraceEnabled()) {
+                log.trace("等待锁表线程结束...");
+            }
+        }
+        
+        //下面来测试另外一种情况，设置了timeout=5,先sleep5秒，然后先执行2条SQL看看是否抛出异常
+        noException = false;
+        t1 = System.currentTimeMillis();
+        try {
+            anotherService.insertWithTimeout(new PersonDto(5, "丙"), new PersonDto(6, "丁"), 5, 0, 0);
+        }catch(Exception e) {
+            noException = true;
+            if(log.isTraceEnabled()) {
+                log.trace("捕获异常", e);
+            }
+        }
+        if(log.isTraceEnabled()) {
+            log.trace("先sleep后执行SQL，耗时" + (System.currentTimeMillis() - t1) + "ms, " + (noException ? "有异常抛出" : "没抛异常"));
+        }
+        Assert.assertTrue(noException);
+        
+        //下面来测试另外一种情况，设置了timeout=5,然后先执行一条SQL，让线程等待5秒，然后执行另外一条SQL，看看是否抛出异常
+        noException = false;
+        t1 = System.currentTimeMillis();
+        try {
+            anotherService.insertWithTimeout(new PersonDto(5, "丙"), new PersonDto(6, "丁"), 0, 5, 0);
+        }catch(Exception e) {
+            noException = true;
+            if(log.isTraceEnabled()) {
+                log.trace("捕获异常", e);
+            }
+        }
+        if(log.isTraceEnabled()) {
+            log.trace("两个SQL中间sleep，耗时" + (System.currentTimeMillis() - t1) + "ms, " + (noException ? "有异常抛出" : "没抛异常"));
+        }
+        Assert.assertTrue(noException);
+        
+        //下面来测试另外一种情况，设置了timeout=5,然后先执行一条SQL，先执行2条SQL，再sleep5秒，看看是否抛出异常
+        noException = false;
+        t1 = System.currentTimeMillis();
+        try {
+            anotherService.insertWithTimeout(new PersonDto(5, "丙"), new PersonDto(6, "丁"), 0, 0, 6);
+        }catch(Exception e) {
+            noException = true;
+            if(log.isTraceEnabled()) {
+                log.trace("捕获异常", e);
+            }
+        }
+        if(log.isTraceEnabled()) {
+            log.trace("执行2个SQL，后sleep，耗时" + (System.currentTimeMillis() - t1) + "ms, " + (noException ? "有异常抛出" : "没抛异常"));
+        }
+        //这段测试是不抛异常的
+        Assert.assertFalse(noException);
+        
+                
+        if(log.isTraceEnabled()) {
+            log.trace("结论：只要被@Transactional(timeout=xx)注解的方法，时长的计算方式是：从方法执行开始，到方法内最后一条SQL之间的时长是否超过timeout设定的秒数。"
+                    + "异常可能是： org.springframework.transaction.TransactionTimedOutException: Transaction timed out，"
+                    + "也可能是数据库给出的：org.postgresql.util.PSQLException: ERROR: canceling statement due to user request");
+        }
+    }
 }
