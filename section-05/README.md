@@ -22,7 +22,8 @@ mvn test
 ```
 
 ### 事务隔离级别的SQL测试
-####测试REPEATABLE READ
+#### 测试REPEATABLE READ
+
 打开一个psql命令行(No.1)：
 ```SQL
 insert into person (id, name) values(1, 'Tom');
@@ -39,10 +40,14 @@ UPDATE person SET name='Make' WHERE id=1;
 ```SQL
 UPDATE person SET name='Jack' WHERE id=1;
 ```
-会收到报错：ERROR:  could not serialize access due to concurrent update
-这是不可重复读，所以事务运行失败，只能被回滚，即时发了commit，也会被执行rollback，因为不满足REPEATABLE READ的隔离级别了
+会得到错误信息：
 
-####测试SERIALIZABLE
+    ERROR:  could not serialize access due to concurrent update
+
+这是遇到了不可重复读，事务运行失败，只能被回滚，即时发了commit，也会被执行rollback，因为不满足REPEATABLE READ的隔离级别了
+
+#### 测试SERIALIZABLE
+
 首先准备点数据
 ```SQL
 insert into person (id, name) values(1, 'Tom');
@@ -63,13 +68,18 @@ SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 delete from person where id=3;
 COMMIT;
 ```
-返回到前面开始事务的psql命令行(No.1)，commit或者执行其他sql，
-会收到报错：
-ERROR:  could not serialize access due to read/write dependencies among transactions
-DETAIL:  Reason code: Canceled on identification as a pivot, during commit attempt.
-HINT:  The transaction might succeed if retried.
-这是幻读，前面统计到是3条，后面统计到2条，所以事务运行失败，只能被回滚。如果其中没有update语句，不涉及更新数据会执行成功的。
+返回到前面开始事务的psql命令行(No.1)，commit或者执行其他sql，会得到错误信息：
 
-如果另外一个事务不是设置成SERIALIZABLE，是不会出现这个异常的。postgresql文档
-In fact, this isolation level works exactly the same as Repeatable Read except that it monitors for conditions which could make execution of *a concurrent set of serializable transactions* behave in a manner inconsistent with all possible serial (one at a time) executions of those transactions. 
+    ERROR:  could not serialize access due to read/write dependencies among transactions
+    DETAIL:  Reason code: Canceled on identification as a pivot, during commit attempt.
+    HINT:  The transaction might succeed if retried.
+
+这是遇到了幻读，前面统计到是3条，后面统计到2条，事务运行失败，只能被回滚。如果其中没有update语句，不涉及更新数据会执行成功的。
+
+如果另外一个事务不是设置成SERIALIZABLE，是不会出现这个异常的。postgresql文档中关于serializable有解释说明了这一点
+
+    In fact, this isolation level works exactly the same as Repeatable Read except that it monitors for 
+    conditions which could make execution of a concurrent set of serializable transactions behave in a 
+    manner inconsistent with all possible serial (one at a time) executions of those transactions. 
+
 只有两个都是SERIABLIZABLE隔离级别的事务才会互相影响。
