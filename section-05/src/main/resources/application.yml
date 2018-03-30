@@ -12,7 +12,6 @@ spring:
     maxTotal: 50
     maxIdle: 1
     maxWaitMillis: 10000
-  dbc.template.queryTimeout: 2   
   jackson:
     serialization:
       write-dates-as-timestamps: true  #使用数值timestamp表示日期
