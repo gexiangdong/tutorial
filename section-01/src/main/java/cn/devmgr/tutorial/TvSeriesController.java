@@ -1,4 +1,4 @@
-package cn.devmgr.springboottutorial.tvseries;
+package cn.devmgr.tutorial;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -37,11 +37,11 @@ public class TvSeriesController {
     private final Log log = LogFactory.getLog(TvSeriesController.class);
     
     @GetMapping
-    public List<TvSeriesVo> getAll() {
+    public List<TvSeriesDto> getAll() {
         if(log.isTraceEnabled()) {
             log.trace("getAll() ");
         }
-        List<TvSeriesVo> list = new ArrayList<>();
+        List<TvSeriesDto> list = new ArrayList<>();
         list.add(createWestWorld());
         list.add(createPoi());
         
@@ -49,7 +49,7 @@ public class TvSeriesController {
     }
     
     @GetMapping("/{id}")
-    public TvSeriesVo getOne(@PathVariable int id){
+    public TvSeriesDto getOne(@PathVariable int id){
         if(log.isTraceEnabled()) {
             log.trace("getOne " + id);
         }
@@ -63,28 +63,28 @@ public class TvSeriesController {
     }
     
     @PostMapping
-    public TvSeriesVo insertOne(@RequestBody TvSeriesVo tvSeriesVo) {
+    public TvSeriesDto insertOne(@RequestBody TvSeriesDto tvSeriesDto) {
         if(log.isTraceEnabled()) {
-            log.trace("这里应该写新增tvSeriesVo到数据库的代码, 传递进来的参数是：" + tvSeriesVo);
+            log.trace("这里应该写新增tvSeriesDto到数据库的代码, 传递进来的参数是：" + tvSeriesDto);
         }
         //TODO:在数据
-        tvSeriesVo.setId(9999);
-        return tvSeriesVo;
+        tvSeriesDto.setId(9999);
+        return tvSeriesDto;
     }
     
     /**
      * 
      * @param id
-     * @param tvSeriesVo
+     * @param tvSeriesDto
      * @return
      */
     @PutMapping("/{id}")
-    public TvSeriesVo updateOne(@PathVariable int id, @RequestBody TvSeriesVo tvSeriesVo){
+    public TvSeriesDto updateOne(@PathVariable int id, @RequestBody TvSeriesDto tvSeriesDto){
         if(log.isTraceEnabled()) {
             log.trace("updateOne " + id);
         }
         if(id == 101 || id == 102) {
-            //TODO: 根据tvSeriesVo的内容更新数据库，更新后返回新
+            //TODO: 根据tvSeriesDto的内容更新数据库，更新后返回新
             return createPoi();
         }else {
             throw new ResourceNotFoundException();
@@ -161,18 +161,18 @@ public class TvSeriesController {
     /**
      * 创建电视剧“Person of Interest",仅仅方便此节做展示其他方法用，以后章节把数据存储到数据库后，会删除此方法
      */
-    private TvSeriesVo createPoi() {
+    private TvSeriesDto createPoi() {
         Calendar c = Calendar.getInstance();
         c.set(2011, Calendar.SEPTEMBER, 22, 0, 0, 0);
-        return new TvSeriesVo(102, "Person of Interest", 5, c.getTime());
+        return new TvSeriesDto(102, "Person of Interest", 5, c.getTime());
     }
     /**
      * 创建电视剧“West World",仅仅方便此节做展示其他方法用，以后章节把数据存储到数据库后，会删除此方法
      */
-    private TvSeriesVo createWestWorld() {
+    private TvSeriesDto createWestWorld() {
         Calendar c = Calendar.getInstance();
         c.set(2016, Calendar.OCTOBER, 2, 0, 0, 0);
-        return new TvSeriesVo(101, "West World", 1, c.getTime());
+        return new TvSeriesDto(101, "West World", 1, c.getTime());
     }
     
 }

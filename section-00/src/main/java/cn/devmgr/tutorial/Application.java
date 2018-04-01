@@ -1,4 +1,4 @@
-package cn.devmgr.springboottutorial;
+package cn.devmgr.tutorial;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

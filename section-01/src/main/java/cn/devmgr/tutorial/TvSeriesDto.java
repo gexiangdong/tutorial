@@ -1,10 +1,10 @@
-package cn.devmgr.springboottutorial.tvseries;
+package cn.devmgr.tutorial;
 
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class TvSeriesVo {
+public class TvSeriesDto {
     private Integer id;
     private String name;
     private int episodeCount;
@@ -13,10 +13,10 @@ public class TvSeriesVo {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date originalRelease;
     
-    public TvSeriesVo() { 
+    public TvSeriesDto() { 
     }
     
-    public TvSeriesVo(int id, String name, int episodeCount, Date originalRelease) {
+    public TvSeriesDto(int id, String name, int episodeCount, Date originalRelease) {
         this.id = id;
         this.name = name;
         this.episodeCount = episodeCount;

@@ -3,9 +3,9 @@ server:
 
 spring:
   jackson:
-    date-format: yyyy-MM-dd  #或下面的，两个都有此行优先
+    date-format: yyyy-MM-dd 
     serialization:
-      write-dates-as-timestamps: true  #使用数值timestamp表示日期
+      write-dates-as-timestamps: true  #使用数值timestamp表示日期，true时会忽略date-format
 
 logging:
   file: target/app.log
