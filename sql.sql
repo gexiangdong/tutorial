@@ -1,6 +1,6 @@
 create database tvseries;
 
-/**    TABLES      **/
+/**    TABLES (section02-04中使用)     **/
 create table tv_series(
    id serial primary key,
    name varchar(50) not null,
@@ -15,4 +15,14 @@ create table tv_character(
     tv_series_id int not null,
     name varchar(50) not null,
     photo varchar(100) null
+);
+
+
+/**
+ * section-05中测试@Transactional注解用
+ */
+create table person(
+   id int primary key,
+   name varchar(50) not null,
+   birthday timestamp default now()
 );
