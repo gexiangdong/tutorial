@@ -47,7 +47,7 @@ UPDATE person SET name='Jack' WHERE id=1;
 
     ERROR:  could not serialize access due to concurrent update
 
-这是遇到了不可重复读，事务运行失败，只能被回滚，即时发了commit，也会被执行rollback，因为不满足REPEATABLE READ的隔离级别了
+这是遇到了不可重复读，事务运行失败，只能被回滚，即便尝试commit，也不会成功，事务只能被rollback，因为不满足REPEATABLE READ的隔离级别了
 
 #### 测试SERIALIZABLE
 
