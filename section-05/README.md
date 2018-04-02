@@ -1,13 +1,16 @@
 README
 ===========================
-    Spring Transactional @Transactional中propagation参数的例子，用实际例子来了解各种情况，比看文档更深刻些，需要PostgreSQL Server。 
+Spring Transactional @Transactional中propagation参数的例子，用实际例子来了解各种情况，比看文档更深刻些，需要PostgreSQL Server。 
 
 ### 代码简介
-    运行AppTests中的doSomthing的测试用例，doSomthing中有7个函数，建议每次运行1个，以便看得更清楚。
+
+运行AppTests中的doSomthing的测试用例，doSomthing中有7个函数，建议每次运行1个，以便看得更清楚。
 
 ### 准备数据库
-    如果没有PostgreSQL Server，请先安装一份。可从http://www.postgres.org下载。
-    创建一个数据库，名为tvseries，并在此数据库内创建1个表，建表语句可参考sq.sql(./sql.sql)文件。
+
+如果没有PostgreSQL Server，请先安装一份。可从http://www.postgres.org下载。
+创建一个数据库，名为tvseries，并在此数据库内创建1个表，建表语句可参考sq.sql(./sql.sql)文件。
+
 ````SQL
 create table person(
    id int primary key,
@@ -34,7 +37,7 @@ SELECT * FROM person WHERE id=1;
 ```
 去另一终端，打开一个psql连接(No.2)，执行
 ```SQL
-UPDATE person SET name='Make' WHERE id=1;
+UPDATE person SET name='Mike' WHERE id=1;
 ```
 返回到前面开始事务的终端(No.1)
 ```SQL
