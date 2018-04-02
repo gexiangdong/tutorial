@@ -58,7 +58,7 @@ insert into person (id, name) values(3, 'Tom-3');
 ```SQL
 BEGIN TRANSACTION;
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
-SELECT sum(id) FROM person WHERE id<10;
+SELECT * FROM person WHERE id<10;
 update person set name='Jack' where id=1;
 ```
  暂停，去另一终端，打开一个psql连接(No.2)，执行
@@ -66,6 +66,7 @@ update person set name='Jack' where id=1;
 BEGIN TRANSACTION;
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 delete from person where id=3;
+SELECT * FROM person WHERE id<5;
 COMMIT;
 ```
 返回到前面开始事务的psql命令行(No.1)，commit或者执行其他sql，会得到错误信息：
