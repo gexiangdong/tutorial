@@ -23,7 +23,7 @@ logging:
   level:
     ROOT: WARN
     cn.devmgr: TRACE
-    cn.devmgr.tutorial.springboot.dao: WARN
+    cn.devmgr.tutorial.dao: WARN
 
 #此项目的自定义属性  
 tutorial:

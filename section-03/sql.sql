@@ -4,8 +4,8 @@ create database tvseries;
 create table tv_series(
    id serial primary key,
    name varchar(50) not null,
-   episode_count int not null,
-   original_release date not null,
+   season_count int not null,
+   origin_release date not null,
    status smallint not null default 0,
    delete_reason varchar(100) null
 );

@@ -1,13 +1,13 @@
 README
 ===========================
-    针对section-02章节的代码，编写的测试用例，测试用例使用了junit spring-boot-starter-test和mockit。测试用例在src/test/java目录下，测试用例内有对应的注释说明。
-    本章节以section-02为基础，因此需要现有可以运行section-02的环境。
+针对section-02章节的代码，编写的测试用例，测试用例使用了junit spring-boot-starter-test和mockit。测试用例在src/test/java目录下，测试用例内有对应的注释说明。
+本章节以section-02为基础，因此需要现有可以运行section-02的环境。
 
 
 ### 准备数据库
-    如果没有PostgreSQL Server，请先安装一份。可从http://www.postgres.org下载。
-    创建一个数据库，名为tvseries，并在此数据库内创建2个表，建表语句可参考[sql.sql](../sql.sql)文件。
-    修改application(./src/main/resources/applicaiton.yml)中的数据库连接字符串
+如果没有PostgreSQL Server，请先安装一份。可从http://www.postgres.org下载。
+创建一个数据库，名为tvseries，并在此数据库内创建2个表，建表语句可参考[sql.sql](../sql.sql)文件。
+修改application(./src/main/resources/applicaiton.yml)中的数据库连接字符串
 
 ### 运行
 ```bash

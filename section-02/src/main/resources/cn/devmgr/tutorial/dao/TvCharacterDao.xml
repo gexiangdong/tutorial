@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.devmgr.tutorial.dao.TvCharacterDao" >
+  
+  <insert id="insert" parameterType="cn.devmgr.tutorial.pojo.TvCharacter" 
+  			useGeneratedKeys="true" keyProperty="id">
+    insert into tv_character (name, tv_series_id, photo )
+    		values (#{name}, #{tvSeriesId}, #{photo} )
+  </insert>
+  
+  <update id="update" parameterType="cn.devmgr.tutorial.pojo.TvCharacter">
+    update tv_character set name=#{name}, tv_series_id=#{tvseriesid}, photo=#{photo} where id=#{id}
+  </update>
+  
+</mapper>

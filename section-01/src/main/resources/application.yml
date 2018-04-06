@@ -4,6 +4,7 @@ server:
 spring:
   jackson:
     date-format: yyyy-MM-dd 
+    time-zone: GMT+8
     serialization:
       write-dates-as-timestamps: true  #使用数值timestamp表示日期，true时会忽略date-format
 

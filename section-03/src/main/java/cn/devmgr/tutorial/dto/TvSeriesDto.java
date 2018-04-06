@@ -1,27 +1,19 @@
-package cn.devmgr.tutorial;
+package cn.devmgr.tutorial.dto;
 
 import java.util.Date;
+import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+/**
+ * 电视剧
+ *
+ */
 public class TvSeriesDto {
     private Integer id;
     private String name;
     private int seasonCount;
-    
-    //如果想用long型的timestamp表示日期，可用： @JsonFormat(shape = JsonFormat.Shape.NUMBER)
-    @JsonFormat(pattern="yyyy-MM-dd")
     private Date originRelease;
+    private List<TvCharacterDto> tvCharacters;
     
-    public TvSeriesDto() { 
-    }
-    
-    public TvSeriesDto(int id, String name, int seasonCount, Date originRelease) {
-        this.id = id;
-        this.name = name;
-        this.seasonCount = seasonCount;
-        this.originRelease = originRelease;
-    }
     
     public Integer getId() {
         return id;
@@ -29,26 +21,37 @@ public class TvSeriesDto {
     public void setId(Integer id) {
         this.id = id;
     }
-    
     public String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
     }
-    
     public int getSeasonCount() {
         return seasonCount;
     }
     public void setSeasonCount(int seasonCount) {
         this.seasonCount = seasonCount;
     }
-    
     public Date getOriginRelease() {
         return originRelease;
     }
     public void setOriginRelease(Date originRelease) {
         this.originRelease = originRelease;
     }
+    public List<TvCharacterDto> getTvCharacters() {
+        return tvCharacters;
+    }
+    public void setTvCharacters(List<TvCharacterDto> tvCharacters) {
+        this.tvCharacters = tvCharacters;
+    }
     
+    @Override
+    public String toString() {
+        StringBuffer buf = new StringBuffer();
+        buf.append(this.getClass().getName()).append("{id:").append(id);
+        buf.append(",name:").append(name).append(",seasonCount:").append(seasonCount);
+        buf.append("}");
+        return buf.toString();
+    }
 }

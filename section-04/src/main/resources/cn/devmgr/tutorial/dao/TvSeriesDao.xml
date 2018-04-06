@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.devmgr.tutorial.dao.TvSeriesDao" >
+  
+  <insert id="insert" parameterType="cn.devmgr.tutorial.pojo.TvSeries" 
+  			useGeneratedKeys="true" keyProperty="id">
+    insert into tv_series (name, season_count, origin_release )
+    		values (#{name}, #{seasonCount}, #{originRelease} )
+  </insert>
+  
+  <update id="update" parameterType="cn.devmgr.tutorial.pojo.TvSeries">
+    update tv_series set name=#{name}, season_count=#{seasonCount}, origin_release=#{originRelease} where id=#{id}
+  </update>
+  
+</mapper>
