@@ -3,6 +3,7 @@ package cn.devmgr.tutorial;
 import static org.mockito.ArgumentMatchers.any;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 
 import org.junit.Assert;
@@ -70,6 +71,7 @@ public class TvSeriesServiceTest {
     public void testGetOne() {
         //根据不同的传入参数，被mock的bean返回不同的数据的例子
         String newName = "Person Of Interest";
+        BitSet mockExecuted = new BitSet();
         Mockito.doAnswer(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -77,6 +79,7 @@ public class TvSeriesServiceTest {
                 TvSeries bean = (TvSeries) args[0];
                 //传入的值，应该和下面调用tvSeriesService.updateTvSeries()方法时的参数中的值相同
                 Assert.assertEquals(newName, bean.getName());
+                mockExecuted.set(0);
                 return 1;
             }
         }).when(tvSeriesDao).update(any(TvSeries.class));
@@ -86,5 +89,6 @@ public class TvSeriesServiceTest {
         ts.setId(111);
         
         tvSeriesService.updateTvSeries(ts);
+        Assert.assertTrue(mockExecuted.get(0));
     }
 }
