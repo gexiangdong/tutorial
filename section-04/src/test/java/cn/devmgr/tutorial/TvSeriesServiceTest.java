@@ -64,7 +64,7 @@ public class TvSeriesServiceTest {
         
         //判断返回值是否和最初做的那个list相同，应该是相同的。
         Assert.assertTrue(result.size() == list.size());
-        Assert.assertTrue("POI".equals(list.get(0).getName()));   
+        Assert.assertTrue("POI".equals(result.get(0).getName()));   
     }
     
     @Test
