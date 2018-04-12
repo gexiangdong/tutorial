@@ -1,0 +1,17 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd  
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/tvseries?stringtype=unspecified
+    username: pgdbo
+    password: sql
+    maxTotal: 50
+    maxIdle: 20
+    maxWaitMillis: 10000
+
+mybatis.configuration.mapUnderscoreToCamelCase: true
+
