@@ -1,0 +1,15 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd  
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+   
+  activemq:
+    broker-url: tcp://192.168.1.9:61616  # 不写此行会启用内嵌的activeMQ
+
+logging:
+  file: target/app.log
+  level:
+    ROOT: WARN
+    cn.devmgr: TRACE      

@@ -1,7 +1,7 @@
 README
 ===========================
 
-演示**Spring Cache**和**Spring Schedule**的用法
+演示**Spring JMS**的用法
 
 ### 运行
 ```bash
