@@ -9,9 +9,6 @@ spring:
     url: jdbc:postgresql://127.0.0.1:5432/tvseries?stringtype=unspecified&ApplicationName=tutorial
     username: pgdbo
     password: sql
-    maxTotal: 50
-    maxIdle: 20
-    maxWaitMillis: 10000
   jackson:
     serialization:
       write-dates-as-timestamps: true  #使用数值timestamp表示日期
