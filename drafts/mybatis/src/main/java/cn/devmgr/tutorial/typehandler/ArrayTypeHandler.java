@@ -8,8 +8,14 @@ import java.sql.SQLException;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
-public class ArrayTypeHandler<T> extends BaseTypeHandler<T> {
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+public class ArrayTypeHandler<T> extends BaseTypeHandler<T> {
+    private Class<T> type;
+    
+    public ArrayTypeHandler(Class<T> type) {
+        this.type = type;
+    }
     
     
     @Override

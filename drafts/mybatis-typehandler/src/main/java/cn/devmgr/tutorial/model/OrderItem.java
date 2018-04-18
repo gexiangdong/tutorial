@@ -1,10 +1,10 @@
-package cn.devmgr.tutorial;
+package cn.devmgr.tutorial.model;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
-public class OrderItemPojo {
+public class OrderItem {
 	@NotNull
 	private String productId;
 	private String productName;

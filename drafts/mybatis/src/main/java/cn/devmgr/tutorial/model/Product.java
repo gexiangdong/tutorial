@@ -1,7 +1,7 @@
-package cn.devmgr.tutorial;
+package cn.devmgr.tutorial.model;
 
 
-public class ProductPojo {
+public class Product {
     private String id;
     private String name;
     private int price;

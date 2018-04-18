@@ -1,17 +1,17 @@
-package cn.devmgr.tutorial;
+package cn.devmgr.tutorial.model;
 
 import javax.validation.constraints.NotNull;
 
-public class ConsigneeAddressPojo {
+public class ConsigneeAddress {
 	@NotNull
 	private String province,city, district, address;
 	@NotNull
 	private String consignee, phone;
 	
-	public ConsigneeAddressPojo(){
+	public ConsigneeAddress(){
 		
 	}
-	public ConsigneeAddressPojo(String consignee, String phone, String province, String city, String district, String address){
+	public ConsigneeAddress(String consignee, String phone, String province, String city, String district, String address){
 		this.consignee = consignee;
 		this.phone = phone;
 		this.province = province;

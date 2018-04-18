@@ -1,7 +1,9 @@
 create table product(
 	id char(5) not null primary key,
 	name varchar(20) not null,
-	price int not null
+	price int not null,
+	specs JSON null,
+	images varchar(100) ARRAY null 
 );
 
 create table order_main(

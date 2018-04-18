@@ -53,4 +53,18 @@
                 values(IDENT_CURRENT('order_main'), #{item.giftId}, #{item.giftName}, #{item.num}, #{item.price});
         </foreach>
     </insert>
+    
+    <resultMap type="cn.devmgr.tutorial.model.Product" id="product">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="price" property="price"/>
+		<result column="specs" property="specs" typeHandler="cn.devmgr.tutorial.typehandler.JsonTypeHandler" />
+		<result column="images" property="images" typeHandler="org.apache.ibatis.type.ArrayTypeHandler" />
+	</resultMap>
+     <select id="selectProductById" resultMap="product">
+        select id, name, price, specs, images
+	        from product
+	        where id=#{id}
+    </select>
+    
 </mapper>

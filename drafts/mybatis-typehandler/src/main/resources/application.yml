@@ -12,3 +12,9 @@ spring:
 
 mybatis.configuration.mapUnderscoreToCamelCase: true
 
+logging:
+  file: target/app.log
+  level:
+    ROOT: WARN
+    cn.devmgr: TRACE
+    
