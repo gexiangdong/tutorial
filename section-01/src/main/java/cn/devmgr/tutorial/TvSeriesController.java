@@ -8,15 +8,20 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
+import javax.validation.Validator;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +41,8 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/tvseries")
 public class TvSeriesController {
     private final Log log = LogFactory.getLog(TvSeriesController.class);
+    
+    @Autowired Validator validator;
     
     @GetMapping
     public List<TvSeriesDto> getAll() {
@@ -65,13 +72,34 @@ public class TvSeriesController {
     
     /**
      * @Valid 注解表示需要验证传入的参数TvSeriesDto，需要验证的field在TvSeriesDto内通过注解定义（@NotNull, @DecimalMin等）
+     * @Validated是spring的验证注解，和@valid同样作用；@Valid是JSR303定义的注解
+     * @Valid只验证注解没有groups参数或groups参数中有Default.class的约束
+     * @validated可以指定验证哪个group，例如本例子只验证约束注解groups参数里有ValidStep1.class的约束；
+     * groups参数传递的值必须是接口，不能是类
      * @param tvSeriesDto
      * @return
      */
     @PostMapping
-    public TvSeriesDto insertOne(@Valid @RequestBody TvSeriesDto tvSeriesDto) {
+    public TvSeriesDto insertOne(@Validated(ValidStep1.class) @RequestBody TvSeriesDto tvSeriesDto) {
         if(log.isTraceEnabled()) {
             log.trace("这里应该写新增tvSeriesDto到数据库的代码, 传递进来的参数是：" + tvSeriesDto);
+        }
+        //下面这行是需要手动调用验证时的调用方法；调用需要成员变量@Autowired Validator validator先把验证器装载进来
+        //第二个参数是验证group；不传验证默认组
+        Set<ConstraintViolation<TvSeriesDto>> errors = validator.validate(tvSeriesDto, ValidStep1.class);
+        if (errors.size() > 0) {
+            //如果同不过验证，错误信息都在这个set里
+            if(log.isTraceEnabled()) {
+                log.trace("未通过验证");
+                for(ConstraintViolation<TvSeriesDto> cv : errors) {
+                    log.trace(cv.getMessage());
+                }
+            }
+            throw new RuntimeException("Bad request.");
+        } else {
+            if(log.isTraceEnabled()) {
+                log.trace("通过验证");
+            }
         }
         //TODO:在数据
         tvSeriesDto.setId(9999);

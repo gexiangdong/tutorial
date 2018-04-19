@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
+import javax.validation.valueextraction.Unwrapping;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -27,7 +29,7 @@ public class TvSeriesDto {
     //如果想用long型的timestamp表示日期，可用： @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     @JsonFormat(timezone="GMT+8", pattern="yyyy-MM-dd")
     //@Past表示只接受过去的时间，比当前时间还晚的被认为不合格
-    @Past private Date originRelease;
+    @Past(payload= {Unwrapping.Skip.class}, groups={ValidStep1.class, Default.class}) private Date originRelease;
     
     public TvSeriesDto() { 
     }
