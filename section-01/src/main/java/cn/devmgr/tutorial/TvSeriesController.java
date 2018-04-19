@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -62,8 +63,13 @@ public class TvSeriesController {
         }
     }
     
+    /**
+     * @Valid 注解表示需要验证传入的参数TvSeriesDto，需要验证的field在TvSeriesDto内通过注解定义（@NotNull, @DecimalMin等）
+     * @param tvSeriesDto
+     * @return
+     */
     @PostMapping
-    public TvSeriesDto insertOne(@RequestBody TvSeriesDto tvSeriesDto) {
+    public TvSeriesDto insertOne(@Valid @RequestBody TvSeriesDto tvSeriesDto) {
         if(log.isTraceEnabled()) {
             log.trace("这里应该写新增tvSeriesDto到数据库的代码, 传递进来的参数是：" + tvSeriesDto);
         }
