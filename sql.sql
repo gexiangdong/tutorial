@@ -1,6 +1,8 @@
 create database tvseries;
 
-/**    TABLES (section02-04中使用)     **/
+/** *******************************************************
+     TABLES (section02-04中使用)     
+    *************************************************** **/
 create table tv_series(
    id serial primary key,
    name varchar(50) not null,
@@ -18,9 +20,9 @@ create table tv_character(
 );
 
 
-/**
- * section-05中用到的表和数据
- */
+/** *******************************************************
+     section-05中用到的表和数据   
+    *************************************************** **/
 create table person(
    id int primary key,
    name varchar(50) not null,
@@ -28,9 +30,9 @@ create table person(
 );
 
 
-/**
- * section-06中用到的表及数据
- */
+/** *******************************************************
+     section-06中用到的表及数据 
+    *************************************************** **/
 create table product(
 	id char(5) not null primary key,
 	name varchar(20) not null,
