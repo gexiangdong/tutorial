@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.devmgr.tutorial.OrderDao" >
+    <resultMap id="wholeOrderMap" type="cn.devmgr.tutorial.model.Order">
+        <id property="id" column="id" />
+        <result property="orderDate" column="order_date" />
+        <result property="orderType" column="order_type" typeHandler="org.apache.ibatis.type.EnumTypeHandler" />
+        <association property="consigneeAddress" javaType="cn.devmgr.tutorial.model.ConsigneeAddress" resultMap="orderAddress" />
+        <collection property="orderItems" column="id" ofType="cn.devmgr.tutorial.model.OrderItem" select="selectOrderItem">
+        </collection>
+    </resultMap>
+
+    <resultMap id="orderAddress" type="cn.devmgr.tutorial.model.ConsigneeAddress">
+        <result property="consignee" column="consignee" />
+        <result property="phone" column="phone" />
+        <result property="province" column="province" />
+        <result property="city" column="city" />
+        <result property="district" column="district" />
+        <result property="address" column="address" />
+    </resultMap>
+    
+    <sql id="orderMainColumnsWithoutId"> consignee, phone, province, city, district, address, order_date, order_type, status</sql>
+    
+    <select id="getOrderById" resultMap="wholeOrderMap">
+        select id, <include refid="orderMainColumnsWithoutId" />
+	        from order_main
+	        where id=#{id}
+    </select>
+    
+    <select id="selectOrderItem" resultType="cn.devmgr.tutorial.model.OrderItem">
+        select id, order_id, product_id, product_name, num, price
+	        from order_detail
+	        where order_id=#{id}
+    </select>
+    
+    <!-- 多个insert sql时，useGeneratedKeys="true" keyProperty="order.id" 不起作用，1个起作用
+        selectKey会起作用
+     -->
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="order.id" parameterType="cn.devmgr.tutorial.model.Order">
+        <selectKey keyProperty="order.id" resultType="int">
+            select currval('order_main_id_seq');
+        </selectKey>
+        insert into order_main(<include refid="orderMainColumnsWithoutId" />)
+            values(#{order.consigneeAddress.consignee}, #{order.consigneeAddress.phone}, #{order.consigneeAddress.province}, 
+            #{order.consigneeAddress.city}, #{order.consigneeAddress.district}, #{order.consigneeAddress.address},  #{order.orderDate}, #{order.orderType.code}, 0);
+        <foreach collection="order.orderItems" item="item" index="index" open="" separator=";"  close="">
+            insert into order_detail(order_id, product_id, product_name, num, price)
+                values(currval('order_main_id_seq'), #{item.productId}, #{item.productName}, #{item.num}, #{item.price});
+        </foreach>
+    </insert>
+    
+    <!-- 查询product， 演示了使用ArrayTypeHandler和自定义的JsonTypeHandler -->
+    <resultMap type="cn.devmgr.tutorial.model.Product" id="product">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="specs" property="specs" typeHandler="cn.devmgr.tutorial.typehandler.JsonTypeHandler" />
+        <result column="images" property="images" typeHandler="org.apache.ibatis.type.ArrayTypeHandler" />
+    </resultMap>
+    <select id="selectProductById" resultMap="product">
+        select id, name, price, specs, images
+            from product
+            where id=#{id}
+    </select>   
+</mapper>
