@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import cn.devmgr.tutorial.model.ConsigneeAddress;
 import cn.devmgr.tutorial.model.Order;
 import cn.devmgr.tutorial.model.OrderItem;
+import cn.devmgr.tutorial.model.OrderType;
 import cn.devmgr.tutorial.model.Product;
 
 @RunWith(SpringRunner.class)
@@ -26,7 +27,7 @@ public class OrderDaoTests {
 	@Test
 	public void testSelectProduct() {
 	    Order orderNew = new Order();
-
+	    orderNew.setOrderType(OrderType.WHOLESALE);
 	    orderNew.setConsigneeAddress(new ConsigneeAddress("张三", "13344446666", "上海市", "上海", "黄浦区", "人民广场"));
         ArrayList<OrderItem> list = new ArrayList<>();
         OrderItem oi1 = new OrderItem();

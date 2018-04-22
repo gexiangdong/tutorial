@@ -42,7 +42,8 @@
         </selectKey>
         insert into order_main(<include refid="orderMainColumnsWithoutId" />)
             values(#{order.consigneeAddress.consignee}, #{order.consigneeAddress.phone}, #{order.consigneeAddress.province}, 
-            #{order.consigneeAddress.city}, #{order.consigneeAddress.district}, #{order.consigneeAddress.address},  #{order.orderDate}, #{order.orderType.code}, 0);
+            #{order.consigneeAddress.city}, #{order.consigneeAddress.district}, #{order.consigneeAddress.address},  
+            #{order.orderDate}, #{order.orderType, typeHandler=org.apache.ibatis.type.EnumTypeHandler}, 0);
         <foreach collection="order.orderItems" item="item" index="index" open="" separator=";"  close="">
             insert into order_detail(order_id, product_id, product_name, num, price)
                 values(currval('order_main_id_seq'), #{item.productId}, #{item.productName}, #{item.num}, #{item.price});
