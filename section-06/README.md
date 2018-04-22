@@ -68,7 +68,7 @@ mvn spring-boot:run
 此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[订单明细](./src/main/java/cn/devmgr/tutorial/model/OrderItem.java)的列表，订单明细是一个自定义类，订单和订单明细的关系是一对多。两者分别存储在订单的主子表中。通过配置result的collection，实现了自动查询并关联子表数据到订单类。
 
 下面是相应的resultMap示例，为了清晰便于理解，已经把OrderDao.xml中和resultMap嵌套不相关的地方已经去除。
-···XML
+```XML
 <resultMap id="wholeOrderMap" type="cn.devmgr.tutorial.model.Order">
     <id property="id" column="id" />
     <result property="orderDate" column="order_date" />
@@ -144,7 +144,7 @@ EnumTypeHandler由于使用的是类名称，一般会以字符串形式存储�
 使用数组类型需要声明typeHandler="org.apache.ibatis.type.ArrayTypeHandler"，其他和枚举类型一致。
 
 <h4 id="f6">使用JSON类型</h4>
-Mybatis目前（2018/4/22）尚未提供对JSON类型的内嵌支持，需要自己写一个TypeHandler，写TypeHandler很简单，集成BaseTypeHandle并实现4个抽象方法即可。本立中有一个通用的JSON类型TypeHandler。[JsonTypeHander.java](./src/main/java/cn/devmgr/tutorial/typehandler/JsonTypeHandler.java) 通过Jackson来进行的JSON和类之间的转换。在xml里配置和使用与EnumTypeHandler、ArrayTypeHandler相同，请参考[上面的部分](#f4)。
+Mybatis目前（2018/4/22）尚未提供对JSON类型的内嵌支持，需要自己写一个TypeHandler，写TypeHandler很简单，集成BaseTypeHandle并实现4个抽象方法即可。此项目中有一个通用的JSON类型TypeHandler：[JsonTypeHander.java](./src/main/java/cn/devmgr/tutorial/typehandler/JsonTypeHandler.java)，此类通过Jackson来进行的JSON和类之间的转换。在xml里配置和使用与EnumTypeHandler、ArrayTypeHandler相同，请参考[上面的部分](#f4)。
 
 <h4 id="f7">用include减少SQL中重复的部分</h4>
 在写映射的XML文件时，经常会有SQL语句的多个部分（特别是字段列表在insert，select里重复）写多次，mybatis提供了include功能，可以只写一次。下面的例子通过sql节点定义了一段文本，然后给这段文本声明了一个id，之后用include refid来把这段文本包含进来就可以了。
