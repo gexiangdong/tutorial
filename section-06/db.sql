@@ -1,38 +1,3 @@
-create database tvseries;
-
-/** *******************************************************
-     TABLES (section02-04中使用)     
-    *************************************************** **/
-create table tv_series(
-   id serial primary key,
-   name varchar(50) not null,
-   season_count int not null,
-   origin_release date not null,
-   status smallint not null default 0,
-   delete_reason varchar(100) null
-);
-
-create table tv_character(
-    id serial primary key,
-    tv_series_id int not null,
-    name varchar(50) not null,
-    photo varchar(100) null
-);
-
-
-/** *******************************************************
-     section-05中用到的表和数据   
-    *************************************************** **/
-create table person(
-   id int primary key,
-   name varchar(50) not null,
-   birthday timestamp default now()
-);
-
-
-/** *******************************************************
-     section-06中用到的表及数据 
-    *************************************************** **/
 create table product(
 	id char(5) not null primary key,
 	name varchar(20) not null,
