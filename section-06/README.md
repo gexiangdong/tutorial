@@ -90,7 +90,7 @@ mvn spring-boot:run
 此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[订单明细](./src/main/java/cn/devmgr/tutorial/model/OrderItem.java)的列表，订单明细是一个自定义类，订单和订单明细的关系是一对多。两者分别存储在订单的主子表中。可以通过一个方法执行多条语句，循环子类，把订单主子表数据全部insert完成。
 
 下面是相应的resultMap示例
-···XML
+```XML
 <!-- 多个insert sql时，useGeneratedKeys="true" keyProperty="order.id" 不起作用，
      配置selectKey，是为了起到类似作用，返回数据库分配的主键
 -->
@@ -111,6 +111,26 @@ mvn spring-boot:run
 
 <h4 id="f4">使用枚举类型</h4>
 此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[订单类型](./src/main/java/cn/devmgr/tutorial/model/OrderType.java)是一个枚举类型。
-枚举类型
+Mybatis提供了两个枚举类型TypeHandler，分别是EnumTypeHandler和EnumOrdinaryTypeHandler：
+* EnumTypeHandler存储的是对应类的名字，可以存储成一个字符串。
+* EnumOrdinaryTypeHandler存储的是枚举类型的顺序，
+
+EnumOridingaryTypeHandler会在数据内存储的是对应的枚举类型的顺序。这很不方便，以后修改程序时如果调整了顺序则容易造成数据混乱，因此不推荐大家用。
+
+EnumTypeHandler由于使用的是类名称，一般会以字符串形式存储，因此很多人也不不愿使用，其实和数据库的enum类型结合起来就没这个问题了，但有一点需要注意：**数据库的enum类型一般是不能使用大于、小于等比较操作的**。
+
+使用枚举类型只需要加入typeHandler=org.apache.ibatis.type.EnumTypeHandler即可
+
+在resultMap里使用:
+```XML
+    <result property="orderType" column="order_type" typeHandler="org.apache.ibatis.type.EnumTypeHandler" />
+```
+在insert语句中使用
+```XML
+   insert into table1 (enum_col) values (#{param.enumProp, typeHandler=org.apache.ibatis.type.EnumTypeHandler})
+```
+<h5 id="f5">使用
+数组
+数组类型
 
 
