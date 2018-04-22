@@ -30,7 +30,8 @@ mvn spring-boot:run
 ### 复杂类型映射说明
 
 <h4 id="f1">复杂类型结果关联</h4>
-此项目中订单类有一个属性是收货地址，收获地址是一个自定义类，两者的关系是一对一，两个类的所有属性都被存储在order_main表中，通过配置resultMap，mybatis自动把查询结果映射到了订单类，并且给订单类正确的创建了收获地址的属性，这一映射通过association实现结果集的关联。
+此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[收货地址](./src/main/java/cn/devmgr/tutorial/model/ConsigneeAddress.java)，收获地址是一个自定义类，两者的关系是一对一，两个类的所有属性都被存储在order_main表中，通过配置resultMap，mybatis自动把查询结果映射到了订单类，并且给订单类正确的创建了收获地址的属性，这一映射通过association实现结果集的关联。
+
 
 下面是resultMap的示例，为了清晰便于理解，已经把OrderDao.xml中和resultMap关联不相关的地方已经去除。
 ```XML
@@ -61,4 +62,55 @@ mvn spring-boot:run
 	        from order_main where id=#{id}
     </select>
 ```
+
+<h4 id="f2">复杂类型结果嵌套</h4>
+此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[订单明细](./src/main/java/cn/devmgr/tutorial/model/OrderItem.java)的列表，订单明细是一个自定义类，订单和订单明细的关系是一对多。两者分别存储在订单的主子表中。通过配置result的collection，实现了自动查询并关联子表数据到订单类。
+
+下面是相应的resultMap示例，为了清晰便于理解，已经把OrderDao.xml中和resultMap嵌套不相关的地方已经去除。
+···XML
+<resultMap id="wholeOrderMap" type="cn.devmgr.tutorial.model.Order">
+    <id property="id" column="id" />
+    <result property="orderDate" column="order_date" />
+    <!-- 下面这行是关键，包含了集合对应的属性、查询集合用的字段、集合的类型以及嵌套对应的查询等设置 -->
+    <collection property="orderItems" 
+		column="id" 
+		ofType="cn.devmgr.tutorial.model.OrderItem" 
+		select="selectOrderItem" />
+</resultMap>
+<!-- 嵌套子查询 -->
+<select id="selectOrderItem" resultType="cn.devmgr.tutorial.model.OrderItem">
+   select id, order_id, product_id, product_name, num, price
+        from order_detail
+        where order_id=#{id}
+</select>
+<!-- 使用结果集部分和使用普通结果集一致，省略 -->
+```
+
+<h4 id="f3">在一个方法中完成主子表数据插入</h4>
+此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[订单明细](./src/main/java/cn/devmgr/tutorial/model/OrderItem.java)的列表，订单明细是一个自定义类，订单和订单明细的关系是一对多。两者分别存储在订单的主子表中。可以通过一个方法执行多条语句，循环子类，把订单主子表数据全部insert完成。
+
+下面是相应的resultMap示例
+···XML
+<!-- 多个insert sql时，useGeneratedKeys="true" keyProperty="order.id" 不起作用，
+     配置selectKey，是为了起到类似作用，返回数据库分配的主键
+-->
+<insert id="insertOrder" useGeneratedKeys="true" keyProperty="order.id" parameterType="cn.devmgr.tutorial.model.Order">
+    <selectKey keyProperty="order.id" resultType="int">
+        select currval('order_main_id_seq');
+    </selectKey>
+    insert into order_main(consignee, phone, province, city, district, address, order_date, status)
+        values(#{order.consigneeAddress.consignee}, #{order.consigneeAddress.phone}, #{order.consigneeAddress.province}, 
+        #{order.consigneeAddress.city}, #{order.consigneeAddress.district}, #{order.consigneeAddress.address},  
+	#{order.orderDate}, 0);
+    <foreach collection="order.orderItems" item="item" index="index" open="" separator=";"  close="">
+        insert into order_detail(order_id, product_id, product_name, num, price)
+            values(currval('order_main_id_seq'), #{item.productId}, #{item.productName}, #{item.num}, #{item.price});
+    </foreach>
+</insert>
+```
+
+<h4 id="f4">使用枚举类型</h4>
+此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[订单类型](./src/main/java/cn/devmgr/tutorial/model/OrderType.java)是一个枚举类型。
+枚举类型
+
 
