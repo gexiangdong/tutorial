@@ -94,23 +94,27 @@ mvn spring-boot:run
 <!-- 多个insert sql时，useGeneratedKeys="true" keyProperty="order.id" 不起作用，
      配置selectKey，是为了起到类似作用，返回数据库分配的主键
 -->
-<insert id="insertOrder" useGeneratedKeys="true" keyProperty="order.id" parameterType="cn.devmgr.tutorial.model.Order">
+<insert id="insertOrder" useGeneratedKeys="true" keyProperty="order.id" 
+         parameterType="cn.devmgr.tutorial.model.Order">
     <selectKey keyProperty="order.id" resultType="int">
         select currval('order_main_id_seq');
     </selectKey>
     insert into order_main(consignee, phone, province, city, district, address, order_date, status)
-        values(#{order.consigneeAddress.consignee}, #{order.consigneeAddress.phone}, #{order.consigneeAddress.province}, 
-        #{order.consigneeAddress.city}, #{order.consigneeAddress.district}, #{order.consigneeAddress.address},  
-	#{order.orderDate}, 0);
+        values(#{order.consigneeAddress.consignee}, #{order.consigneeAddress.phone},
+	        #{order.consigneeAddress.province}, #{order.consigneeAddress.city}, 
+		#{order.consigneeAddress.district}, #{order.consigneeAddress.address},  
+	        #{order.orderDate}, 0);
     <foreach collection="order.orderItems" item="item" index="index" open="" separator=";"  close="">
         insert into order_detail(order_id, product_id, product_name, num, price)
-            values(currval('order_main_id_seq'), #{item.productId}, #{item.productName}, #{item.num}, #{item.price});
+            values(currval('order_main_id_seq'), #{item.productId}, #{item.productName}, 
+	           #{item.num}, #{item.price});
     </foreach>
 </insert>
 ```
 
 <h4 id="f4">使用枚举类型</h4>
 此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[订单类型](./src/main/java/cn/devmgr/tutorial/model/OrderType.java)是一个枚举类型。
+
 Mybatis提供了两个枚举类型TypeHandler，分别是EnumTypeHandler和EnumOrdinaryTypeHandler：
 * EnumTypeHandler存储的是对应类的名字，可以存储成一个字符串。
 * EnumOrdinaryTypeHandler存储的是枚举类型的顺序，
@@ -123,14 +127,34 @@ EnumTypeHandler由于使用的是类名称，一般会以字符串形式存储�
 
 在resultMap里使用:
 ```XML
-    <result property="orderType" column="order_type" typeHandler="org.apache.ibatis.type.EnumTypeHandler" />
+    <result property="orderType" column="order_type" 
+	    typeHandler="org.apache.ibatis.type.EnumTypeHandler" />
 ```
 在insert语句中使用
 ```XML
-   insert into table1 (enum_col) values (#{param.enumProp, typeHandler=org.apache.ibatis.type.EnumTypeHandler})
+   insert into table1 (enum_col) 
+         values (#{param.enumProp, typeHandler=org.apache.ibatis.type.EnumTypeHandler})
 ```
-<h5 id="f5">使用
-数组
-数组类型
+<h5 id="f5">使用数组类型</h5>
+使用数组类型需要声明typeHandler="org.apache.ibatis.type.ArrayTypeHandler"，其他和枚举类型一致。
+
+<h5 id="f6">使用JSON类型</h5>
+Mybatis目前（2018/4/22）尚未提供对JSON类型的内嵌支持，需要自己写一个TypeHandler，写TypeHandler很简单，集成BaseTypeHandle并实现4个抽象方法即可。本立中有一个通用的JSON类型TypeHandler。[JsonTypeHander.java](./src/main/java/cn/devmgr/tutorial/typehandler/JsonTypeHandler.java) 通过Jackson来进行的JSON和类之间的转换。在xml里配置和使用与EnumTypeHandler、ArrayTypeHandler相同，请参考[上面的部分](#f4)。
+
+<h5 id="f7">include</h5>
+在写映射的XML文件时，经常会有SQL语句的多个部分（特别是字段列表在insert，select里重复）写多次，mybatis提供了include功能，可以只写一次。下面的例子通过sql节点定义了一段文本，然后给这段文本声明了一个id，之后用include refid来把这段文本包含进来就可以了。
+```XML
+<sql id="orderMainColumnsWithoutId"> 
+    consignee, phone, province, city, district, address, 
+    order_date, order_type, status
+</sql>
+<select id="getOrderById" resultMap="wholeOrderMap">
+        select id, <include refid="orderMainColumnsWithoutId" />
+	        from order_main
+	        where id=#{id}
+</select>
+```
+
+
 
 
