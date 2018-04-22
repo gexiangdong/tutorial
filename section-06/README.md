@@ -30,8 +30,8 @@ mvn spring-boot:run
 ### 复杂类型映射说明
 
 <h4 id="f1">复杂类型结果关联</h4>
-此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[收货地址](./src/main/java/cn/devmgr/tutorial/model/ConsigneeAddress.java)，收获地址是一个自定义类，两者的关系是一对一，两个类的所有属性都被存储在order_main表中，通过配置resultMap，mybatis自动把查询结果映射到了订单类，并且给订单类正确的创建了收获地址的属性，这一映射通过association实现结果集的关联。
 
+此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[收货地址](./src/main/java/cn/devmgr/tutorial/model/ConsigneeAddress.java)，收获地址是一个自定义类，两者的关系是一对一，两个类的所有属性都被存储在order_main表中，通过配置resultMap，mybatis自动把查询结果映射到了订单类，并且给订单类正确的创建了收获地址的属性，这一映射通过association实现结果集的关联。
 
 下面是resultMap的示例，为了清晰便于理解，已经把OrderDao.xml中和resultMap关联不相关的地方已经去除。
 ```XML
@@ -57,13 +57,14 @@ mvn spring-boot:run
 ```
 下面是使用已经做好关联的resultMap，和使用普通resultMap也没区别：
 ```XML
-    <select id="getOrderById" resultMap="wholeOrderMap">
-        select id, consignee, phone, province, city, district, address, order_date, status
-	        from order_main where id=#{id}
-    </select>
+<select id="getOrderById" resultMap="wholeOrderMap">
+    select id, consignee, phone, province, city, district, address, order_date, status
+        from order_main where id=#{id}
+</select>
 ```
 
 <h4 id="f2">复杂类型结果嵌套</h4>
+
 此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[订单明细](./src/main/java/cn/devmgr/tutorial/model/OrderItem.java)的列表，订单明细是一个自定义类，订单和订单明细的关系是一对多。两者分别存储在订单的主子表中。通过配置result的collection，实现了自动查询并关联子表数据到订单类。
 
 下面是相应的resultMap示例，为了清晰便于理解，已经把OrderDao.xml中和resultMap嵌套不相关的地方已经去除。
@@ -87,6 +88,7 @@ mvn spring-boot:run
 ```
 
 <h4 id="f3">在一个方法中完成主子表数据插入</h4>
+
 此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[订单明细](./src/main/java/cn/devmgr/tutorial/model/OrderItem.java)的列表，订单明细是一个自定义类，订单和订单明细的关系是一对多。两者分别存储在订单的主子表中。可以通过一个方法执行多条语句，循环子类，把订单主子表数据全部insert完成。
 
 下面是相应的resultMap示例
@@ -113,6 +115,7 @@ mvn spring-boot:run
 ```
 
 <h4 id="f4">使用枚举类型</h4>
+
 此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[订单类型](./src/main/java/cn/devmgr/tutorial/model/OrderType.java)是一个枚举类型。
 
 Mybatis提供了两个枚举类型TypeHandler，分别是EnumTypeHandler和EnumOrdinaryTypeHandler：
@@ -137,6 +140,7 @@ EnumTypeHandler由于使用的是类名称，一般会以字符串形式存储�
 ```
 
 <h4 id="f5">使用数组类型</h4>
+
 使用数组类型需要声明typeHandler="org.apache.ibatis.type.ArrayTypeHandler"，其他和枚举类型一致。
 
 <h4 id="f6">使用JSON类型</h4>
