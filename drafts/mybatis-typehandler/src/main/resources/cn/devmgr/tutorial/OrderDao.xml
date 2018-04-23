@@ -58,11 +58,12 @@
 		<id column="id" property="id"/>
 		<result column="name" property="name"/>
 		<result column="price" property="price"/>
+		<result column="myType" property="myType" typeHandler="cn.devmgr.tutorial.typehandler.JsonTypeHandler" />
 		<result column="specs" property="specs" typeHandler="cn.devmgr.tutorial.typehandler.JsonTypeHandler" />
 		<result column="images" property="images" typeHandler="org.apache.ibatis.type.ArrayTypeHandler" />
 	</resultMap>
      <select id="selectProductById" resultMap="product">
-        select id, name, price, specs, images
+        select id, name, price, specs, images, mytype
 	        from product
 	        where id=#{id}
     </select>

@@ -24,7 +24,6 @@ public class Order {
 	@Valid
 	private List<OrderItem> orderItems;
 	
-	private OrderType orderType;
 	private int status;
 	
 	public String getId() {
@@ -59,12 +58,7 @@ public class Order {
 		this.status = status;
 	}
 
-	public OrderType getOrderType() {
-        return orderType;
-    }
-    public void setOrderType(OrderType orderType) {
-        this.orderType = orderType;
-    }
+
     
     @Override
 	public String toString(){

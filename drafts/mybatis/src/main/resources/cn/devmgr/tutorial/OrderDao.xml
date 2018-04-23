@@ -4,15 +4,9 @@
     <resultMap id="wholeOrderMap" type="cn.devmgr.tutorial.model.Order">
         <id property="id" column="id" />
         <result property="orderDate" column="order_date" />
-        <association property="orderType" resultMap="orderType" />
         <association property="consigneeAddress" javaType="cn.devmgr.tutorial.model.ConsigneeAddress" resultMap="orderAddress" />
         <collection property="orderItems" column="id" ofType="cn.devmgr.tutorial.model.OrderItem" select="selectOrderItem">
         </collection>
-    </resultMap>
-    <resultMap type="cn.devmgr.tutorial.model.OrderType" id="orderType">
-    	<constructor>
-    		<idArg column="order_type" javaType="int" />
-    	</constructor>
     </resultMap>
     <resultMap id="orderAddress" type="cn.devmgr.tutorial.model.ConsigneeAddress">
         <result property="consignee" column="consignee" />
@@ -24,7 +18,7 @@
     </resultMap>
     
     
-    <sql id="orderMainColumnsWithoutId"> consignee, phone, province, city, district, address, order_date, order_type, status</sql>
+    <sql id="orderMainColumnsWithoutId"> consignee, phone, province, city, district, address, order_date, status</sql>
     
     <select id="getOrderById" resultMap="wholeOrderMap">
         select id, <include refid="orderMainColumnsWithoutId" />
@@ -47,7 +41,7 @@
         </selectKey>
         insert into order_main(<include refid="orderMainColumnsWithoutId" />)
             values(#{order.consigneeAddress.consignee}, #{order.consigneeAddress.phone}, #{order.consigneeAddress.province}, 
-            #{order.consigneeAddress.city}, #{order.consigneeAddress.district}, #{order.consigneeAddress.address},  #{order.orderDate}, #{order.orderType.code}, 0);
+            #{order.consigneeAddress.city}, #{order.consigneeAddress.district}, #{order.consigneeAddress.address},  #{order.orderDate}, 0);
         <foreach collection="order.orderItems" item="item" index="index" open="" separator=";"  close="">
             insert into order_detail(orderId, giftId, giftName, num, price)
                 values(IDENT_CURRENT('order_main'), #{item.giftId}, #{item.giftName}, #{item.num}, #{item.price});

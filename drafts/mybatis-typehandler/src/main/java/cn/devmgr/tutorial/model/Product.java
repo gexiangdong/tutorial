@@ -8,6 +8,7 @@ public class Product {
     private int price;
     private Map<String, String> specs;
     private String[] images;
+    private MyType myType;
     
     public String getId() {
         return id;
@@ -39,6 +40,12 @@ public class Product {
     }
     public void setImages(String[] images) {
         this.images = images;
+    }
+    public MyType getMyType() {
+        return myType;
+    }
+    public void setMyType(MyType myType) {
+        this.myType = myType;
     }
     
     

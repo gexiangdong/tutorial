@@ -8,6 +8,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
+
+import cn.devmgr.tutorial.OrderController;
 
 public class Order {
 	private String id;
@@ -21,6 +24,10 @@ public class Order {
 	
 	@NotNull
 	@Size(min=1, message="订单中至少需要一个产品")
+	@Size.List({
+	    @Size(min=2, groups=Default.class),
+	    @Size(min=3, groups={OrderController.class})
+	})
 	@Valid
 	private List<OrderItem> orderItems;
 	
