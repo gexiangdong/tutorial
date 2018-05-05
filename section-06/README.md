@@ -121,9 +121,9 @@ mvn spring-boot:run
 
 此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[订单类型](./src/main/java/cn/devmgr/tutorial/model/OrderType.java)是一个枚举类型。
 
-Mybatis提供了两个枚举类型TypeHandler，分别是EnumTypeHandler和EnumOrdinaryTypeHandler：
+Mybatis提供了两个枚举类型TypeHandler，分别是EnumTypeHandler和EnumOrdinalTypeHandler：
 * EnumTypeHandler存储的是对应类的名字，可以存储成一个字符串。
-* EnumOrdinaryTypeHandler存储的是枚举类型的顺序，
+* EnumOrdinalTypeHandler存储的是枚举类型的顺序，
 
 EnumOridingaryTypeHandler会在数据内存储的是对应的枚举类型的顺序。这很不方便，以后修改程序时如果调整了顺序则容易造成数据混乱，因此不推荐大家用。
 
