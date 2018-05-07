@@ -13,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -25,9 +26,11 @@ public class OrderDaoTests {
     
     @Autowired OrderDao orderDao;
     @Autowired Validator validator;
-
+    @Value("${tutorial.key:}") String key;
+    
 	@Test
 	public void testSelectProduct() {
+	    log.trace("key=" + key);
 	    Product p = orderDao.selectProductById("E0001");
 	    if(log.isTraceEnabled()) {
 	        log.trace("got: " + (p == null ? "NULL" : p.getName()));
@@ -47,7 +50,7 @@ public class OrderDaoTests {
 	public void testConstraints() {
 	    OnePojoChild op = new OnePojoChild();
 	    op.setAge(5.2f);
-	    op.setScore("2a5.23");
+	    op.setScore(" ");
 	    List<String> list = new ArrayList<>();
 	    list.add(null);
 	    list.add("a");
@@ -59,7 +62,7 @@ public class OrderDaoTests {
             if(log.isTraceEnabled()) {
                 log.trace("未通过验证");
                 for(ConstraintViolation<OnePojo> cv : result) {
-                    log.trace(cv.getMessage());
+                    log.trace(cv.getPropertyPath() + " " + cv.getMessage());
                 }
             }
 	    }else {

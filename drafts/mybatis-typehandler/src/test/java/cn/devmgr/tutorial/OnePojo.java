@@ -2,6 +2,8 @@ package cn.devmgr.tutorial;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import javax.validation.groups.Default;
 
@@ -12,7 +14,8 @@ public class OnePojo {
 //    @Size.List({
 //        @Size(min=4,max=6)}
 //    )
-    @Digits(fraction = 2, integer = 3)
+    //@Digits(fraction = 2, integer = 3)
+    @NotEmpty
     private String score;
     
 //    private Boolean right;
