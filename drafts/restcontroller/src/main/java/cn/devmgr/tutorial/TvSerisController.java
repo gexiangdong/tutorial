@@ -26,7 +26,7 @@ public class TvSerisController {
 	}
 	
 	@PostMapping(consumes = {MediaType.TEXT_XML_VALUE},
-            produces = {MediaType.TEXT_XML_VALUE})
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_XML_VALUE})
 	public TvSeriesDto createOne(@RequestBody Map<String, String> params) {
 	    System.out.println("createOne: " + params);
         Calendar c = Calendar.getInstance();
