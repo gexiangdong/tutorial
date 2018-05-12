@@ -170,15 +170,81 @@ Mybatis目前（2018/4/22）尚未提供对JSON类型的内嵌支持，需要自
 ```
 
 <h3 id="f8">使用SQLProvider编写一个通用的insert/update DAO</h3>
-Mybatis里提供四个注解：@InsertProvider, @UpdateProvider, @SelectProvider, @DeleteProvider。这四个SQL注解允许指定一个类名和一个方法，在执行时由这个方法返回动态的SQL。项目中经常有些很简单的表和类的对应关系，数据量不大、字段类型简单，例如存储商品类别、用户角色等等，这些每次都要写个DAO也比较麻烦，可以利用这几个注解写个通用的DAO类，不用单独再写DAO了，此例中[generality包](./src/main/java/cn/devmgr/tutorial/generality)就是一个起到这种功能的例子。
+Mybatis里提供四个注解：@InsertProvider, @UpdateProvider, @SelectProvider, @DeleteProvider。这四个SQL注解允许指定一个类名和一个方法，在执行时由这个方法返回动态的SQL。项目中经常有些很简单的表和类的对应关系，数据量不大、字段类型简单，例如存储商品类别、用户角色等等，这些每次都要写个DAO也比较麻烦，可以利用这几个注解写个通用的DAO类，不用单独再写DAO了，此例中
+[GenericDao.java](./src/main/java/cn/devmgr/tutorial/generality/GenericDao.java) 
+[InsertUpdateSqlProvider.java](./src/main/java/cn/devmgr/tutorial/generality/InsertUpdateSqlProvider.java) 
+两个文件就是一个起到这种功能的例子。
 
 使用方法：
 ```SQL
+create table user_role(
+  id int serial primary key, /**自动增长型主键**/
+  name varchar(20) not null
+);
+
+create table department(
+  id char(5) primary key, /**主键 **/
+  name varchar(20) not null
+);
 ```
 ```Java
+public class UserRole{
+    private int id;
+    private String name;
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return this.id;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    public String getName(){
+        return this.name;
+    }
+}
 ```
+```Java
+public class Department{
+    private int id;
+    private String name;
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return this.id;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    public String getName(){
+        return this.name;
+    }
+}
+```
+使用：
+```Java
+    @Autowired GenericDao genericDao;
+    
+    public UserRole createUserRole(String roleName){
+       UserRole role = new UserRole();
+       role.setName(roleName);
+       genericDao.insert(role);
+       return role;
+    }
 
-
+    public Department createDepartment(int deptId, String deptName){
+       Department dept = new Department();
+       dept.setId(deptId);
+       dept.setName(deptName);
+       return dept;
+    }
+```
 
 
 
