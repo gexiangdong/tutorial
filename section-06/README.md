@@ -11,6 +11,7 @@ Mybatis进阶
 * [EnumTypeHandler](#f4)、ArrayTypeHandler的](#f5)用法
 * [自定义的通用型JsonTypeHandler](#f6)
 * [在映射xml文件中使用include](#f7)
+* [使用@SQLProvider编写通用的insert/update DAO类](#f8)
 
 [OrderDao.xml](./src/main/resources/cn/devmgr/tutorial/OrderDao.xml)是本例中最重要的一个文件，上述几个特性大多在这个文件内配置完成。
 
@@ -167,6 +168,19 @@ Mybatis目前（2018/4/22）尚未提供对JSON类型的内嵌支持，需要自
 	        where id=#{id}
 </select>
 ```
+
+<h3 id="f8">使用SQLProvider编写一个通用的insert/update DAO</h3>
+Mybatis里提供四个注解：@InsertProvider, @UpdateProvider, @SelectProvider, @DeleteProvider。这四个SQL注解允许指定一个类名和一个方法，在执行时由这个方法返回动态的SQL。项目中经常有些很简单的表和类的对应关系，数据量不大、字段类型简单，例如存储商品类别、用户角色等等，这些每次都要写个DAO也比较麻烦，可以利用这几个注解写个通用的DAO类，不用单独再写DAO了，此例中[generality包](./src/main/java/cn/devmgr/tutorial/generality)就是一个起到这种功能的例子。
+
+使用方法：
+```SQL
+```
+```Java
+```
+
+
+
+
 
 
 
