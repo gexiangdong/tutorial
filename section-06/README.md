@@ -169,9 +169,11 @@ Mybatis目前（2018/4/22）尚未提供对JSON类型的内嵌支持，需要自
 </select>
 ```
 
+
 <h3 id="f8">使用SQLProvider编写一个通用的insert/update DAO</h3>
+
 Mybatis里提供四个注解：@InsertProvider, @UpdateProvider, @SelectProvider, @DeleteProvider。这四个SQL注解允许指定一个类名和一个方法，在执行时由这个方法返回动态的SQL。项目中经常有些很简单的表和类的对应关系，数据量不大、字段类型简单，例如存储商品类别、用户角色等等，这些每次都要写个DAO也比较麻烦，可以利用这几个注解写个通用的DAO类，不用单独再写DAO了，此例中
-[GenericDao.java](./src/main/java/cn/devmgr/tutorial/generality/GenericDao.java) 
+[GenericDao.java](./src/main/java/cn/devmgr/tutorial/generality/GenericDao.java) 和 
 [InsertUpdateSqlProvider.java](./src/main/java/cn/devmgr/tutorial/generality/InsertUpdateSqlProvider.java) 
 两个文件就是一个起到这种功能的例子。
 
