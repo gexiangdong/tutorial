@@ -13,6 +13,7 @@ spring boot编写RESTful API项目中用到的各种知识的整理和相关示�
 |[seciont-04](./section-04) | 使用Spring boot tester 和 Junit 及mockit进行单元测试 |
 |[seciont-05](./section-05) | 测试用例展现@Transactional注解的几个参数的用途和含义 |
 |[seciont-06](./section-06) | Mybatis进阶，演示查询结果到复杂类型的转换；演示了TypeHandler及自定义JsonTypeHandler的用途 |
+|[seciont-07](./section-07) | 使用Spring Security保护RESTful API |
 
 
 ### 环境
