@@ -4,12 +4,16 @@ Spring Security的例子
 
 ### 代码简介
 展示了用spring security保护RESTful API的几种方式。 为了搭建环境需要以下几点：
-#### pom文件中加入依赖
+* pom文件中加入依赖
 ```XML
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
 ```
-#### 增加一个WebSecurityConfigurerAdapter，详细代码参见 [src/main/java/cn/devmgr/tutorial/WebSecurityConfigurerAdapter.java)
-#### 增加一个Filter用于把token转换成用户
-#### 登录用的controller
+* 增加一个WebSecurityConfigurerAdapter，详细代码参见 [WebSecurityConfigurerAdapter.java](./src/main/java/cn/devmgr/tutorial/WebSecurityConfigurerAdapter.java)
+* 增加一个Filter用于把token转换成用户[AuthenticationTokenFilter.java](./src/main/java/cn/devmgr/tutorial/AuthenticationTokenFilter.java)
+* 登录用的controller [TokenController.java](./src/main/java/cn/devmgr/tutorial/TokenController.java)
 
 ### 运行
 ```bash
