@@ -7,11 +7,16 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreFilter;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -73,5 +78,23 @@ public class SampleController {
         return map;
     }
     
-    
+    /**
+     * PreFilter/PostFilter这2个注解的作用是过滤参数/返回值的；PreFilter会按照注解参数设定，只保留符合规则的参数传给方法；
+     * PostFilter则把方法返回值再次过滤，只保留符合规则的返回给客户端。
+     * 例如下面的例子，PreFilter会过滤掉客户端传递过来的参数中所有不以a开头的字符串；而PostFilter则过滤掉返回数据中所有不以b结尾的字符串。
+     * 执行时，客户端传递的字符串数组，只有以a开头的会被打印，并且只有以a开头并以b结尾的字符串才可以被返回给客户端；
+     * PreFilter/PostFilter也和PreAuthorize/PostAuthorize一样必须用@EnableGlobalMethodSecurity(prePostEnabled = true打开才能用。
+     */
+    @PostMapping("/children")
+    @PreFilter(filterTarget="list", value="filterObject.startsWith('a')")
+    @PostFilter("filterObject.endsWith('b')")
+    public List<String> echo(@RequestBody List<String> list){
+        if(log.isTraceEnabled()) {
+            log.trace("echo ... list.size()= " + list.size());
+            for(String s : list) {
+                log.trace("  " + s );
+            }
+        }
+        return list;
+    }
 }
