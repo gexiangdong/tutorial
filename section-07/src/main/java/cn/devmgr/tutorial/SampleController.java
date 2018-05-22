@@ -7,15 +7,16 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreFilter;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class SampleController {
     private final Log log = LogFactory.getLog(SampleController.class);
     
+    @Autowired SampleService sampleService;
+    
     /**
      * 使用注解@PreAuthorize来保护方法只能被特定用户组的用户访问。
      * 测试时：
@@ -37,6 +40,7 @@ public class SampleController {
      */
     @GetMapping
     @PreAuthorize("hasRole('author')")
+    // @PreAuthorize("hasAuthority('query')")
     public List<Map<String, Object>> getAll() {
         if(log.isTraceEnabled()) {
             log.trace("getAll() ");
@@ -77,6 +81,17 @@ public class SampleController {
         }
         return map;
     }
+    
+    @PutMapping("/{id}")
+    // @PreAuthorize("map.get('id') == 10")
+   //  @PostAuthorize("returnObject.get('id') == 10")
+    public Map<String, Object> updateOne(@PathVariable int id, @RequestBody Map<String, Object> map){
+        Map<String, Object> result = sampleService.getOneById(id);
+        map.remove("id");
+        result.putAll(map);
+        return result;
+    }
+    
     
     /**
      * PreFilter/PostFilter这2个注解的作用是过滤参数/返回值的；PreFilter会按照注解参数设定，只保留符合规则的参数传给方法；
