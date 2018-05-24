@@ -1,7 +1,7 @@
 README
 ===========================
 
-演示**Spring Cache** **Spring Async** **Spring Schedule**的用法
+演示**Spring Cache**、**Spring Async**、**Spring Schedule**的用法
 
 ### 运行
 ```bash
