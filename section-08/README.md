@@ -1,11 +1,22 @@
 README
 ===========================
 
-演示**Spring Cache**和**Spring Schedule**的用法
+演示**Spring Cache** **Spring Async** **Spring Schedule**的用法
 
 ### 运行
 ```bash
 mvn spring-boot:run
 ```
-启动后，可通过http://localhost:8080/tvseries 来查看结果。
 
+### 代码说明
+
+为了启用Schedul, Async, Cache，需要在@Configuration类或@SpringBootApplication类中用注解@EnableScheduling @EnableAsync @EnableCaching打开相应的注解支持。
+
+#### Scheduling 注解
+[ScheduledTasks.java](src/main/java/cn/devmgr/tutorial/ScheduledTasks.java) 内有Scheduling注解的例子。
+
+[SchedulingConfigurerConfiguration.java](src/main/java/cn/devmgr/tutorial/SchedulingConfigurerConfiguration.java) 是用来配置有多少个线程来运行Scheduled Tasks，不配置默认是1个线程。如果几个scheduled task需要同时执行就需要更多的线程了。
+
+#### Async 注解
+
+#### Cache 注解
