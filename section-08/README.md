@@ -18,5 +18,7 @@ mvn spring-boot:run
 [SchedulingConfigurerConfiguration.java](src/main/java/cn/devmgr/tutorial/SchedulingConfigurerConfiguration.java) 是用来配置有多少个线程来运行Scheduled Tasks，不配置默认是1个线程。如果几个scheduled task需要同时执行就需要更多的线程了。
 
 #### Async 注解
+[SampleService.java](src/main/java/cn/devmgr/tutorial/SampleService.java)内有async相关注解的例子。
 
 #### Cache 注解
+[SampleController.java](src/main/java/cn/devmgr/tutorial/SampleController.java)内有cache相关注解的例子。
