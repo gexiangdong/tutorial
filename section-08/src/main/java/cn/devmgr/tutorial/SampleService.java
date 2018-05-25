@@ -19,15 +19,17 @@ public class SampleService {
     }
     
     public void doC() {
-        // 在这个方法内部调用写了@Async注解的方法doA，是不会异步执行的。只能在外部调用时异步执行
+        // 在这个方法内部调用写了@Async注解的方法doA，是不会异步执行的。
+        // 因为spring使用的是proxy机制，异步注解在内部调用时不起作用，只能在外部调用时异步执行
         doA();
     }
     
     /**
-     * 外部调用这个方法时，不会得到返回值，@Async注解的方法异步执行的，如果需要返回值，要用Feature<Integer>这种类型来代替
+     * 外部调用这个方法时，不会得到返回值，@Async注解的方法异步执行的，
+     * 如果需要返回值，要用Feature<Integer>这种类型来代替
      */
     @Async
-    public int doD() {
+    public Integer doD() {
         return 5;
     }
 }

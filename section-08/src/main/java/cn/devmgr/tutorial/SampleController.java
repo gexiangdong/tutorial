@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,9 +21,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class SampleController {
     private static final Log log = LogFactory.getLog(SampleController.class);
-        
+    
+    @Autowired SampleService sampleService;
+    
     @GetMapping
     public Map<String, Object> getAll() {
+        //下面这个方法会异步执行，因为 doA方法上有@Async注解
+        sampleService.doA();
+        //下面这个方法也会异步执行，但是不会获得到返回值
+        Integer r = sampleService.doD();
+        if ( r != null) {
+            // 不可能执行到这里
+            throw new RuntimeException("doD()方法上有@Async注解，"
+                    + "除Feature<>类型的返回值外，都会返回NULL，因此不会执行到这里");
+        }
+        
         Map<String, Object> result = new HashMap<>();
         return result;
     }

@@ -7,6 +7,9 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
+/**
+ * 配置scheduling
+ */
 @Configuration
 public class SchedulingConfigurerConfiguration implements SchedulingConfigurer {
     private final static Log log = LogFactory.getLog(SchedulingConfigurerConfiguration.class);
