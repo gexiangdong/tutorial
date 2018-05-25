@@ -1,7 +1,19 @@
-README
+Async、Scheduling和Cache
 ===========================
 
 演示**Spring Cache**、**Spring Async**、**Spring Scheduling**的用法
+
+### 环境
+
+测试redis部分需要在本机安装redis，端口6379，无密码；如果环境不符合这些配置，可以修改application.yml改成和环境相符的配置。
+
+如果没有redis环境，想仅仅测试下spring用内存做缓存，可以修改pom.xml文件去掉如下依赖：
+```XML
+   <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
+```
 
 ### 运行
 ```bash
@@ -20,5 +32,5 @@ mvn spring-boot:run
 #### Async 注解
 [SampleService.java](src/main/java/cn/devmgr/tutorial/SampleService.java)内有async相关注解的例子。
 
-#### Cache 注解
+#### Cache 注解和 RedisTemplate
 [SampleController.java](src/main/java/cn/devmgr/tutorial/SampleController.java)内有cache相关注解的例子。
