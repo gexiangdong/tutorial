@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>cn.devmgr.tutorial</groupId>
-	<artifactId>tutorial-section08</artifactId>
+	<artifactId>tutorial-section09</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>tutorial-00</name>
-	<description>用Spring Boot编写RESTful API教程 08</description>
+	<name>tutorial-000</name>
+	<description>用Spring Boot编写RESTful API教程 09</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -30,7 +30,7 @@
 		</dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
         <dependency>

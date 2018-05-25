@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>cn.devmgr.tutorial</groupId>
-	<artifactId>tutorial-section08</artifactId>
+	<artifactId>tutorial-section10</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>tutorial-00</name>
-	<description>用Spring Boot编写RESTful API教程 08</description>
+	<description>用Spring Boot编写RESTful API教程 10</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -28,10 +28,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-activemq</artifactId>
+    	</dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
