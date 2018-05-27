@@ -16,7 +16,8 @@ Async、Scheduling和Cache
 ```
 和[SampleController.java](src/main/java/cn/devmgr/tutorial/SampleController.java)中RedisTemplate相关部分。
 
-安装Redis
+#### 安装Redis
+
 ubuntu
 ```Bash
 apt-get install redis
