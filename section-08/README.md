@@ -14,6 +14,19 @@ Async、Scheduling和Cache
         <artifactId>spring-boot-starter-data-redis</artifactId>
     </dependency>
 ```
+和[SampleController.java](src/main/java/cn/devmgr/tutorial/SampleController.java)中RedisTemplate相关部分。
+
+安装Redis
+ubuntu
+```Bash
+apt-get install redis
+```
+Mac OS
+```Bash
+brew install redis
+```
+Windows，Redis官方并不支持windows，建议安装一个linux的虚拟机，做后端开发服务器一般都是用linux。
+
 
 ### 运行
 ```bash
