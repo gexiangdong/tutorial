@@ -19,7 +19,7 @@ index.html文件中有连接网上的scoket.js和stomp.js文件及bootstrap.css�
 访问时通过http://localhost:8080/index.html?xxx后面增加不同的querystring来表示不同的用户。
 
 #### 服务端
-[WebSocketConfig.java](src/main/java/cn/devmgr/tutorial/WebScoketConfig.java)
+[WebSocketConfig.java](src/main/java/cn/devmgr/tutorial/WebSocketConfig.java) websocket的配置类
 
 [SocketController.java](src/main/java/cn/devmgr/tutorial/SocketController.java) 用来接收客户端发送到服务器端的消息，并发送到其他连接的客户端。注意这个类上有@Controller注解，方法上有@CMessageMapping注解来设定用于接收客户端消息的URL。
 
