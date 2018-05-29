@@ -37,7 +37,7 @@
 	        var accessToken = s.substring(s.indexOf("?") + 1);
 	        console.log("will connect with access-token:" + accessToken);
 	        stompClient = Stomp.over(socket);
-	        stompClient.connect({"access-token": accessToken}, function (frame) {
+	        stompClient.connect({"Authorization": "Bearer " + accessToken}, function (frame) {
 	            setConnected(true);
 	            console.log('Connected: ' + frame + "\r\naccess-token=" + accessToken);
 	            //第一个哥参数中的/queue是在 WebSocketCongif中定义的config.enableSimpleBroker("/queue")
@@ -103,7 +103,7 @@
         <div class="col-md-6">
             <form class="form-inline">
                 <div class="form-group">
-                    <label for="name">昵称：</label>
+                    <label for="name">消息：</label>
                     <input type="text" id="name" class="form-control" placeholder="请输入昵称">
                 </div>
                 <button onclick="sendMessage();" id="send" class="btn btn-default" type="button">发送</button>
