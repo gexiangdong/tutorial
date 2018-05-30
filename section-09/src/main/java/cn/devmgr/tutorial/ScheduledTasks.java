@@ -24,8 +24,8 @@ public class ScheduledTasks {
         if(log.isTraceEnabled()) {
             log.trace("current time is " + dateFormat.format(new Date()));
         }
-        //这个消息是发送给订阅了/queue/clockmessage的所有用户
-        this.template.convertAndSend("/queue/clockmessage",  new ClockMessage("Hello, it's " + dateFormat.format(new Date()) + " now!"));
+        //这个消息是发送给订阅了/topic/clockmessage的所有用户
+        this.template.convertAndSend("/topic/clockmessage",  new ClockMessage("Hello, it's " + dateFormat.format(new Date()) + " now!"));
     }
 
     
@@ -35,6 +35,6 @@ public class ScheduledTasks {
             log.trace("reportCurrentTimeTo000: current time is " + dateFormat.format(new Date()));
         }
         //这个消息只有Principal.getName()为000用户才收到
-        this.template.convertAndSendToUser("000", "/queue/clockmessage",  new ClockMessage("Konichiwa 000, it's " + dateFormat.format(new Date()) + " now!"));
+        this.template.convertAndSendToUser("000", "/topic/clockmessage",  new ClockMessage("Konichiwa 000, it's " + dateFormat.format(new Date()) + " now!"));
     }
 }

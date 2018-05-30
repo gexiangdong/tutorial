@@ -29,14 +29,14 @@ public class SocketController {
      * 一起构成了客户端向服务器端发送消息时使用地址
      */
     @MessageMapping("/all")
-    @SendTo("/queue/clockmessage")
+    @SendTo("/topic/clockmessage")
     public ClockMessage toAll(ClockMessage message, Principal principal) throws Exception {
         if(log.isTraceEnabled()) {
             log.trace("toAll(接受到消息)" + message);
         }
         Thread.sleep(100);
         //这个方法也能发
-        this.template.convertAndSend("/queue/clockmessage",  new ClockMessage("Hello, from controller now!"));
+        this.template.convertAndSend("/topic/clockmessage",  new ClockMessage("Hello, from controller now!"));
         
         //由于使用注解@SendTo，返回结果也会被convertAndSend
         return new ClockMessage("toAll, 来自"  + principal.getName() + "的消息：" + message.getMessage() + " ");
@@ -44,7 +44,7 @@ public class SocketController {
     
 
     @MessageMapping("/one")
-    @SendToUser("/queue/clockmessage")
+    @SendToUser("/topic/clockmessage")
     public ClockMessage toOne(ClockMessage message, Principal principal) throws Exception {
         //由于增加了SendToUser注解，返回结果会被convertAndSend给特定用户，调用这个方法发消息的用户principal中的用户
         return new ClockMessage("toOne, 来自"  + principal.getName() + "的消息：" + message.getMessage() + " ");

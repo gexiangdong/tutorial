@@ -43,13 +43,13 @@
 	            //第一个哥参数中的/queue是在 WebSocketCongif中定义的config.enableSimpleBroker("/queue")
 	            //clockmessage则是在使用发消息时可以通过@SendTo注解定义(SocketController有例子)，
 	            //也可以在SimpMessagingTemplate.convertAndSend时候作为参数指定(ScheduledTasks有例子)
-	            stompClient.subscribe('/queue/clockmessage', function (msg) {
+	            stompClient.subscribe('/topic/clockmessage', function (msg) {
 	            	console.log("got subscribe message " + msg);
 	                showClockMessage(JSON.parse(msg.body).message);
 	            });
 	            // /user开头表示特定用户才收的消息队列；SimpleMessagingTemplate.convertAndSendToUser发送，也可通过@SendToUser注解
 	            // 无此开头表示所有人都收的广播
-	            stompClient.subscribe('/user/queue/clockmessage', function (msg) {
+	            stompClient.subscribe('/user/topic/clockmessage', function (msg) {
 	            	console.log("got subscribe user message " + msg);
 	            	showClockMessage(JSON.parse(msg.body).message);
 	            });
