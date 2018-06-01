@@ -5,7 +5,7 @@ README
 
 ### 环境配置
 
-本例子需要使用ActiveMQ，ActiveMQ支持window, Linux，可在http://activemq.apache.org/download.html下载获得。
+本例子需要使用ActiveMQ，ActiveMQ支持window, Linux，可在http://activemq.apache.org/download.html 下载获得。
 
 ubuntu下也可使用apt-get安装
 
