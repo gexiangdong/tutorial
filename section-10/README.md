@@ -30,5 +30,6 @@ mvn spring-boot:run
 
 需要发送消息的地方，要装载JmsTemplate构件，然后调用这个构件发送消息。需要接收某个队列的消息可以直接在方法上使用@JmsListener注解，当队列里有消息时会调用被注解的方法。这些都可参照[SampleService.java](src/main/java/cn/devmgr/tutorial/SampleService.java)中相关代码。
 
+spring boot项目中，消息是点对点模式(PTP)还是发布订阅模式(PUB/SUB)可以在application.yml中通过 spring.jms.pub-sub-domain 来设置，false表示PTP，true表示PUB/SUB，默认是PTP，没法简单的同时使用两种模式。
 
 
