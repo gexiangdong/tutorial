@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket</title>
+    <meta charset="utf-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+	    body {background-color: #f5f5f5; }
+	    button.btn {border:1px solid #333; background-color:#FFF; margin:2px 5px; padding:3px 10px;}
+	    button.btn:disabled {border:1px solid #999; color:#999; background-color:#EEE;}
+	    
+		#main-content {max-width: 940px; padding: 2em 3em; margin: 0 auto 20px; background-color: #fff; border: 1px solid #e5e5e5; border-radius: 5px;}
+    </style>
+    <script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script>
+	    var stompClient = null;
+	
+	    function setConnected(connected) {
+	        document.getElementById("connect").disabled = connected;
+	        document.getElementById("disconnect").disabled = !connected;
+	        if (connected) {
+	            document.getElementById("conversation").style.display='';
+	        } else {
+	            document.getElementById("conversation").style.display='none';
+	        }
+	        document.getElementById("clockmessages").innerHTML = '';
+	    }
+	
+	
+	    function makeConnect() {
+	        console.log("connect().....");
+	        //url通过WebsocketConfig中registerStompEndpoints方法定义
+	        var socket = new SockJS('/socket/sample');
+	        var s = window.location.toString();
+	        // 为了简单accessToken截取的url中querystring，实际使用不可能这么做
+	        var accessToken = s.substring(s.indexOf("?") + 1);
+	        console.log("will connect with access-token:" + accessToken);
+	        stompClient = Stomp.over(socket);
+	        stompClient.connect({"Authorization": "Bearer " + accessToken}, function (frame) {
+	            setConnected(true);
+	            console.log('Connected: ' + frame + "\r\naccess-token=" + accessToken);
+	            //第一个哥参数中的/queue是在 WebSocketCongif中定义的config.enableSimpleBroker("/queue")
+	            //clockmessage则是在使用发消息时可以通过@SendTo注解定义(SocketController有例子)，
+	            //也可以在SimpMessagingTemplate.convertAndSend时候作为参数指定(ScheduledTasks有例子)
+	            stompClient.subscribe('/topic/clockmessage', function (msg) {
+	            	console.log("got subscribe message " + msg);
+	                showClockMessage(JSON.parse(msg.body).message);
+	            });
+	            // /user开头表示特定用户才收的消息队列；SimpleMessagingTemplate.convertAndSendToUser发送，也可通过@SendToUser注解
+	            // 无此开头表示所有人都收的广播
+	            stompClient.subscribe('/user/topic/clockmessage', function (msg) {
+	            	console.log("got subscribe user message " + msg);
+	            	showClockMessage(JSON.parse(msg.body).message);
+	            });
+	        });
+	    }
+	
+	
+	    function disconnect() {
+	        if (stompClient != null) {
+	            stompClient.disconnect();
+	        }
+	        setConnected(false);
+	        console.log("Disconnected");
+	    }
+	
+	    function sendMessage() {
+	    	if(stompClient == null){
+	    		alert("请先连接websocket");
+	    		return;
+	    	}
+	        var s = document.getElementById("name").value;
+	        if(s.substring(0,3) == "all"){
+	        	//下面第一个参数中的app是在WebScoketConfig中定义的config.setApplicationDestinationPrefixes("/app")
+	        	//第一个参数中的all是在SocketController中用@MessageMapping注解定义的
+	            stompClient.send("/app/all", {}, JSON.stringify({'message': '<all>' + s + ""}));
+	        }else{
+	            stompClient.send("/app/one", {}, JSON.stringify({'message': s }));
+	        }
+	    }
+	
+	    function showClockMessage(message) {
+	        document.getElementById("clockmessages").innerHTML += "<tr><td>" + message + "</td></tr>";
+	    }
+	
+    
+    </script>
+</head>
+<body>
+<div id="main-content" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="connect">WebSocket 连接:</label>
+                    <button onclick="makeConnect();" id="connect" class="btn btn-default" type="button">连接</button>
+                    <button onclick="disconnect();" id="disconnect" class="btn btn-default" type=""button"" disabled="disabled">断开连接
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="name">消息：</label>
+                    <input type="text" id="name" class="form-control" placeholder="请输入昵称">
+                </div>
+                <button onclick="sendMessage();" id="send" class="btn btn-default" type="button">发送</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Messages</th>
+                </tr>
+                </thead>
+                <tbody id="clockmessages">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </form>
+</div>
+</body>
+</html>

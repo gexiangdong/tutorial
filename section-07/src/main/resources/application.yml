@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: spring-boot-tutorial
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true  #使用数值timestamp表示日期
+
+
+logging:
+  file: target/app.log
+  level:
+    ROOT: INFO
+    cn.devmgr: TRACE
+

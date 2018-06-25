@@ -1,0 +1,6 @@
+logging:
+  file: target/app.log
+  level:
+    ROOT: WARN
+    org.springframework: WARN
+    cn.devmgr: TRACE

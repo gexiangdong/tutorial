@@ -11,6 +11,7 @@ Mybatis进阶
 * [EnumTypeHandler](#f4)、ArrayTypeHandler的](#f5)用法
 * [自定义的通用型JsonTypeHandler](#f6)
 * [在映射xml文件中使用include](#f7)
+* [使用@SQLProvider编写通用的insert/update DAO类](#f8)
 
 [OrderDao.xml](./src/main/resources/cn/devmgr/tutorial/OrderDao.xml)是本例中最重要的一个文件，上述几个特性大多在这个文件内配置完成。
 
@@ -121,9 +122,9 @@ mvn spring-boot:run
 
 此项目中[订单类](./src/main/java/cn/devmgr/tutorial/model/Order.java)有一个属性是[订单类型](./src/main/java/cn/devmgr/tutorial/model/OrderType.java)是一个枚举类型。
 
-Mybatis提供了两个枚举类型TypeHandler，分别是EnumTypeHandler和EnumOrdinaryTypeHandler：
+Mybatis提供了两个枚举类型TypeHandler，分别是EnumTypeHandler和EnumOrdinalTypeHandler：
 * EnumTypeHandler存储的是对应类的名字，可以存储成一个字符串。
-* EnumOrdinaryTypeHandler存储的是枚举类型的顺序，
+* EnumOrdinalTypeHandler存储的是枚举类型的顺序，
 
 EnumOridingaryTypeHandler会在数据内存储的是对应的枚举类型的顺序。这很不方便，以后修改程序时如果调整了顺序则容易造成数据混乱，因此不推荐大家用。
 
@@ -167,6 +168,87 @@ Mybatis目前（2018/4/22）尚未提供对JSON类型的内嵌支持，需要自
 	        where id=#{id}
 </select>
 ```
+
+
+<h3 id="f8">使用SQLProvider编写一个通用的insert/update DAO</h3>
+
+Mybatis里提供四个注解：@InsertProvider, @UpdateProvider, @SelectProvider, @DeleteProvider。这四个SQL注解允许指定一个类名和一个方法，在执行时由这个方法返回动态的SQL。项目中经常有些很简单的表和类的对应关系，数据量不大、字段类型简单，例如存储商品类别、用户角色等等，这些每次都要写个DAO也比较麻烦，可以利用这几个注解写个通用的DAO类，不用单独再写DAO了，此例中
+[GenericDao.java](./src/main/java/cn/devmgr/tutorial/generality/GenericDao.java) 和 
+[InsertUpdateSqlProvider.java](./src/main/java/cn/devmgr/tutorial/generality/InsertUpdateSqlProvider.java) 
+两个文件就是一个起到这种功能的例子。
+
+使用方法：
+```SQL
+create table user_role(
+  id int serial primary key, /**自动增长型主键**/
+  name varchar(20) not null
+);
+
+create table department(
+  id char(5) primary key, /**主键 **/
+  name varchar(20) not null
+);
+```
+```Java
+public class UserRole{
+    private int id;
+    private String name;
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return this.id;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    public String getName(){
+        return this.name;
+    }
+}
+```
+```Java
+public class Department{
+    private int id;
+    private String name;
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return this.id;
+    }
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    public String getName(){
+        return this.name;
+    }
+}
+```
+使用：
+```Java
+    @Autowired GenericDao genericDao;
+    
+    public UserRole createUserRole(String roleName){
+       UserRole role = new UserRole();
+       role.setName(roleName);
+       genericDao.insert(role);
+       return role;
+    }
+
+    public Department createDepartment(int deptId, String deptName){
+       Department dept = new Department();
+       dept.setId(deptId);
+       dept.setName(deptName);
+       return dept;
+    }
+```
+
+
 
 
 

@@ -2,6 +2,8 @@
 
 spring boot编写RESTful API项目中用到的各种知识的整理和相关示例，主要通过代码和代码的注视来展现说明用法和注意事项。
 
+可以配合网易云免费课程 http://study.163.com/course/courseMain.htm?courseId=1005213034 一起。
+
 ****
 
 章节 | 说明 |
@@ -13,6 +15,10 @@ spring boot编写RESTful API项目中用到的各种知识的整理和相关示�
 |[seciont-04](./section-04) | 使用Spring boot tester 和 Junit 及mockit进行单元测试 |
 |[seciont-05](./section-05) | 测试用例展现@Transactional注解的几个参数的用途和含义 |
 |[seciont-06](./section-06) | Mybatis进阶，演示查询结果到复杂类型的转换；演示了TypeHandler及自定义JsonTypeHandler的用途 |
+|[seciont-07](./section-07) | 使用Spring Security保护RESTful API |
+|[seciont-08](./section-08) | 使用Spring Async、Spring Scheduling、Spring Cache的例子 |
+|[seciont-09](./section-09) | 用Spring编写websocket的例子（使用了STOMP) |
+|[seciont-10](./section-10) | 在Spring中使用JMS(ActiveMQ)收发消息的例子 |
 
 
 ### 环境

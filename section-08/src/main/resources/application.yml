@@ -1,0 +1,26 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd  
+    time-zone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+  # 下面这几行是配置redis作为缓存服务器
+  cache:
+    redis:
+      time-to-live: 600s  # 默认是从不过期，可以设置一个过期时间
+  redis:
+    host: 192.168.1.9
+    port: 6379
+    jedis:
+      pool:
+        max-active: 5 
+        max-idle: 10 
+        max-wait: 10000 
+
+logging:
+  file: target/app.log
+  level:
+    ROOT: INFO
+    cn.devmgr: TRACE
+
+      
