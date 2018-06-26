@@ -1,0 +1,23 @@
+.header{border-bottom: 1px solid #999; margin-bottom:20px; }
+.header ul {list-style: none; height:30px; margin: 10px 0px 0px 20px; padding:0px;}
+.header ul li{float: left; padding:5px 20px 0px 20px;}
+.header ul li a{display:block;}
+
+.footer{ margin-top:60px; text-align:center; font-size:12px; padding: 5px; color:#666; border-top: 1px dotted #666;}
+
+ul.globalerror{list-style:number; margin: 10px 20px;}
+ul.globalerror li{font-size:12px; color:#FF0000;}
+
+ul.form{}
+ul.form input{font-size:16px; padding: 5px; line-height: 24px; width: 250px;}
+ul.form li{list-style:none; padding:5px;}
+ul.form li.buttons {padding:20px 0px 20px 160px;}
+ul.form li.buttons input[type=submit]{padding:10px 50px; margin:10px; font-size:24px; border:1px solid #999; background-color:#EEE;}
+ul.form li label.lbl{width: 150px; display: inline-block; text-align: right;  padding-right: 10px;}
+ul.form li label.error{ color:#FF0000;}
+
+.infopanel{}
+.infopanel p span.label{color:#999; padding-right:10px; text-align:right; display:inline-block; width:150px;}
+
+.itempanel{display:inline-block; border:1px solid #EFEFEF; margin:5px; padding:5px; width:300px;}
+.itempanel span.no{color:#ff9200; font-size:14px; display:block; margin:5px; float:right; font-family: Arial;}

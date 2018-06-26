@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/default">
+  
+  <body>
+  <title layout:fragment="title">create tv series.</title>
+    <div layout:fragment="content">
+       <!-- form上必须有th:object，否则没法使用fields.hasErrors(...) -->
+       <!-- 
+       这里的th:object="${tvSeries}", th:field="${tvSeries.name}里面的tvSeries都是和类型关联起来的，和controller中的
+       ModelAndView.addObject(attributeName, attributeValue)中的attributeValue关联，不是和attributeName关联
+       如果ModelAndView.addObject("ts", tvSeries)，然后 th:field="${ts.name}会出现如下错误
+       java.lang.IllegalStateException: Neither BindingResult nor plain target object for bean name 'ts' available as request attribute
+      
+http://forum.thymeleaf.org/Fields-object-functions-Spring-td3302513.html
+Spring MVC automatically computes the name of the form-backing bean model variable 
+from its class name --with the first letter in lower case--, not its argument name
+ (method argument names are lost in runtime, in Java). This is, it will use "formData",
+  and not "data". And it will bind the BindingResult object containing the validation 
+  errors --which #fields.hasErrors(...) will query-- to that "formData" name, not "data". 
+      
+        -->
+	   <form action="#" th:object="${tvSeries}" th:action="@{/tvseries/create}"  method="POST">
+			<ul class="globalerror" th:if="${#fields.hasAnyErrors()}">
+			  <li th:each="err : ${#fields.allErrors()}" th:text="${err}">Error item.</li>
+			</ul>
+
+	   	  <ul class="form">
+	   	  	<li><label class="lbl">Name:</label> <input type="text" th:field="${tvSeries.name}" >
+	   	  		<label th:if="${#fields.hasErrors('name')}" th:text="名字不符合要求" th:class="'error'">name Error</label>
+	   	  	</li>
+	   	  	<li>
+	   	  		<label class="lbl">seasonCount:</label> <input type="number" th:field="${tvSeries.seasonCount}">
+	   	  		<label th:if="${#fields.hasErrors('seasonCount')}" th:text="季数不合适" th:class="'error'">season count Error</label>
+	   	  	</li>
+	   	  	<li>
+	   	  		<label class="lbl">Origin Release:</label> <input type="text" th:field="${tvSeries.originRelease}">
+	   	  		<label th:if="${#fields.hasErrors('originRelease')}" th:text="日期不合法" th:class="'error'">originRelease is invalid</label>
+	   	  	</li>
+	   	  	<li class="buttons"><input type="submit" th:value="Submit"/></li>
+	   	  </ul>
+	      
+	             
+	    </form>
+    </div>
+  </body>
+</html>
