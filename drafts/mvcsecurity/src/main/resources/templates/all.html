@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  
+  <body>
+  <title layout:fragment="title">hi, mvc.</title>
+    <div layout:fragment="content">
+	    All
+	    <hr>
+	    <ul th:each="item : ${list}">
+	    	<li th:text="${item}">item</li>
+	    </ul>
+	    
+    </div>
+  </body>
+</html>
