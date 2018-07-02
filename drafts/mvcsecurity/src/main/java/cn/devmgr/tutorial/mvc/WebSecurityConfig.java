@@ -18,9 +18,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/welcome").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/getEmployees").hasAnyRole("USER", "ADMIN").antMatchers("/addNewEmployee")
-                .hasAnyRole("ADMIN").anyRequest().authenticated()
+        http.authorizeRequests().antMatchers("/").permitAll()
+                .antMatchers("/css/*").permitAll()
+                .antMatchers("/js/*").permitAll()
+                .antMatchers("/*.js").permitAll()
+                .antMatchers("/img/*").permitAll()
+                .antMatchers("/welcome").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/mvc").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/list").hasAnyRole("ADMIN").anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().permitAll();
     }
