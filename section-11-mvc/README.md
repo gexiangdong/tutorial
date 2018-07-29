@@ -13,7 +13,7 @@ mvn spring-boot:run
 
 
 ### i18n
-src/main/resources/Messages.properties 文件是模版中使用的多语言字符串文件，如果需要对应多语言，可创建Messages_zh_CN.properties, Messages_en_US.properties等文件分别存储需要的语言的字符。
+[Messages.properties](./src/main/resources/Messages.properties) 文件是模版中使用的多语言字符串文件，如果需要对应多语言，可创建Messages_zh_CN.properties, Messages_en_US.properties等文件分别存储需要的语言的字符。
 
 
 ### 配置
