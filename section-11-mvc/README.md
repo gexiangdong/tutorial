@@ -12,19 +12,13 @@ mvn spring-boot:run
 
 
 
-### Controller
-
-### Template
-
-模版文件需要放到src/main/resources/templates/目录下
-
-
 ### i18n
 src/main/resources/Messages.properties 文件是模版中使用的多语言字符串文件，如果需要对应多语言，可创建Messages_zh_CN.properties, Messages_en_US.properties等文件分别存储需要的语言的字符。
 
 
-### 配置（pom和application.yml）
+### 配置
 
+#### application.yml
 下面这段是用来配置不缓存模版的，在开发过程中特别有用，但在生产环境下最好设置成true，使用缓存速度会快点。
 开发环境下不用cache，是因为改了模版刷新下浏览器就看到结果了。
 ```yml
