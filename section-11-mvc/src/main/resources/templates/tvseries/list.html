@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/default">
+  
+  <body>
+  	<title layout:fragment="title">List</title>
+    <div layout:fragment="content">
+    	<div th:each="tvSeries,rowStat : ${allTvSeries}" class="itempanel" >
+    	<!-- 
+	    	iterStat有以下几个属性：
+	    	index ：当前节点的索引，从0开始
+			size ： 迭代节点总数
+			even/odd：当前是偶数/奇数行，boolean值
+			first/last：当前是每天/最后一个元素
+    	 -->
+    		<span class="no" th:text="${rowStat.index + 1}">0</span>
+	    	<p><span class="label">Id:</span><span th:text="${tvSeries.id}">id</span></p>
+	    	<p><span class="label">Name:</span><span th:text="${tvSeries.name}">Name</span></p>
+	    	<p><span class="label">Season Count:</span><span th:text="${{tvSeries.seasonCount}}">0</span></p>
+	    	<p><span class="label">Origin Release:</span><span th:text="${#dates.format(tvSeries.originRelease, 'yyyy/MM/dd')}"></span></p>
+  		</div>
+  	</div>
+  </body>
+
+</html>

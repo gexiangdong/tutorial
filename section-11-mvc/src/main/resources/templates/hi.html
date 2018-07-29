@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/default">
+  
+  <body>
+  <title layout:fragment="title">hi, mvc.</title>
+    <div layout:fragment="content">
+	    <p th:text="'Hello, ' + ${name} + '!'" />
+	    <hr>
+	    <p th:text="#{welcome.text}">Welcome to our store!</p>
+	    <!-- 参数的内置变量 -->
+	    <p th:text="${param.p}">params</p>
+	    <!-- 内置变量request，参数不需要加#，request需要加# -->
+	    <p th:text="'Your IP: ' + ${#request.remoteAddr} + '!'" />
+	    
+	    <p th:text="'templateNames, ' + ${#execInfo.templateNames} + '!'" />
+	    <a th:href="${(#mvc.url('MC#hello')).build()}">link to hello</a>
+	    
+    </div>
+  </body>
+</html>

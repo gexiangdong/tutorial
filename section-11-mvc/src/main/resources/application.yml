@@ -1,0 +1,19 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /springmvc
+
+logging:
+  file: target/app.log
+  level:
+    ROOT: WARN
+    cn.devmgr: TRACE
+    org.springframework: INFO
+    org.thymeleaf.TemplateEngine: TRACE
+
+spring:
+  thymeleaf:
+    cache: false
+#  mvc:
+#    date-format: d MMM HH:mm  #这里设置的优先级会比用注解@DateFormater的优先级高
+  

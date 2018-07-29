@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/default">
+  
+  <body>
+  	<title layout:fragment="title">tv series.</title>
+    <div layout:fragment="content">
+    	<div class="infopanel">
+    	<!-- 这里的th:text="${tvSeries}" 用的是ModelAndView.addObject(attributeName, attributeValue)中的attributeName，和form的不同 -->
+    	<p><span class="label">Id:</span><span th:text="${tvSeries.id}">id</span></p>
+    	<p><span class="label">Name:</span><span th:text="${tvSeries.name}">Name</span></p>
+    	<p><span class="label">Season Count:</span><span th:text="${{tvSeries.seasonCount}}">0</span></p>
+    	<p><span class="label">Origin Release:</span><span th:text="${tvSeries.originRelease}"></span></p>
+    	
+    	<p><span class="label">Origin Release:</span><span th:text="${{tvSeries.originRelease}}"></span></p>
+    	<p><span class="label">Origin Release:</span><span th:text="${#dates.format(tvSeries.originRelease, 'yyyy/MM/dd')}"></span></p>
+  		</div>
+  	</div>
+  </body>
+
+</html>

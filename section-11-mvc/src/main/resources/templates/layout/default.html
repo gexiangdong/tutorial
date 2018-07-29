@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.thymeleaf.org" >
+  <head>
+    <meta charset="utf-8"/>
+    <title layout:fragment="title">spring.mvc</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/main.css}" > 
+  </head>
+  <body>
+    <div th:replace="fragments/header :: div.header">Header</div>
+  
+    <div layout:fragment="content"></div>
+    
+    <div class="footer">Copyleft 2018</div>
+  </body>
+</html>

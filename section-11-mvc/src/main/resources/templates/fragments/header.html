@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<div class="header">
+<ul><li><a th:href="@{/tvseries/form}">Form</a></li>
+<li><a th:href="${(#mvc.url('MC#hello')).build()}">Hello</a></li>
+<li><a th:href="${(#mvc.url('TSC#getOne').arg(0,101)).build()}">Top</a></li></ul>
+</div>
+<div class="subheader">subheader</div>
+</html>
