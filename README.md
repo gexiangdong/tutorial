@@ -1,4 +1,4 @@
-# 用spring boot编写RESTful API教程
+# 用spring boot教程
 
 spring boot编写RESTful API项目中用到的各种知识的整理和相关示例，主要通过代码和代码的注视来展现说明用法和注意事项。
 
@@ -19,6 +19,8 @@ spring boot编写RESTful API项目中用到的各种知识的整理和相关示�
 |[seciont-08](./section-08) | 使用Spring Async、Spring Scheduling、Spring Cache的例子 |
 |[seciont-09](./section-09) | 用Spring编写websocket的例子（使用了STOMP) |
 |[seciont-10](./section-10) | 在Spring中使用JMS(ActiveMQ)收发消息的例子 |
+|[seciont-11](./section-11-mvc) | SpringMVC的例子 |
+|[seciont-12](./section-12-mvc-security) | SpringMVC + Spring Security，定制登录页面和自定义用户机制的例子 |
 
 
 ### 环境
