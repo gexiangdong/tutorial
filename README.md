@@ -1,4 +1,4 @@
-# 用spring boot教程
+# Spring Boot教程
 
 spring boot编写RESTful API项目中用到的各种知识的整理和相关示例，主要通过代码和代码的注视来展现说明用法和注意事项。
 
