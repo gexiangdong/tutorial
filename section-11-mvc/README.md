@@ -13,7 +13,7 @@ mvn spring-boot:run
 ### 静态内容
 src/main/resources/static 目录下的文件可以直接被浏览器访问到，可以放置css、js、图片等，在生产环境上，这些文件放置到nginx等可以直接访问的目录下更好，nginx/apache等处理静态内容的速度要好过tomcat。访问量大的网站甚至可以单独把这些静态内容部署到CDN上。
 
-[关于静态资源的更多信息可参照这里](../wiki/静态资源)。
+[关于静态资源的更多信息可参照这里](https://github.com/gexiangdong/tutorial/wiki/静态资源)。
 
 ### i18n
 [Messages.properties](./src/main/resources/Messages.properties) 文件是模版中使用的多语言字符串文件，如果需要对应多语言，可创建Messages_zh_CN.properties, Messages_en_US.properties等文件分别存储需要的语言的字符。
