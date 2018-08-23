@@ -14,4 +14,4 @@ logging:
     ROOT: WARN
     cn.devmgr: TRACE
     cn.devmgr.tutorial.springboot.dao: WARN
-           
+

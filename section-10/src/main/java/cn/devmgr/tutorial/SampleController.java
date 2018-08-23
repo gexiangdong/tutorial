@@ -21,7 +21,7 @@ public class SampleController {
 	public Map<String, Object> getAll() {
 		
 		if(log.isTraceEnabled()) {
-		    log.trace("getAll();");
+		    log.trace("getAll() was called;");
 		}
 		tvSeriesService.sendMessage("message from sampleController ");
 		
