@@ -6,12 +6,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -73,6 +73,16 @@ public class TvSeriesController {
         return tvSeries;
     }
     
+    @GetMapping("/infomation")
+    public ModelAndView getOneFromModelAttribute(@ModelAttribute TvSeries tvSeries) {
+        log.trace("从modelAttribute里获得的" + tvSeries);
+        ModelAndView mav = new ModelAndView();
+       
+        // 设置模版文件为对应src/main/resources/templates/tvseries/info.html，
+        mav.setViewName("tvseries/info");
+        mav.addObject("tvSeries", tvSeries);
+        return mav;
+    }
     
     /**
      * 模版通过url匹配获得，使用对应src/main/resources/templates/tvseries/list.html
@@ -103,5 +113,46 @@ public class TvSeriesController {
             list.add(tvSeries);
         }
         return list;
+    }
+    
+    /**
+     * ModelAttribute注解的方法会在这个类的所有RequestMapping方法之前执行，
+     * 可以在这里修改repsonse，也可以创建对象供reqeustmapping注解的方法用.
+     * 还可以被模版里直接调用
+     * 这是一个修改response的例子
+     * @param response
+     */
+    @ModelAttribute
+    public void setVaryResponseHeader(HttpServletResponse response) {
+        log.trace("这个类下面的每个请求都执行，这个方法仅仅是给response设置个header");
+        response.setHeader("header-key", "sample-value");
+    }
+    
+    /**
+     * 这个方法是创建一个对象，这个对象在 getOneFromModelAttribute方法的参数中有使用
+     * @param id
+     * @return
+     */
+    @ModelAttribute
+    public TvSeries tvSeriesInquery(@RequestParam(value="id", required=false) Integer id) {
+        log.trace("执行 tvSeriesInquery 根据querystring");
+        if(id == null) {
+            return null;
+        }
+        TvSeries tvSeries = new TvSeries();
+        tvSeries.setId(id);
+        tvSeries.setName("疑犯追踪 POI");
+        tvSeries.setOriginRelease(new Date());
+        tvSeries.setSeasonCount(5);
+        return tvSeries;
+    }
+    
+    /**
+     * 供模版里直接调用的例子
+     * @return
+     */
+    @ModelAttribute("hints")
+    public String setHints() {
+        return "以上信息，如有错误请告知我们";
     }
 }

@@ -9,7 +9,7 @@ logging:
     ROOT: WARN
     cn.devmgr: TRACE
     org.springframework: INFO
-    org.thymeleaf.TemplateEngine: TRACE
+    org.thymeleaf.TemplateEngine: INFO
 
 spring:
   thymeleaf:

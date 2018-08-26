@@ -14,6 +14,7 @@
     	<p><span class="label">Origin Release:</span><span th:text="${{tvSeries.originRelease}}"></span></p>
     	<p><span class="label">Origin Release:</span><span th:text="${#dates.format(tvSeries.originRelease, 'yyyy/MM/dd')}"></span></p>
   		</div>
+  		<p th:text="${hints}"></p>
   	</div>
   </body>
 
