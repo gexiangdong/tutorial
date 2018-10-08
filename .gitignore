@@ -5,4 +5,5 @@ build
 .classpath
 .settings
 .springBeans
+.idea
 
