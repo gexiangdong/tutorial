@@ -21,6 +21,7 @@ spring boot编写RESTful API项目中用到的各种知识的整理和相关示�
 |[seciont-10](./section-10) | 在Spring中使用JMS(ActiveMQ)收发消息的例子 |
 |[seciont-11](./section-11-mvc) | SpringMVC的例子 |
 |[seciont-12](./section-12-mvc-security) | SpringMVC + Spring Security，定制登录页面和自定义用户机制的例子 |
+|[seciont-13](./section-13-kafka) |使用kafka作为消息服务器，收发消息的例子 |
 
 
 ### 环境
