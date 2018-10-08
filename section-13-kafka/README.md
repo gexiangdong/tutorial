@@ -27,7 +27,7 @@ spring:
     consumer:
       group-id: my-group  #默认的消费者groupid
 ```
-
+如果消息需要多个消费者接收，每个消费者的consumer.group-id应该不同，同一个group内只有有一个收到消息
 
 #### 发送消息
 
