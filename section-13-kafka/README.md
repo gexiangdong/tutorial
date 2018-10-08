@@ -37,3 +37,20 @@ spring:
 #### 接收消息
 
 使用@KafkaListener注解，请参考[SampleController.java](src/main/java/cn/devmgr/tutorial/SampleController.java)
+
+
+## kafka vs. ActiveMQ
+简单的说，kafka的速度和单机最大消息负荷都比ActiveMQ好，但功能不如ActiveMQ多。 企业内应用一般ActiveMQ；互联网应用一般Kafaka。
+
+项目 | ActiveMQ | Kafka |
+|:------------:|:------------:|:------------:|
+|单机吞吐量 | 较差 | 优 |
+|持久化能力 | 内存、文件、数据库 | 磁盘文件 |
+|协议支持 |OpenWire、STOMP、REST、XMPP、AMQP | 自有协议，社区封装HTTP支持 |
+|事务| 支持 |不支持|
+|管理界面|有|仅命令行|
+|消息推拉模式| Pull/Push均支持 | Pull |
+|客户端支持的语言|Java, C, C++, Python, PHP, Perl, .net等 |官方支持java，开源社区有增加其他语言|
+
+
+简单的说，kafka的速度和单机最大消息负荷都比ActiveMQ好，但功能不如ActiveMQ多。 企业内应用一般ActiveMQ；互联网应用一般Kafaka。支持
