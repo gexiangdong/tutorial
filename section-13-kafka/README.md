@@ -40,7 +40,7 @@ spring:
 
 
 ## kafka vs. ActiveMQ
-简单的说，kafka的速度和单机最大消息负荷都比ActiveMQ好，但功能不如ActiveMQ多。 企业内应用一般ActiveMQ；互联网应用一般Kafaka。
+简单的说，kafka的性能比ActiveMQ好，但功能不如ActiveMQ多，对JMS支持也不如ActiveMQ好。 企业内应用一般ActiveMQ；互联网应用一般Kafaka。
 
 项目 | ActiveMQ | Kafka |
 |:------------:|:------------:|:------------:|
@@ -53,4 +53,3 @@ spring:
 |客户端支持的语言|Java, C, C++, Python, PHP, Perl, .net等 |官方支持java，开源社区有增加其他语言|
 
 
-简单的说，kafka的速度和单机最大消息负荷都比ActiveMQ好，但功能不如ActiveMQ多。 企业内应用一般ActiveMQ；互联网应用一般Kafaka。支持
