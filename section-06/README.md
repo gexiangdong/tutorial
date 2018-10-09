@@ -8,7 +8,7 @@ Mybatis进阶
 * [使用resultmap把SQL查询结果影射到一对一的两个类上](#f1)（Order类中有一个属性是ConsigneeAddress类）
 * [使用resultmap做一对多的映射](#f2)（Order类中包含多个OrderItem类）
 * [dao中一个方法执行多条insert](#f3) (OrderDao.insertOrder)
-* [EnumTypeHandler](#f4)、ArrayTypeHandler的](#f5)用法
+* [EnumTypeHandler](#f4)、[ArrayTypeHandler的](#f5)用法
 * [自定义的通用型JsonTypeHandler](#f6)
 * [在映射xml文件中使用include](#f7)
 * [使用@SQLProvider编写通用的insert/update DAO类](#f8)
