@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TokenService {
-    // 一般是把token和用户对应关系放在数据库或告诉缓存(例如readis/memcache等），放在一个单例类的成员变量里仅适合很小规模的情形
+    // 一般是把token和用户对应关系放在数据库或高速缓存(例如readis/memcache等），放在一个单例类的成员变量里仅适合很小规模的情形
     private Map<String, UserDetails> tokenMap = new HashMap<>();
     
     /**
