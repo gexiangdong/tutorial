@@ -12,6 +12,9 @@ import org.apache.ibatis.type.JdbcType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 注意：如果属性类型是List<T>这样带范型的属性，这个typeHandler不适用，会转成List<Map>类型
+ */
 public class JsonTypeHandler<T> extends BaseTypeHandler<T> {
     private static ObjectMapper objectMapper;
     private Class<T> type;
