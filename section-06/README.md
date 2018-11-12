@@ -148,6 +148,8 @@ EnumTypeHandler由于使用的是类名称，一般会以字符串形式存储�
 
 使用数组类型需要声明typeHandler="org.apache.ibatis.type.ArrayTypeHandler"，其他和枚举类型一致。
 
+使用ArrayTypeHandler做insert/update时，java类型需要是java.sql.Array类型，否则会出错。需要String[], List等类型需要写一个自定义的TypeHandler。
+
 
 <h3 id="f6">使用JSON类型</h3>
 Mybatis目前（2018/4/22）尚未提供对JSON类型的内嵌支持，需要自己写一个TypeHandler，写TypeHandler很简单，集成BaseTypeHandle并实现4个抽象方法即可。

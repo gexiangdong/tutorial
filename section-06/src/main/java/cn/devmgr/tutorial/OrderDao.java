@@ -15,4 +15,6 @@ public interface OrderDao {
 	public Order getOrderById(int id);
 	
 	public Product selectProductById(@Param("id") String id);
+	
+	public int insertProduct(@Param("product") Product product);
 }

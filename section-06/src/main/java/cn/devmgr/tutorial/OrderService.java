@@ -42,6 +42,13 @@ public class OrderService {
         return order;
     }
     
+    public Product createProduct(Product product) {
+        int result = orderDao.insertProduct(product);
+        if(log.isTraceEnabled()){
+            log.trace("插入的新产品" + product.getId() + "; sql return " + result);
+        }
+        return product;
+    }
     
     public Order getOneOrder(int id){
         return orderDao.getOrderById(id);

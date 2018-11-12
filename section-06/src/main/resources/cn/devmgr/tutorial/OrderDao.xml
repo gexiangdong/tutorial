@@ -63,4 +63,9 @@
             from product
             where id=#{id}
     </select>   
+    
+    <insert id="insertProduct" parameterType="cn.devmgr.tutorial.model.Product">
+        insert into product(id, name, price, specs, images) 
+            values(#{product.id}, #{product.name}, #{product.price}, #{product.specs}, #{product.images, jdbcType=ARRAY, typeHandler=org.apache.ibatis.type.ArrayTypeHandler} )
+    </insert>
 </mapper>

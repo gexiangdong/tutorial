@@ -2,6 +2,9 @@ package cn.devmgr.tutorial;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,7 +27,8 @@ public class OrderDaoTests {
     
     @Autowired OrderService orderService;
     @Autowired OrderDao orderDao;
-	@Test
+	
+    //@Test
 	public void testSelectProduct() {
 	    Order orderNew = new Order();
 	    orderNew.setOrderType(OrderType.WHOLESALE);
@@ -63,6 +67,21 @@ public class OrderDaoTests {
 	            log.trace("ORDER: #" + order.getId() + "; type:" + order.getOrderType());
 	        }
 	    }
+	}
+	
+	@Test
+	public void testAddProduct() {
+	    if(log.isTraceEnabled()) {
+	        log.trace("testAddProduct");
+	    }
+	    Product prod = new Product();
+	    prod.setId("T" + String.valueOf(new Random().nextInt(10000)));
+	    prod.setName("N-" + prod.getId());
+	    prod.setPrice(1111);
+	    Map<String, String> specs = new HashMap<String, String>();
+	    prod.setSpecs(specs);
+	    prod.setImages(new String[] {"a.jpg", "b.jpg", "c.jpg", "d.jpg"});
+	    orderService.createProduct(prod);
 	}
 
 }
