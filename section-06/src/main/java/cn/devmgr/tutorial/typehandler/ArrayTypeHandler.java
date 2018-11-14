@@ -41,10 +41,14 @@ public class ArrayTypeHandler<T> extends BaseTypeHandler<T> {
             Type[] ts = type.getGenericInterfaces();
             logger.trace("<T> {}, {}, {}, getGenericInterfaces:{} getGenericSuperclass:{} ", type, type.getTypeParameters(), type.isArray(), type.getGenericInterfaces(), type.getGenericSuperclass());
             if(ts != null && ts.length > 0) {
-                ParameterizedType parameterizedType = (ParameterizedType) type.getGenericInterfaces()[0];
-                Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
-                for (Type actualTypeArgument : actualTypeArguments) {
-                    logger.trace("\tactualTypeArgument:{}", actualTypeArgument);
+                if (type.getGenericInterfaces()[0] instanceof ParameterizedType) {
+                    ParameterizedType parameterizedType = (ParameterizedType) type.getGenericInterfaces()[0];
+                    Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+                    for (Type actualTypeArgument : actualTypeArguments) {
+                        logger.trace("\tactualTypeArgument:{}", actualTypeArgument);
+                    }
+                }else{
+                    logger.trace("\t type.getGenericInterfaces()[0]: {}", type.getGenericInterfaces()[0]);
                 }
             }
         }
