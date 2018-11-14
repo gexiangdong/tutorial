@@ -69,7 +69,7 @@ public class OrderDaoTests {
 	    }
 	}
 	
-	@Test
+	//@Test
 	public void testAddProduct() {
 	    if(log.isTraceEnabled()) {
 	        log.trace("testAddProduct");
