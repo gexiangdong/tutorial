@@ -148,7 +148,8 @@ EnumTypeHandler由于使用的是类名称，一般会以字符串形式存储�
 
 使用数组类型需要声明typeHandler="org.apache.ibatis.type.ArrayTypeHandler"，其他和枚举类型一致。
 
-使用ArrayTypeHandler做insert/update时，java类型需要是java.sql.Array类型，否则会出错。需要String[], List等类型需要写一个自定义的TypeHandler。
+使用org.apache.ibatis.type.ArrayTypeHandler做insert/update时，java类型需要是java.sql.Array类型，否则会出错。需要String[], List等类型需要写一个自定义的TypeHandler【可参考[cn.devmgr.tutorial.typehandler.ArrayTypeHandler](./src/main/java/cn/devmgr/tutorial/typehandler/ArrayTypeHandler)】
+
 
 
 <h3 id="f6">使用JSON类型</h3>

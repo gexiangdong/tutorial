@@ -64,8 +64,9 @@
             where id=#{id}
     </select>   
     
+    <!-- 在insert中使用typeHandler；注意数组用的是自定义的ArrayTypeHandler -->
     <insert id="insertProduct" parameterType="cn.devmgr.tutorial.model.Product">
         insert into product(id, name, price, specs, images) 
-            values(#{product.id}, #{product.name}, #{product.price}, #{product.specs}, #{product.images, jdbcType=ARRAY, typeHandler=org.apache.ibatis.type.ArrayTypeHandler} )
+            values(#{product.id}, #{product.name}, #{product.price}, #{product.specs, typeHandler=cn.devmgr.tutorial.typehandler.JsonTypeHandler}, #{product.images, typeHandler=cn.devmgr.tutorial.typehandler.ArrayTypeHandler} )
     </insert>
 </mapper>

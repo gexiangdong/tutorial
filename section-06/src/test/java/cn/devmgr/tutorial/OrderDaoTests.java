@@ -79,6 +79,7 @@ public class OrderDaoTests {
 	    prod.setName("N-" + prod.getId());
 	    prod.setPrice(1111);
 	    Map<String, String> specs = new HashMap<String, String>();
+	    specs.put("weight", "4kg");
 	    prod.setSpecs(specs);
 	    prod.setImages(new String[] {"a.jpg", "b.jpg", "c.jpg", "d.jpg"});
 	    orderService.createProduct(prod);
