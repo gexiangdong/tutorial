@@ -28,7 +28,7 @@ public class OrderDaoTests {
     @Autowired OrderService orderService;
     @Autowired OrderDao orderDao;
 	
-    //@Test
+    @Test
 	public void testSelectProduct() {
 	    Order orderNew = new Order();
 	    orderNew.setOrderType(OrderType.WHOLESALE);
