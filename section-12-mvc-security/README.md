@@ -1,4 +1,5 @@
 # SpringMVC + Spring Security的例子
+
 使用spring security保护SpringMVC程序的例子，演示了如何配置spring security，自定义登录页面和用户。
 
 此例中没有使用Spring Security注解的例子，Spring Security注解的使用可以参照[section-07](https://github.com/gexiangdong/tutorial/tree/master/section-07)
@@ -14,9 +15,12 @@
 * [SampleController](./src/main/java/cn/devmgr/tutorial/mvc/SampleController.java) 是一个简单的例子
 
 ## 启动
+
 ```Bash
 mvn spring-boot:run
 ```
+
 ## 测试：
+
 http://localhost:8080/all 会自动跳转到登录界面，登录成功后会返回
 
