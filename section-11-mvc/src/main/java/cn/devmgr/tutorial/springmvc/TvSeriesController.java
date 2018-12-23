@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,12 +46,18 @@ public class TvSeriesController {
         }
         ModelAndView mav = new ModelAndView();
         if(result.hasErrors()) {
+            log.trace("hasErrors......");
             // 有错误出现，设置模版文件位 对应src/main/resources/templates/tvseries/form.html，以便用户重新输入
             mav.setViewName("/tvseries/form");
             mav.addObject("ts", tvSeries);
             return mav;
         }
         // 设置模版文件为对应src/main/resources/templates/tvseries/info.html，显示刚刚新增的信息
+        if(tvSeries == null){
+            log.warn("tvseries is null");
+            tvSeries = new TvSeries();
+        }
+        tvSeries.setId(9999);
         mav.setViewName("tvseries/info");
         mav.addObject("tvSeries", tvSeries);
 
@@ -133,7 +140,7 @@ public class TvSeriesController {
      * @param id
      * @return
      */
-    @ModelAttribute
+    @ModelAttribute("tvs")
     public TvSeries tvSeriesInquery(@RequestParam(value="id", required=false) Integer id) {
         log.trace("执行 tvSeriesInquery 根据querystring");
         if(id == null) {
