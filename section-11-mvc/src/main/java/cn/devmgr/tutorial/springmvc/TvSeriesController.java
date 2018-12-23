@@ -81,7 +81,7 @@ public class TvSeriesController {
     }
     
     @GetMapping("/infomation")
-    public ModelAndView getOneFromModelAttribute(@ModelAttribute TvSeries tvSeries) {
+    public ModelAndView getOneFromModelAttribute(@ModelAttribute("tvs") TvSeries tvSeries) {
         log.trace("从modelAttribute里获得的" + tvSeries);
         ModelAndView mav = new ModelAndView();
        
