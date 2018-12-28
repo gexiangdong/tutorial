@@ -1,3 +1,10 @@
+server:
+  servlet:
+    session:
+      timeout: 1800s  #session超时时间，s表示单位是秒
+      cookie:         #保存sessionID的cookie
+        name: TSESSIONID
+        path: /
 
 logging:
   file: target/app.log
