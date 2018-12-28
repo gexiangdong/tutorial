@@ -38,7 +38,15 @@ public class TvSeriesController {
         tvSeries.setOriginRelease(c.getTime());
         return tvSeries;
     }
-    
+
+    /**
+     * Form中输入的字段会自动设置到TvSeries这个自定义类内，只能有一个这种参数。
+     * 主要不要有其他Model类型和这个冲突（例如用@ModelAttribute注解的方法返回的这个类型）
+     * BindingResult，是@Valid检测的返回值
+     * @param tvSeries
+     * @param result
+     * @return
+     */
     @PostMapping("/create")
     public ModelAndView createTvSeries(@Valid TvSeries tvSeries, BindingResult result) {
         if(log.isTraceEnabled()) {
@@ -79,7 +87,12 @@ public class TvSeriesController {
         tvSeries.setSeasonCount(5);
         return tvSeries;
     }
-    
+
+    /**
+     * 此方法传递的参数，是靠下面的tvSeriesInquery()方法返回值设置的
+     * @param tvSeries
+     * @return
+     */
     @GetMapping("/infomation")
     public ModelAndView getOneFromModelAttribute(@ModelAttribute("tvs") TvSeries tvSeries) {
         log.trace("从modelAttribute里获得的" + tvSeries);

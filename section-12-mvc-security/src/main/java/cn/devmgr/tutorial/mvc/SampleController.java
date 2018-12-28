@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,12 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class SampleController {
     private final static Logger logger = LoggerFactory.getLogger(SampleController.class);
 
-    @GetMapping("/all")
-    public ModelAndView getAll() {
+    @GetMapping("/user")
+    public ModelAndView getAll(Authentication auth) {
         logger.trace("getAll();");
-        
+        logger.trace("currentUser: {} {}", ((User) auth.getPrincipal()).getUsername(), auth.getAuthorities());
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("all");
+        mv.setViewName("user");
         
         List<String> list = new ArrayList<>();
         list.add("one");
@@ -38,18 +39,18 @@ public class SampleController {
     }
     
     /**
-     * 在WebSecurityConfig中有设置/list这个url需要ADMIN组用户才能访问
+     * 在WebSecurityConfig中有设置/admin 这个url需要ADMIN组用户才能访问
      * @return
      */
-    @GetMapping("/list")
+    @GetMapping("/admin")
     @ModelAttribute("list")
     public List<String> listAll(){
-        logger.trace("listAll();");
+        logger.trace("listAll(); ");
         List<String> list = new ArrayList<>();
-        list.add("one");
-        list.add("two");
-        list.add("three");
-        list.add("four");
+        list.add("甲");
+        list.add("乙");
+        list.add("丙");
+        list.add("丁");
         
         return list;
     }

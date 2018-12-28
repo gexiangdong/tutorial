@@ -22,5 +22,10 @@ mvn spring-boot:run
 
 ## 测试：
 
-http://localhost:8080/all 会自动跳转到登录界面，登录成功后会返回
+http://localhost:8080/ 可访问；如果访问/user或/admin则会跳转到登录页面；如果登录后仍没有权限访问，则403。
 
+* 用户名可以随意填写，密码都是password，密码填写其他字符会出现用户名或密码错的提示
+* 只要登录的用户都会被赋予 "USER" 的角色，如果登录名是admin，则还会被赋予 "ADMIN" 的角色
+* /user，"USER" 角色即可访问
+* /admin 只有 "ADMIN"角色才可访问 
+* 上述的访问限制是在[WebSecurityConfig](./src/main/java/cn/devmgr/tutorial/mvc/WebSecurityConfig.java) 中设定的，也可通过注解在Controller里设置，参见[section-07](../section-07)，此节不再举例

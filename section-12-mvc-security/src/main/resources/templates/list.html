@@ -1,15 +1,20 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-  
-  <body>
-  <title layout:fragment="title">hi, mvc.</title>
-    <div layout:fragment="content">
-	    List
-	    <hr>
-	    <ul th:each="item : ${list}">
-	    	<li th:text="${item}">item</li>
-	    </ul>
-	    
-    </div>
-  </body>
+<head>
+  <title>LIST</title>
+</head>
+<body>
+<div>
+  <h1>List</h1>
+
+  <ul th:each="item : ${list}">
+    <li th:text="${item}">item</li>
+  </ul>
+
+  <ul>
+    <li><a href="/user">/user页面，所有登录用户都可访问</a></a></li>
+    <li><a href="/admin">/admin页面，只有登录名为admin的用户才可访问</a></a></li>
+  </ul>
+</div>
+</body>
 </html>

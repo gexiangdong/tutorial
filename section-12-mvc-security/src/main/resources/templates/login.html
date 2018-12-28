@@ -1,20 +1,32 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Login</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
-	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" >
+  <title>Login</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
 </head>
 <body>
-    <div th:if="${param.logout}"> You have been logged out. </div>
-    <div class="loginpanel" th:classappend="param.error ? witherrormessage : noerror">
-        <h1>Sign In</h1>
-        <div class="errormessage" th:if="${param.error}">用户名或密码错误</div>
-        <form th:action="@{/login}" method="post">
-            <div class="username"><label><span>用户名：</span><input type="text" name="username" autofocus="autofocus" placeholder="用户名" /></label></div>
-            <div class="password"><label><span>密　码：</span><input type="password" name="password" placeholder="密码"/></label></div>
-            <div class="button"><input type="submit" value="登录"/></div>
-        </form>
+<div th:if="${param.logout}"> You have been logged out.</div>
+<div class="loginpanel" th:classappend="param.error ? witherrormessage : noerror">
+  <h1>Sign In</h1>
+  <div class="errormessage" th:if="${param.error}">用户名或密码错误</div>
+  <form th:action="@{/login}" method="post">
+    <div class="username"><label><span>用户名：</span><input type="text" name="username" autofocus="autofocus"
+                                                         placeholder="用户名"/></label></div>
+    <div class="password"><label><span>密　码：</span><input type="password" name="password" placeholder="密码"/></label>
     </div>
+    <div class="button"><input type="submit" value="登录"/></div>
+  </form>
+</div>
+<div style="margin:20px auto; width:400px;">
+  <ul>
+    <li>用户名可以随意填写，密码都是password，密码填写其他字符会出现用户名或密码错的提示</li>
+    <li>只要登录的用户都会被赋予 "USER" 的角色，如果登录名是admin，则还会被赋予 "ADMIN" 的角色</li>
+    <li>/ 不登录也可访问</li>
+    <li>/user "USER" 角色即可访问</li>
+    <li>/admin 只有 "ADMIN"角色才可访问</li>
+    <li>上述的访问限制是在WebSecurityConfig中设定的，也可通过注解在Controller里设置，参见section-07，此节不再举例</li>
+  </ul>
+</div>
 </body>
 </html>
