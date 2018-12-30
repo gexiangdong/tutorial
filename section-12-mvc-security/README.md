@@ -38,3 +38,12 @@ http://localhost:8080/ 可访问；如果访问/user或/admin则会跳转到登�
  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 ```
 可以参照[form.html](./src/main/resources/templates/form.html) 。
+
+CSRF TOKEN是spring放入session中的一个字串，再提交时spring security会比较客户端提交的token和session里存储的是否相同，不同则认为正在遭受csrf攻击，显示403，拒绝处理请求。也可以在Java程序中获取这个字串：
+
+```Java
+CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+// token.getHeaderName() 用request header验证时的header name（一般用于AJAX调用）
+// token.getParameterName() 用post form时的提交的参数名 
+// token.getToken() token的字串
+```
