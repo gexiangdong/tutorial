@@ -29,3 +29,12 @@ http://localhost:8080/ 可访问；如果访问/user或/admin则会跳转到登�
 * /user，"USER" 角色即可访问
 * /admin 只有 "ADMIN"角色才可访问 
 * 上述的访问限制是在[WebSecurityConfig](./src/main/java/cn/devmgr/tutorial/mvc/WebSecurityConfig.java) 中设定的，也可通过注解在Controller里设置，参见[section-07](../section-07)，此节不再举例
+
+## CSRF保护
+
+使用spring security时，默认是打开CSRF保护，这是为了避免CSRF攻击。开启CSRF防护后，普通的POST方法会返回403，需要在表单中增加csrf token，来避免csrf攻击。
+
+```html
+ <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+```
+可以参照[form.html](./src/main/resources/templates/form.html) 。

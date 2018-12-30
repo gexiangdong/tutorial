@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<head>
+  <title>CSRF</title>
+</head>
+<h1>CSRF FORM</h1>
+
+
+<form action="/create" method="POST">
+
+  <!-- 当spring security打开csrf保护时（默认），需要下面这句来向controller传递csrf token，如果csrf token不正确或没下面这句会得到403错误 -->
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+  <input type="text" name="name" />
+  <input type="submit" value="submit" />
+
+</form>
+
+</body>
