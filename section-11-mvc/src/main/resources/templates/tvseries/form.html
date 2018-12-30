@@ -19,7 +19,7 @@ from its class name --with the first letter in lower case--, not its argument na
   errors --which #fields.hasErrors(...) will query-- to that "formData" name, not "data". 
       
         -->
-	   <form action="#" th:object="${tvSeries}" th:action="@{/tvseries/create}"  method="POST">
+	   <form th:object="${tvSeries}" th:action="@{/tvseries/create}"  method="POST">
 			<ul class="globalerror" th:if="${#fields.hasAnyErrors()}">
 			  <li th:each="err : ${#fields.allErrors()}" th:text="${err}">Error item.</li>
 			</ul>
