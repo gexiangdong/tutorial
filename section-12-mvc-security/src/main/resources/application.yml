@@ -16,4 +16,4 @@ logging:
 
 spring:
   thymeleaf:
-    cache: false
+    cache: false     #开发过程建议设为为false；生产环境设为true
