@@ -1,0 +1,10 @@
+
+spring:
+  mail:
+    host: smtp主机地址，例如网易域名邮箱是：smtp.ym.163.com；qq邮箱是smtp.qq.com
+    username: smtp登录的账号，一般是邮件地址
+    password: smtp登录账号对应的密码，一般和自己邮箱密码相同
+    properties:
+      mail:
+        smtp:
+          auth: true
