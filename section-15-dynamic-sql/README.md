@@ -4,6 +4,8 @@ Mybatis Dynamic SQL
 
 ## 导出Excel的例子
 
+[程序说明请看这里](https://github.com/gexiangdong/tutorial/wiki/%E5%AF%BC%E5%87%BAexcel)
+
 [SampleController](./src/main/java/cn/devmgr/tutorial/controller/SampleController.java) 内有一个导出Excel格式数据的例子。
 
 
