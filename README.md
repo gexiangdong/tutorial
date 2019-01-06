@@ -23,6 +23,8 @@ spring boot编写RESTful API项目中用到的各种知识的整理和相关示�
 |[seciont-12](./section-12-mvc-security) | SpringMVC + Spring Security，定制登录页面和自定义用户机制的例子 |
 |[seciont-13](./section-13-kafka) |使用kafka作为消息服务器，收发消息的例子 |
 |[seciont-14](./section-14-dynamic-datasource) |多个动态数据源的例子(不常见） |
+|[seciont-15](./section-15-dynamic-sql) |Mybatis自定义Language Driver的例子和在Controller生成excel格式文件的例子） |
+|[seciont-16](./section-16-email) |使用Spring提供的JavaMailSender发送邮件的例子 |
 
 
 ### 环境
