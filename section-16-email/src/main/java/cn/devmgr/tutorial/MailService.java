@@ -8,10 +8,16 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.StringWriter;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MailService {
@@ -77,5 +83,24 @@ public class MailService {
 
         mailSender.send(mimeMessage);
 
+    }
+
+
+    private String getMailBodyFromTemplate(String templateName, Map<String, Object> vars){
+        ClassLoaderTemplateResolver resolver = new ClassLoaderTemplateResolver();
+        resolver.setPrefix("email-templates/");     //模板所在目录，相对于当前classloader的classpath。
+        resolver.setSuffix(".html");                //模板文件后缀
+        TemplateEngine templateEngine = new TemplateEngine();
+        templateEngine.setTemplateResolver(resolver);
+
+        Context context = new Context();
+        for(Iterator<String> iterator = vars.keySet().iterator(); iterator.hasNext();){
+            String key = iterator.next();
+            context.setVariable(key, vars.get(key));
+        }
+
+        StringWriter writer = new StringWriter();
+        templateEngine.process("example", context, writer);
+        return writer.toString();
     }
 }

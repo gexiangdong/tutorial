@@ -47,3 +47,36 @@ CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
 // token.getParameterName() 用post form时的提交的参数名 
 // token.getToken() token的字串
 ```
+
+## 在thymeleaf模版中针对不同角色/权限的用户显示不同的内容
+
+### 增加依赖
+
+```xml
+<dependency>
+    <groupId>org.thymeleaf.extras</groupId>
+    <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+</dependency>
+
+```
+
+### 在模版里可以使用sec:authorize属性，当值为true时可见
+
+```html
+<div sec:authorize="hasRole('USER')">具有USER角色的用户可见。</div>
+<div sec:authorize="hasRole('ADMIN')">具有USER角色的用户可见。</div>
+
+<div sec:authorize="hasAuthority('edit')">具有edit权限的用户可见。</div>
+<div sec:authorize="hasAuthority('delete')">具有delete权限的用户可见。</div>
+
+<div sec:authorize="isAuthenticated()">
+  所有登录用户均可见
+</div>
+
+```
+
+可以在html标签上定义sec的xmlns，以浏览器避免提示错误
+
+```html
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+```

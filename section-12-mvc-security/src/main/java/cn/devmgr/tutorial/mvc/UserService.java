@@ -55,6 +55,10 @@ public class UserService implements UserDetailsService {
             authorities.add(roleAdmin);
         }
 
+        //增加一个edit权限，可用hasAuthority('edit')判断
+        SimpleGrantedAuthority authEdit = new SimpleGrantedAuthority("edit");
+        authorities.add(authEdit);
+
         u.setAuthorities(authorities);
 
 

@@ -20,8 +20,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 配置授权方式，需要包含的url等
      */
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/").permitAll()
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+
+        // 如果有一个Filter，来实现从cookie创建当前用户（或其他），需要确保这个filter在BasicAuthenticationFilter之前执行，可以用下面这句
+        // 这样就不再需要在filter上增加@Component等类似注解了。如果增加了，可能会导致filter重复执行2次
+        // httpSecurity.addFilterBefore( new JwtAuthenticationTokenFilter(), BasicAuthenticationFilter.class);
+
+        httpSecurity.authorizeRequests().antMatchers("/").permitAll()
                 .antMatchers("/css/*").permitAll()
                 .antMatchers("/js/*").permitAll()
                 .antMatchers("/*.js").permitAll()

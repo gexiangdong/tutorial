@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head>
   <title>INDEX</title>
 </head>
@@ -12,6 +12,16 @@
   </ul>
 
   <p><a href="/form">受CSRF保护的表单</a></p>
+
+  <div sec:authorize="hasRole('USER')">此段内容具有USER角色的用户可见。</div>
+  <div sec:authorize="hasRole('ADMIN')">此段内容具有USER角色的用户可见。</div>
+
+  <div sec:authorize="hasAuthority('edit')">此段内容具有edit权限的用户可见。</div>
+  <div sec:authorize="hasAuthority('delete')">此段内容具有delete权限的用户可见。</div>
+
+  <div sec:authorize="isAuthenticated()">
+    此段内容所有登录用户均可见
+  </div>
 
 </div>
 </body>

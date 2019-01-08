@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
 <body>
 <head>
@@ -14,8 +14,21 @@
 
   <ul>
     <li><a href="/user">/user页面，所有登录用户都可访问</a></a></li>
-    <li><a href="/admin">/admin页面，只有登录名为admin的用户才可访问</a></a></li>
+    <li sec:authorize="hasRole('ADMIN')"><a href="/admin">/admin页面，只有登录名为admin的用户才可访问</a></a></li>
   </ul>
+
+
+  <div sec:authorize="hasRole('USER')">此段内容具有USER角色的用户可见。</div>
+  <div sec:authorize="hasRole('ADMIN')">此段内容具有USER角色的用户可见。</div>
+
+  <div sec:authorize="hasAuthority('edit')">此段内容具有edit权限的用户可见。</div>
+  <div sec:authorize="hasAuthority('delete')">此段内容具有delete权限的用户可见。</div>
+
+  <div sec:authorize="isAuthenticated()">
+    此段内容所有登录用户均可见
+  </div>
+
+
 </div>
 </body>
 </html>
