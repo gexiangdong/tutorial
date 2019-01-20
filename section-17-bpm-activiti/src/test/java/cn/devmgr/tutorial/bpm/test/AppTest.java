@@ -1,8 +1,13 @@
-package cn.devmgr.tutorial.bpm;
+package cn.devmgr.tutorial.bpm.test;
 
 
+import org.activiti.engine.FormService;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.TaskFormData;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.identity.Group;
 import org.activiti.engine.identity.User;
 import org.activiti.engine.task.Task;
@@ -13,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
@@ -23,6 +29,7 @@ import static junit.framework.TestCase.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Profile("dev")
 public class AppTest {
     private static final Logger logger = LoggerFactory.getLogger(AppTest.class);
 
@@ -34,6 +41,12 @@ public class AppTest {
 
     @Autowired(required = false)
     RuntimeService runtimeService;
+
+    @Autowired(required = false)
+    HistoryService historyService;
+
+    @Autowired(required = false)
+    FormService formService;
 
     @Test
     public void listTasks() {
@@ -71,7 +84,7 @@ public class AppTest {
 
         logger.trace("listTasks");
         List<Task> tasks = taskService.createTaskQuery().list();
-        Task task;
+
         if(tasks == null || tasks.size() == 0){
             logger.trace("donot found any tasks; add one");
 
@@ -84,27 +97,44 @@ public class AppTest {
             for(Task t : tasks){
                 logger.trace("  task {}, {}, {}, {}, {}", t.getCategory(), t.getClaimTime(),
                         t.getName(), t.getId(), t.getFormKey());
+
+
+                TaskFormData taskFormData = formService.getTaskFormData(t.getId());
+                List<FormProperty> formProperties = taskFormData.getFormProperties();
+                for (FormProperty property : formProperties) {
+                    logger.trace("  FormData property  id: {}, name: {}, type: {} value: {}", property.getId(), property.getName(), property.getType(), property.getValue());
+                }
+
             }
         }
 
         //query again
         tasks = taskService.createTaskQuery().list();
         assertTrue(tasks.size() > 0);
-        task = tasks.get(0);
-
-        //认领一个任务
-        taskService.claim(task.getId(), userDolores.getId());
+        for(int i=0; i<tasks.size() && i < 3; i++) {
+            //认领几个任务（最多3个）
+            Task task = tasks.get(i);
+            //认领此任务
+            taskService.claim(task.getId(), userDolores.getId());
+        }
 
         //查看dolores用户当前的任务列表
         List<Task> tasksOfDolores = taskService.createTaskQuery().taskAssignee(userDolores.getId()).list();
         for (Task dt : tasksOfDolores) {
             logger.trace("Dolores's task: {}, {}, {}", dt.getId(), dt.getCreateTime(), dt.getProcessVariables());
-
             // 设置此任务为完成状态
             Map<String, Object> vars = new HashMap<>();
             vars.put("telephoneInterviewOutcome", true);
+            vars.put("techOk", false);
+            vars.put("financialOk", true);
             taskService.complete(dt.getId(), vars);
+
+            // 查询这个任务对应的流程的最终状态
+            HistoricProcessInstance hpi = historyService.createHistoricProcessInstanceQuery().processInstanceId(dt.getProcessInstanceId()).singleResult();
+            logger.trace("HistoricProcessInstance {}, {}, {}, {}", hpi.getName(), hpi.getEndActivityId(), hpi.getStartTime(), hpi.getEndTime());
         }
+
+
     }
 
 }

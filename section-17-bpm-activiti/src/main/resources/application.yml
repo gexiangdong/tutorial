@@ -12,6 +12,11 @@ spring:
     url: jdbc:postgresql://127.0.0.1:5432/bpm?stringtype=unspecified&ApplicationName=tutorial
     username: pgdbo
     password: sql
+  activiti:
+    mail-server-host: smtp.ym.163.com
+    mail-server-user-name: user@user.com
+    mail-server-password: password
+    mail-server-default-from: user@user.com
 
 
 logging:
