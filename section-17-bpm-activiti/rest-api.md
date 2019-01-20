@@ -6,6 +6,11 @@
 curl http://localhost:8080/runtime/tasks
 ```
 
+## 列出所有流程
+
+```bash
+curl  http://localhost:8080/repository/process-definitions
+```
 
 ## 创建新 hireProcess 流程
 
