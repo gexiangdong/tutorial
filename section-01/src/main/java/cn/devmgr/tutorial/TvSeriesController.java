@@ -159,7 +159,9 @@ public class TvSeriesController {
         }
         String iconFile = "src/test/resources/icon.jpg";
         InputStream is = new FileInputStream(iconFile);
-        return IOUtils.toByteArray(is);
+        byte[] data = IOUtils.toByteArray(is);
+        is.close();
+        return data;
     }
     
     
