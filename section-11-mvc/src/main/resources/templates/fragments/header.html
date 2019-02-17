@@ -4,7 +4,11 @@
   <ul>
     <li><a th:href="@{/}">Home</a></li>
     <li><a th:href="@{/tvseries/form}">Form</a></li>
-    <li><a th:href="${(#mvc.url('MC#hi')).build()}">Say Hi</a></li>
+    <!--/* 可以通过括号形式传参 传参，甚至可以参数里用model的变量 */-->
+    <li><a th:href="@{/mvc/hi(name='all')}">Say Hi</a></li>
+    <li><a th:href="@{/mvc/hi(name=${#request.remoteAddr})}">Hi template</a></li>
+    <!--/* 下面这个写法传递参数只能第一个参数是0-n的数字，表示第几个参数；也可以不传arg，表示无参 */-->
+    <li><a th:href="${(#mvc.url('MC#hi').arg(0, 'everyone')).build()}">Hi everyone</a></li>
     <li><a th:href="${(#mvc.url('TSC#getOne').arg(0,101)).build()}">TVSeries #101</a></li>
   </ul>
 </div>

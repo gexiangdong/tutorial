@@ -49,7 +49,10 @@ head部分的其他元素会被整合到最终输出
 </div>
 
 <div th:fragment="currentTime" class="clock" >
+  <!--/* 使用引擎默认格式转换 */-->
   <span th:text="${{time}}">12:32</span>
+  <!--/* 用指定格式转换并显示 */-->
+  <span th:text="${#calendars.format(time,'yyyy/MM/dd hh:mm:ss')}">2019/01/01 12:32:45</span>
 </div>
 
 </body>
