@@ -10,10 +10,13 @@
     <!-- 这里的th:text="${tvSeries}" 用的是ModelAndView.addObject(attributeName, attributeValue)中的attributeName，和form的不同 -->
     <p><span class="label">Id:</span><span th:text="${tvSeries.id}">id</span></p>
     <p><span class="label">Name:</span><span th:text="${tvSeries.name}">Name</span></p>
-    <p><span class="label">Season Count:</span><span th:text="${{tvSeries.seasonCount}}">0</span></p>
+    <!--/* 每三位用逗号分隔的数字格式，例如1,230 */-->
+    <p><span class="label">Season Count:</span><span th:text="${#numbers.formatInteger(tvSeries.seasonCount,3,'COMMA')}">0</span></p>
+    <!--/* {} 包含的直接调用toString显示 */-->
     <p><span class="label">Origin Release:</span><span th:text="${tvSeries.originRelease}"></span></p>
-
+    <!--/* {{}} 包含的变量，会调用引擎默认的formater */-->
     <p><span class="label">Origin Release:</span><span th:text="${{tvSeries.originRelease}}"></span></p>
+    <!--/* 用引擎提供的dates进行格式化；也可用calendars */-->
     <p><span class="label">Origin Release:</span><span
         th:text="${#dates.format(tvSeries.originRelease, 'yyyy/MM/dd')}"></span></p>
   </div>

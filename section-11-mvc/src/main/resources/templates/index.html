@@ -42,17 +42,23 @@ head部分的其他元素会被整合到最终输出
   <h1>Home</h1>
 
   <p><a th:href="@{tvseries/form}">创建电视剧的表单</a></p>
-  <p th:text="'okok'"></p>
+  <p th:text="${#conversions}"></p>
   <div id="clockcontainer" class="clockcontainer">
-
   </div>
+
 </div>
 
 <div th:fragment="currentTime" class="clock" >
   <!--/* 使用引擎默认格式转换 */-->
   <span th:text="${{time}}">12:32</span>
+  <br/>
   <!--/* 用指定格式转换并显示 */-->
   <span th:text="${#calendars.format(time,'yyyy/MM/dd hh:mm:ss')}">2019/01/01 12:32:45</span>
+</div>
+
+<!--/* 用ID作为返回部分HTML的查找方式 DOM Selectors */-->
+<div id="clock" class="clock" >
+  <span th:text="${#calendars.format(time,'yyyy/MM/dd HH:mm:ss')}">2019/01/01 12:32:45</span>
 </div>
 
 </body>
