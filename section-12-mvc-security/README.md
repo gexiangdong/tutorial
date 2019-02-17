@@ -75,8 +75,8 @@ CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
 
 ```
 
-可以在html标签上定义sec的xmlns，以浏览器避免提示错误
+可以在html标签上定义sec的xmlns，以避免IDE提示错误
 
 ```html
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 ```

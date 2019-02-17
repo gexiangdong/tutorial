@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <title>INDEX</title>
 </head>
@@ -21,6 +21,12 @@
 
   <div sec:authorize="isAuthenticated()">
     此段内容所有登录用户均可见
+    <hr/>
+    <p>
+      登录用户: <span sec:authentication="name">admin</span>
+      <br/>
+      具有的权限: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+    </p>
   </div>
 
 </div>
