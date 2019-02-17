@@ -1,0 +1,53 @@
+<!--/*
+此页面使用模板 layout/default.html
+通过给html标签声明属性  layout:decorator="layout/default" 来标识使用模板
+此属性必须写在页面的根节点元素上（一般为HTML节点）
+
+通过给某个元素声明属性 layout:fragment="xxx" 来替换模板的中对应的fragment
+页面中声明了layout:fragment的节点的子元素将被整合到模板中对应的fragment部分
+body内的其他部分（除了声明layout:framgent属性的元素）将不被整个到最终输出。
+head部分的其他元素会被整合到最终输出
+
+不在layout:fragment内的元素不能使用th:text等输出model内的值，使用变量等
+*/-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout/default">
+<head>
+  <title>Home</title>
+  <script>
+      //这里的代码都将被整合到最终输出给客户端，即使父元素没有layout:fragment属性
+      console.log("script代码执行了");
+      window.onload = function (ev) {
+          window.setInterval(updateColock, 1000);
+      };
+
+      function updateColock(){
+          var request = new XMLHttpRequest();
+          function reqListener () {
+              console.log(request.responseText);
+              document.getElementById("clockcontainer").innerHTML = request.responseText;
+          }
+          request.addEventListener("load", reqListener);
+          request.open("GET", "time");
+          request.send();
+      }
+  </script>
+</head>
+<body>
+<div class="font-size:46px;color:blue">这个DIV的内容不会输出到界面，因为它不在具有属性layout:frament的元素之内</div>
+<div layout:fragment="content">
+  <h1>Home</h1>
+
+  <p><a th:href="@{tvseries/form}">创建电视剧的表单</a></p>
+
+  <div id="clockcontainer" class="clockcontainer">
+
+  </div>
+</div>
+
+<div th:fragment="currentTime" class="clock" >
+  <span th:text="${time}">12:32</span>
+</div>
+
+</body>
+</html>

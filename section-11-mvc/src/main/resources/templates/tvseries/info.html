@@ -1,21 +1,27 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout/default">
-  
-  <body>
-  	<title layout:fragment="title">tv series.</title>
-    <div layout:fragment="content">
-    	<div class="infopanel">
-    	<!-- 这里的th:text="${tvSeries}" 用的是ModelAndView.addObject(attributeName, attributeValue)中的attributeName，和form的不同 -->
-    	<p><span class="label">Id:</span><span th:text="${tvSeries.id}">id</span></p>
-    	<p><span class="label">Name:</span><span th:text="${tvSeries.name}">Name</span></p>
-    	<p><span class="label">Season Count:</span><span th:text="${{tvSeries.seasonCount}}">0</span></p>
-    	<p><span class="label">Origin Release:</span><span th:text="${tvSeries.originRelease}"></span></p>
-    	
-    	<p><span class="label">Origin Release:</span><span th:text="${{tvSeries.originRelease}}"></span></p>
-    	<p><span class="label">Origin Release:</span><span th:text="${#dates.format(tvSeries.originRelease, 'yyyy/MM/dd')}"></span></p>
-  		</div>
-  		<p th:text="${hints}"></p>
-  	</div>
-  </body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout/default">
+<!--/*
+这里需要写 layout:fragment 属性，如果向其他页面那样仅仅写 title 元素，例如：
+<title th:text="th:text="'TV Series ' + ${tvSeries.name}"></title>
+是不行的。
+*/-->
+<title layout:fragment="title" th:text="'TV Series : ' + ${tvSeries.name}">TVS</title>
+<body>
+<div layout:fragment="content">
+  <div class="infopanel">
+
+    <!-- 这里的th:text="${tvSeries}" 用的是ModelAndView.addObject(attributeName, attributeValue)中的attributeName，和form的不同 -->
+    <p><span class="label">Id:</span><span th:text="${tvSeries.id}">id</span></p>
+    <p><span class="label">Name:</span><span th:text="${tvSeries.name}">Name</span></p>
+    <p><span class="label">Season Count:</span><span th:text="${{tvSeries.seasonCount}}">0</span></p>
+    <p><span class="label">Origin Release:</span><span th:text="${tvSeries.originRelease}"></span></p>
+
+    <p><span class="label">Origin Release:</span><span th:text="${{tvSeries.originRelease}}"></span></p>
+    <p><span class="label">Origin Release:</span><span
+        th:text="${#dates.format(tvSeries.originRelease, 'yyyy/MM/dd')}"></span></p>
+  </div>
+  <p th:text="${hints}"></p>
+</div>
+</body>
 
 </html>

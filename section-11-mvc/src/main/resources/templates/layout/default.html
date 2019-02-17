@@ -1,12 +1,31 @@
-<html xmlns:th="http://www.thymeleaf.org" >
+<!--/* 【这种标记的注释不会被输出到客户端】
+这个页面是一个模版，使用模版首先需要引入依赖
+<dependency>
+  <groupId> nz.net.ultraq.thymeleaf</groupId>
+  <artifactId>thymeleaf-layout-dialect</artifactId>
+</dependency>
+然后定义模版（例如此页面就是定义的模板），定义模板时使用
+   layout:fragment="xxx"
+来定义要被使用此模板时替换掉的部分，xxx时名字，在使用模板时会用到；一个模板内可以定义一到多个这样的片段。
+
+使用模板时，首先在页面顶部html标签处添加属性，声明使用哪个模板，例如： layout:decorator="layout/default"
+声明使用了layout目录下的default模板。
+然后在某个元素上增加属性 layout:fragment="xxx" 来声明此段html将用来替换模板中的对应的名字为xxx的片段(fragment)
+*/-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
   <head>
+    <!--/* head部分即使不写 layout:fragment 也会和使用这个模板的页面中的元素整合到一起后，输出给客户端
+      下面对title部分使用layout:fragment，如果使用此模板的页面的title都是固定文字，不需要从module里获得，可以不用。
+      如果需要从model里获得值，则需要使用fragment
+     */-->
     <meta charset="utf-8"/>
-    <title layout:fragment="title">spring.mvc</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/main.css}" > 
+    <title layout:fragment="title"></title>
+    <link rel="stylesheet" type="text/css" th:href="@{/main.css}" >
   </head>
   <body>
     <div th:replace="fragments/header :: div.header">Header</div>
-  
+
     <div layout:fragment="content"></div>
     
     <div class="footer">Copyleft 2018</div>

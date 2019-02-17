@@ -63,5 +63,9 @@ public class TvSeries {
         this.originRelease = originRelease;
     }
 
+
+    public String toString(){
+        return super.toString() + "{name=" + name + "; seasonCOunt=" + seasonCount + "}";
+    }
     
 }
