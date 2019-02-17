@@ -15,12 +15,9 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
   <head>
-    <!--/* head部分即使不写 layout:fragment 也会和使用这个模板的页面中的元素整合到一起后，输出给客户端
-      下面对title部分使用layout:fragment，如果使用此模板的页面的title都是固定文字，不需要从module里获得，可以不用。
-      如果需要从model里获得值，则需要使用fragment
-     */-->
-    <meta charset="utf-8"/>
-    <title layout:fragment="title"></title>
+    <!--/* head部分即使不写 layout:fragment 也会和使用这个模板的页面中的元素整合到一起后，输出给客户端  */-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" th:href="@{/main.css}" >
   </head>
   <body>

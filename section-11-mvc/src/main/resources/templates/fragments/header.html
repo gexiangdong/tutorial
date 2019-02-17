@@ -4,7 +4,7 @@
   <ul>
     <li><a th:href="@{/}">Home</a></li>
     <li><a th:href="@{/tvseries/form}">Form</a></li>
-    <li><a th:href="${(#mvc.url('MC#hello')).build()}">Hello</a></li>
+    <li><a th:href="${(#mvc.url('MC#hi')).build()}">Say Hi</a></li>
     <li><a th:href="${(#mvc.url('TSC#getOne').arg(0,101)).build()}">TVSeries #101</a></li>
   </ul>
 </div>

@@ -13,7 +13,7 @@ head部分的其他元素会被整合到最终输出
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout/default">
 <head>
-  <title>Home</title>
+  <title th:text="'Home'"></title>
   <script>
       //这里的代码都将被整合到最终输出给客户端，即使父元素没有layout:fragment属性
       console.log("script代码执行了");
@@ -22,13 +22,16 @@ head部分的其他元素会被整合到最终输出
       };
 
       function updateColock(){
+          //<!--/* [[ ]] 表示要使用thymeleaf的inline text输出功能 */-->
+          var url = '[[${#request.contextPath}]]/time';
+          //如果使用jquery，可以用  $("#clockcontainer").load(url); 替代下面这些
           var request = new XMLHttpRequest();
           function reqListener () {
               console.log(request.responseText);
               document.getElementById("clockcontainer").innerHTML = request.responseText;
           }
           request.addEventListener("load", reqListener);
-          request.open("GET", "time");
+          request.open("GET", url);
           request.send();
       }
   </script>
@@ -39,14 +42,14 @@ head部分的其他元素会被整合到最终输出
   <h1>Home</h1>
 
   <p><a th:href="@{tvseries/form}">创建电视剧的表单</a></p>
-
+  <p th:text="'okok'"></p>
   <div id="clockcontainer" class="clockcontainer">
 
   </div>
 </div>
 
 <div th:fragment="currentTime" class="clock" >
-  <span th:text="${time}">12:32</span>
+  <span th:text="${{time}}">12:32</span>
 </div>
 
 </body>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout/default">
 <head>
-  <title>Hi, MVC</title>
+  <title th:text="'HI,' + ${#request.remoteAddr} + #{welcome.text}">Hi, MVC</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -10,8 +10,18 @@
   <p th:text="#{welcome.text}">Welcome to our store!</p>
   <!-- 参数的内置变量 -->
   <p th:text="${param.p}">params</p>
+
   <!-- 内置变量request，参数不需要加#，request需要加# -->
   <p th:text="'Your IP: ' + ${#request.remoteAddr} + '!'"/>
+
+  <h3>inline-text显示</h3>
+  <!-- 这是用inlining text的写法 -->
+  <p> your IP: [[${#request.remoteAddr}]]</p>
+
+  <h3>关闭inline-text</h3>
+  <!-- 使用 th:inline="none" 关闭了inline text功能，之后[[ ]]及中间内容会作为html直接显示在界面上 -->
+  <!-- th:inline 有3个可能的值： text, javascript, none -->
+  <p th:inline="none"> your IP: [[${#request.remoteAddr}]]</p>
 
   <p th:text="'templateNames, ' + ${#execInfo.templateNames} + '!'"/>
   <a th:href="${(#mvc.url('MC#hello')).build()}">link to hello</a>

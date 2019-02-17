@@ -1,6 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout/default">
-<title>List</title>
+<head>
+  <title>List</title>
+</head>
 <body>
 <div layout:fragment="content">
   <div th:each="tvSeries,rowStat : ${allTvSeries}" class="itempanel">

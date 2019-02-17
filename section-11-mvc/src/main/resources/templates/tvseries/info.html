@@ -1,11 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org" layout:decorator="layout/default">
-<!--/*
-这里需要写 layout:fragment 属性，如果向其他页面那样仅仅写 title 元素，例如：
-<title th:text="th:text="'TV Series ' + ${tvSeries.name}"></title>
-是不行的。
-*/-->
-<title layout:fragment="title" th:text="'TV Series : ' + ${tvSeries.name}">TVS</title>
+<head>
+  <title th:text="'TV Series - ' + ${tvSeries.name}">TVS</title>
+</head>
 <body>
 <div layout:fragment="content">
   <div class="infopanel">

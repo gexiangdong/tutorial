@@ -21,6 +21,14 @@ public class HomeController {
         return "index";
     }
 
+    /**
+     * 返回HTML片段的例子，可和前台JS协作，实现动态更新页面部分内容。
+     * 此例中 index.html中有一段JS，每隔1秒更新以下id为clockcontainer的div内容为下面这个方法返回的内容
+     *
+     * return 的值 :: 前面的部分是模板名称，后面是模板内的fragment名称
+     * @param model
+     * @return
+     */
     @GetMapping("/time")
     public String showTime(Model model) {
         logger.trace("showTime()");
