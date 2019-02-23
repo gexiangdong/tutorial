@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head(title='成功')"></head>
+
+<body>
+<div class="container">
+  <h1>购物成功</h1>
+
+  您的订单已经被接收。
+
+  <p>order id: <span th:text="${order.id}">orderId</span></p>
+
+  <div class="otherlines">
+    <a th:href="@{'~' + ${flowExecutionUrl} + '&_eventId_home'}" class="linkbutton">Home</a>
+  </div>
+
+
+</div>
+
+</body>
+
+</html>

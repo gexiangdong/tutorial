@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head(title='购物车')"></head>
+
+<body>
+<div class="container">
+  <h1>购物车</h1>
+  <form method="post" th:object="${shoppingCart}" >
+
+    <div class="shoppingcartcontainer">
+      <div th:each="item : ${shoppingCart.cartItems}" class="cartitem">
+        <div class="product">
+          <span class="productid" th:text="${item.product.id}"></span>
+          <span class="productname" th:text="${item.product.name}"></span>
+        </div>
+        <div class="num">
+          <input type="text" th:field="*{cartItems[__${itemStat.index}__].num}" />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="buttons">
+      <button type="submit" class="btn btn-primary" name="_eventId_next">下一步（确认订单）</button>
+    </div>
+  </form>
+  <p>order id: <span th:text="${order.id}">orderId</span></p>
+
+  <div class="otherlines">
+    <a th:href="@{'~' + ${flowExecutionUrl} + '&_eventId_home'}" class="linkbutton">Home</a>
+  </div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head(title='付款')"></head>
+
+<body>
+<div class="container">
+  <h1>清付款</h1>
+  您的订单已经被接收。
+
+  <p>order id: <span th:text="${order.id}">orderId</span></p>
+
+  <div class="otherlines">
+    <a th:href="@{'~' + ${flowExecutionUrl} + '&_eventId_pay'}" class="linkbutton">去付款</a>
+  </div>
+</div>
+
+</body>
+
+</html>

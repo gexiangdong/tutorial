@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+  <var name="product" class="cn.devmgr.tutorial.webflow.pojo.Product" />
+  <var name="order" class="cn.devmgr.tutorial.webflow.pojo.Order" />
+
+  <!-- on-start 配置用户进入流程时预先的操作 -->
+  <on-start>
+    <!-- buyHandler 是spring的component，类似@Autowire方式 -->
+    <evaluate expression="buyHandler.init()" result="flowScope.shoppingCart" />
+  </on-start>
+
+  <view-state id="showCart" view="flows/buy/showcart" model="flowScope.shoppingCart">
+    <transition on="next" to="confirmOrder" />
+    <on-exit>
+      <!-- 离开这个页面会执行下面的内容 -->
+      <evaluate expression="buyHandler.updateShoppingCart(flowScope.shoppingCart)"></evaluate>
+    </on-exit>
+  </view-state>
+
+
+
+  <view-state id="confirmOrder" view="flows/buy/confirmorder" model="flowScope.shoppingCart">
+    <transition on="next" to="submitOrder" />
+    <transition on="modify" to="showCart" />
+  </view-state>
+
+  <action-state id="submitOrder">
+    <evaluate expression="buyHandler.createOrder(flowScope.shoppingCart, order, messageContext)" />
+    <transition on="success" to="payOrder" />
+    <transition on="fail" to="confirmOrder" />
+  </action-state>
+
+  <view-state id="payOrder" view="flows/buy/payorder" model="order">
+    <transition on="pay" to="pay" />
+  </view-state>
+
+  <action-state id="pay">
+    <evaluate expression="buyHandler.payOrder(order)" />
+    <transition on="success" to="completion" />
+    <transition on="failure" to="pay" />
+  </action-state>
+
+
+
+  <!-- end state -->
+  <end-state id="completion" view="flows/buy/completion" />
+  <end-state id="home" view="externalRedirect:contextRelative:/" />
+
+  <!-- Global Transition -->
+  <global-transitions>
+    <transition on="home" to="home" validate="false" />
+  </global-transitions>
+
+</flow>

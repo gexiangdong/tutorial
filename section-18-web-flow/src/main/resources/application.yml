@@ -1,0 +1,9 @@
+
+
+logging:
+  file: target/app.log
+  level:
+    ROOT: WARN
+    cn.devmgr: TRACE
+    org.springframework: INFO
+    org.thymeleaf.TemplateEngine: INFO

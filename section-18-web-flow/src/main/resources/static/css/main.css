@@ -1,0 +1,12 @@
+.linkbutton{display:inline-block; margin-right:50px;}
+
+.shoppingcartcontainer{width:400px;}
+.cartitem{display: grid; grid-template-columns: 300px 80px; border-bottom:1px solid #AAA; padding:10px 20px;}
+.shoppingcartcontainer .cartitem:first-child{border-top:1px solid #AAA;}
+.product{}
+.product .productid{display: block; color:#666;}
+.product .productname{display: block;}
+.cartitem .num{padding-left:20px;}
+.num input{width: 50px;}
+
+.buttons{margin-top:20px;}
