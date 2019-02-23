@@ -1,7 +1,7 @@
 <!--/* 【这种标记的注释不会被输出到客户端】
 这个页面是一个模版，使用模版首先需要引入依赖
 <dependency>
-  <groupId> nz.net.ultraq.thymeleaf</groupId>
+  <groupId>nz.net.ultraq.thymeleaf</groupId>
   <artifactId>thymeleaf-layout-dialect</artifactId>
 </dependency>
 然后定义模版（例如此页面就是定义的模板），定义模板时使用
@@ -13,7 +13,7 @@
 然后在某个元素上增加属性 layout:fragment="xxx" 来声明此段html将用来替换模板中的对应的名字为xxx的片段(fragment)
 */-->
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <head>
     <!--/* head部分即使不写 layout:fragment 也会和使用这个模板的页面中的元素整合到一起后，输出给客户端  */-->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
