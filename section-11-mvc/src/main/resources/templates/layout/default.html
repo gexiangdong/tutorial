@@ -17,6 +17,10 @@
   <head>
     <!--/* head部分即使不写 layout:fragment 也会和使用这个模板的页面中的元素整合到一起后，输出给客户端  */-->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--/* 下面的写法会把模板中指定的页面 title 和 layout 里指定的title (Tutorial) 合并到一起渲染
+       有些网站，每个页面的名字前/后 增加网站的名字，可以把网站名字像这样写在模板里
+     */-->
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Tutorial</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" th:href="@{/main.css}" >
   </head>
