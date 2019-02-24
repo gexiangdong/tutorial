@@ -21,3 +21,5 @@ ul.form li label.error{ color:#FF0000;}
 
 .itempanel{display:inline-block; border:1px solid #EFEFEF; margin:5px; padding:5px; width:300px;}
 .itempanel span.no{color:#ff9200; font-size:14px; display:block; margin:5px; float:right; font-family: Arial;}
+
+span.listitem{display: inline-block; margin-right:20px;}

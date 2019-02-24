@@ -19,6 +19,10 @@
     <!--/* 用引擎提供的dates进行格式化；也可用calendars */-->
     <p><span class="label">Origin Release:</span><span
         th:text="${#dates.format(tvSeries.originRelease, 'yyyy/MM/dd')}"></span></p>
+    <p><span class="label">Characters:</span>
+      <span class="listitem" th:each="tvCharacter : ${tvSeries.tvCharacters}" th:text="${tvCharacter.name}"></span>
+    </p>
+
   </div>
   <p th:text="${hints}"></p>
 </div>

@@ -9,8 +9,8 @@ import java.util.Random;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/tvseries")
 @Controller
 public class TvSeriesController {
-    private final static Log log = LogFactory.getLog(TvSeriesController.class);
+    private final static Logger logger = LoggerFactory.getLogger(TvSeriesController.class);
 
     /**
      * 模版使用url匹配；对应src/main/resources/templates/tvseries/form.html
@@ -36,6 +36,15 @@ public class TvSeriesController {
         Calendar c = Calendar.getInstance();
         c.add(Calendar.YEAR, -5);
         tvSeries.setOriginRelease(c.getTime());
+        List<TvCharacter> tvCharacters = new ArrayList<>();
+        TvCharacter tc1 = new TvCharacter();
+        tc1.setName("Wyatt");
+        TvCharacter tc2 = new TvCharacter();
+        tc2.setName("怀亚特");
+        tvCharacters.add(tc1);
+        tvCharacters.add(tc2);
+        tvSeries.setTvCharacters(tvCharacters);
+
         return tvSeries;
     }
 
@@ -49,12 +58,11 @@ public class TvSeriesController {
      */
     @PostMapping("/create")
     public ModelAndView createTvSeries(@Valid TvSeries tvSeries, BindingResult result) {
-        if(log.isTraceEnabled()) {
-            log.trace("createTvSeries(_) " + tvSeries);
-        }
+        logger.trace("createTvSeries(_) {}, tvCharacters:{}", tvSeries, tvSeries.getTvCharacters() );
+
         ModelAndView mav = new ModelAndView();
         if(result.hasErrors()) {
-            log.trace("hasErrors......");
+            logger.trace("hasErrors......");
             // 有错误出现，设置模版文件位 对应src/main/resources/templates/tvseries/form.html，以便用户重新输入
             mav.setViewName("/tvseries/form");
             mav.addObject("ts", tvSeries);
@@ -62,7 +70,7 @@ public class TvSeriesController {
         }
         // 设置模版文件为对应src/main/resources/templates/tvseries/info.html，显示刚刚新增的信息
         if(tvSeries == null){
-            log.warn("tvseries is null");
+            logger.warn("tvseries is null");
             tvSeries = new TvSeries();
         }
         tvSeries.setId(9999);
@@ -95,7 +103,7 @@ public class TvSeriesController {
      */
     @GetMapping("/infomation")
     public ModelAndView getOneFromModelAttribute(@ModelAttribute("tvs") TvSeries tvSeries) {
-        log.trace("从modelAttribute里获得的" + tvSeries);
+        logger.trace("从modelAttribute里获得的" + tvSeries);
         ModelAndView mav = new ModelAndView();
        
         // 设置模版文件为对应src/main/resources/templates/tvseries/info.html，
@@ -144,7 +152,7 @@ public class TvSeriesController {
      */
     @ModelAttribute
     public void setVaryResponseHeader(HttpServletResponse response) {
-        log.trace("这个类下面的每个请求都执行，这个方法仅仅是给response设置个header");
+        logger.trace("这个类下面的每个请求都执行，这个方法仅仅是给response设置个header");
         response.setHeader("header-key", "sample-value");
     }
     
@@ -155,7 +163,7 @@ public class TvSeriesController {
      */
     @ModelAttribute("tvs")
     public TvSeries tvSeriesInquery(@RequestParam(value="id", required=false) Integer id) {
-        log.trace("执行 tvSeriesInquery 根据querystring");
+        logger.trace("执行 tvSeriesInquery 根据querystring");
         if(id == null) {
             return null;
         }

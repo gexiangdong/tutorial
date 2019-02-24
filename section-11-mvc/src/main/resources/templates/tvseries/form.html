@@ -38,9 +38,31 @@ errors --which #fields.hasErrors(...) will query-- to that "formData" name, not 
         <label th:if="${#fields.hasErrors('originRelease')}" th:text="日期不合法" th:class="'error'">originRelease is
           invalid</label>
       </li>
+      <li>
+        <h3>电视剧里的人物</h3>
+        <div id="tvcharacters">
+          <div th:each="tvCharacter : *{tvCharacters}" >
+            <!--/*
+            下面被注释掉的写法和没注释掉的写法作用是完全一样的，输出的HTML也相同，仅仅是一个用*{}引用；一个用 ${}
+            <input th:field="${tvSeries.tvCharacters[__${tvCharacterStat.index}__].name}"></input>
+            */-->
+            <input type="text" th:field="*{tvCharacters[__${tvCharacterStat.index}__].name}" />
+          </div>
+        </div>
+        <a href="javascript:addTvCharacter();">增加一个人物</a>
+      </li>
       <li class="buttons"><input type="submit" th:value="Submit"/></li>
     </ul>
-
+    <script>
+      var tvCharacterCount = [[${#lists.size(tvSeries.tvCharacters)}]];
+      function addTvCharacter() {
+          var ele = document.getElementById("tvcharacters");
+          var newEle = document.createElement("div");
+          newEle.innerHTML = '<input type="text" id="tvCharacters' + tvCharacterCount + '.name" name="tvCharacters[' + tvCharacterCount + '].name" />';
+          ele.appendChild(newEle);
+          tvCharacterCount++;
+      }
+    </script>
   </form>
 </div>
 </body>

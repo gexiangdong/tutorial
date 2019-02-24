@@ -1,11 +1,14 @@
 package cn.devmgr.tutorial.springmvc;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
@@ -24,8 +27,11 @@ public class TvSeries {
     //@Past表示只接受过去的时间，比当前时间还晚的被认为不合格
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Past private Date originRelease;
-    
-    public TvSeries() { 
+
+    @Valid @NotNull @Size(min=2) private List<TvCharacter> tvCharacters;
+
+
+    public TvSeries() {
     }
     
     public TvSeries(int id, String name, int seasonCount, Date originRelease) {
@@ -63,9 +69,16 @@ public class TvSeries {
         this.originRelease = originRelease;
     }
 
+    public List<TvCharacter> getTvCharacters() {
+        return tvCharacters;
+    }
+
+    public void setTvCharacters(List<TvCharacter> tvCharacters) {
+        this.tvCharacters = tvCharacters;
+    }
 
     public String toString(){
-        return super.toString() + "{name=" + name + "; seasonCOunt=" + seasonCount + "}";
+        return super.toString() + "{name=" + name + "; seasonCount=" + seasonCount + "}";
     }
     
 }
