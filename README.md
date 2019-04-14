@@ -31,3 +31,6 @@ spring boot编写RESTful API项目中用到的各种知识的整理和相关示�
 ### 环境
 
 需要先安装Maven，大部分章节需要PostgreSQL，安装后创建数据库和表[sql.sql](./sql.sql)
+
+
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
