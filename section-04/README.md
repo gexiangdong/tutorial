@@ -7,7 +7,7 @@ README
 ### 准备数据库
 如果没有PostgreSQL Server，请先安装一份。可从[http://www.postgres.org](http://www.postgres.org)下载。
 创建一个数据库，名为tvseries，并在此数据库内创建2个表，建表语句可参考[sql.sql](../sql.sql)文件。
-修改application(./src/main/resources/applicaiton.yml)中的数据库连接字符串
+修改[application.yml](./src/main/resources/applicaiton.yml)中的数据库连接字符串
 
 ### 运行
 ```bash
