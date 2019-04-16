@@ -17,10 +17,10 @@ mvn test
 
 | 所在类 | 方法 | 说明 |
 |:-----:|:----:|:-----|
-|TvSeriesServiceTest | testGetAllWithoutMockit | 没有使用mockit来做桩模块替代掉数据访问层时，判断测试是否成功的条件比较难编写，这是个负面例子。 |
-|TvSeriesServiceTest | testGetAll |  |
-|TvSeriesServiceTest | testGetOne |  |
-|AppTests | contextLoads |一个空测试用例  |
-|AppTests | testGetAll |GET方法的测试，数据访问层被桩模块代替  |
-|AppTests | testAddSeries |POST方法的测试，数据访问层被桩模块代替  |
-|AppTests | testFileUpload |MockWebMvc模拟文件上传，来测试文件上传的例子，内有如何修改某个spring bean属性的语句。 |
+|[TvSeriesServiceTest](./src/test/java/cn/devmgr/tutorial/TvSeriesServiceTest.java) | testGetAllWithoutMockit | 没有使用mockit来做桩模块替代掉数据访问层时，判断测试是否成功的条件比较难编写，这是个负面例子。 |
+|[TvSeriesServiceTest](./src/test/java/cn/devmgr/tutorial/TvSeriesServiceTest.java) | testGetAll |  |
+|[TvSeriesServiceTest](./src/test/java/cn/devmgr/tutorial/TvSeriesServiceTest.java) | testGetOne |  |
+|[AppTests](./src/test/java/cn/devmgr/tutorial/AppTests.java) | contextLoads |一个空测试用例  |
+|[AppTests](./src/test/java/cn/devmgr/tutorial/AppTests.java)  | testGetAll |GET方法的测试，数据访问层被桩模块代替  |
+|[AppTests](./src/test/java/cn/devmgr/tutorial/AppTests.java)  | testAddSeries |POST方法的测试，数据访问层被桩模块代替  |
+|[AppTests](./src/test/java/cn/devmgr/tutorial/AppTests.java)  | testFileUpload |MockWebMvc模拟文件上传，来测试文件上传的例子，内有如何修改某个spring bean属性的语句。 |
