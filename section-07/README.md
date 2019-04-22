@@ -11,7 +11,7 @@ Spring Security的例子
     <artifactId>spring-boot-starter-security</artifactId>
 </dependency>
 ```
-* 增加一个WebSecurityConfigurerAdapter，详细代码参见 [WebSecurityConfigurerAdapter.java](./src/main/java/cn/devmgr/tutorial/WebSecurityConfigurerAdapter.java)
+* 增加一个WebSecurityConfigurerAdapter，详细代码参见 [WebSecurityConfig.java](./src/main/java/cn/devmgr/tutorial/WebSecurityConfig.java)
 * 增加一个Filter用于把token转换成用户[AuthenticationTokenFilter.java](./src/main/java/cn/devmgr/tutorial/AuthenticationTokenFilter.java)
 * 登录用的controller [TokenController.java](./src/main/java/cn/devmgr/tutorial/TokenController.java)
 
