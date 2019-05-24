@@ -6,8 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.RepositoryDefinition;
 
 import cn.devmgr.tutorial.po.TvSeries;
+import org.springframework.stereotype.Repository;
 
-@RepositoryDefinition(domainClass = TvSeries.class, idClass = Integer.class) 
+//@RepositoryDefinition(domainClass = TvSeries.class, idClass = Integer.class)
+@Repository
 public interface TvSeriesDao extends JpaRepository<TvSeries,Integer>{
     
     @Modifying
