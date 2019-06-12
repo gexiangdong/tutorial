@@ -12,7 +12,7 @@ import cn.devmgr.tutorial.service.TvSeriesService;
 @SpringBootTest
 public class AppTests {
     @Autowired TvSeriesService tvSeriesService;
-    
+
 	@Test
 	public void contextLoads() throws Exception {
 	}
