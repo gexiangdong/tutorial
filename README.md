@@ -27,6 +27,7 @@ spring boot编写RESTful API项目中用到的各种知识的整理和相关示�
 |[seciont-16](./section-16-email) |使用Spring提供的JavaMailSender发送邮件的例子 |
 |[section-17](./section-17-bpm-activiti) | TODO: 未完 |
 |[section-18](./section-18-web-flow) |用Web Flow实现下单支付流程的小例子 |
+|[section-19](./section-19-restdocs) |用 RestDocs 写API文档 |
 
 ### 环境
 

@@ -79,5 +79,5 @@ RESTDocs 是通过编写测试用例的方式，来制作文档。当测试用�
 
 如果测试用例都写好后，运行 `mvn package` 如果测试用例都通过，会自动生成文档，文档在 target/generated-snippets 目录下。
 
-这个目录下的文档都是adoc格式的。
+这个目录下的文档都是 Asciidoctor 格式的。
 
