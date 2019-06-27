@@ -25,7 +25,7 @@ spring boot编写RESTful API项目中用到的各种知识的整理和相关示�
 |[seciont-14](./section-14-dynamic-datasource) |多个动态数据源的例子(不常见） |
 |[seciont-15](./section-15-dynamic-sql) |Mybatis自定义Language Driver的例子和在Controller生成excel格式文件的例子） |
 |[seciont-16](./section-16-email) |使用Spring提供的JavaMailSender发送邮件的例子 |
-|[section-17](./section-17-bpm-activiti) | TODO: 未完 |
+|[section-17](./section-17-bpm-activiti) |activiti工作流引擎 + spring boot |
 |[section-18](./section-18-web-flow) |用Web Flow实现下单支付流程的小例子 |
 |[section-19](./section-19-restdocs) |用 RestDocs 写API文档 |
 
