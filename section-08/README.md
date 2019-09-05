@@ -9,10 +9,10 @@ Async、Scheduling和Cache
 
 如果没有redis环境，想仅仅测试下spring用内存做缓存，可以修改pom.xml文件去掉如下依赖：
 ```XML
-   <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-redis</artifactId>
-    </dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
 ```
 和[SampleController.java](src/main/java/cn/devmgr/tutorial/SampleController.java)中RedisTemplate相关部分。
 
