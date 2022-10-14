@@ -28,6 +28,7 @@ spring boot编写RESTful API项目中用到的各种知识的整理和相关示�
 |[section-17](./section-17-bpm-activiti) |activiti工作流引擎 + spring boot |
 |[section-18](./section-18-web-flow) |用Web Flow实现下单支付流程的小例子 |
 |[section-19](./section-19-restdocs) |用 RestDocs 写API文档 |
+|[section-20](./section-20-two-datasours) |多个DataSource，同时使用2个数据库 |
 
 ### 环境
 
