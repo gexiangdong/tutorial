@@ -1,6 +1,7 @@
 package cn.devmgr.tutorial.generality;
 
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
+@Mapper
 public interface GenericDao {
  
     /**

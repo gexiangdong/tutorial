@@ -12,7 +12,7 @@ import org.apache.ibatis.jdbc.SQL;
  * java类内用驼峰命名法；数据库表和字段都用下划线
  * 类的属性定义的变量名和get/set方法名，以及set的参数类型一致，才会映射到数据库字段
  * 例如： private String name; 而且有 public void setName(String name) 和 public String getName()方法
- * 如果不是严格按照此规则定义的属性，不会被影射到数据库字段上
+ * 如果不是严格按照此规则定义的属性，不会被映射到数据库字段上
  */
 public class InsertUpdateSqlProvider {
  
