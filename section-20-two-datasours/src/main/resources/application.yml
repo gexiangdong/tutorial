@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: spring-boot-tutorial
+  datasource:
+    main:
+      driverClassName: org.postgresql.Driver
+      jdbc-url: jdbc:postgresql://127.0.0.1:5432/db1
+      username: pgdbo
+      password: sql
+      hikari:
+        maximum-pool-size: 30
+        minimum-idle: 5   # 空闲时保持最小连接数
+        idle-timeout: 10000  # 空闲连接存活时间
+        connection-timeout: 8000 # 连接超时时间
+        connection-test-query: select  2  # 测试sql
+    secondary:
+      driverClassName: org.postgresql.Driver
+      jdbc-url: jdbc:postgresql://127.0.0.1:5432/db2
+      username: pgdbo
+      password: sql
+      hikari:
+        maximum-pool-size: 10
+        minimum-idle: 3   # 空闲时保持最小连接数
+        idle-timeout: 10000  # 空闲连接存活时间
+        connection-timeout: 8000 # 连接超时时间
+        connection-test-query: select  4  # 测试sql
+        read-only: true  #此项目将连接从数据库（只读数据库），所以此处设置成只读，以发现避免环境误写状况
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true  #使用数值timestamp表示日期
+
+mybatis.configuration.mapUnderscoreToCamelCase: true
+
+logging:
+  file: target/app.log
+  level:
+    ROOT: WARN
+    cn.devmgr: TRACE

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.devmgr.tutorial.tx.PersonDao">
+
+  <resultMap id="PersonResultMap" type="cn.devmgr.tutorial.tx.PersonDto" autoMapping="true">
+    <id property="id" column="id"/>
+    <result property="birthday" column="birthday"/>
+    <result property="attributes" column="attributes" typeHandler="cn.devmgr.tutorial.JsonTypeHandler"/>
+    <association property="address"
+                 javaType="cn.devmgr.tutorial.tx.Address"
+                 resultMap="addressResultMap"/>
+  </resultMap>
+
+  <resultMap id="addressResultMap" type="cn.devmgr.tutorial.tx.Address"
+             autoMapping="true">
+    <result property="postCode" column="post_code"/>
+    <result property="detailAddress" column="detail_address"/>
+  </resultMap>
+
+  <select id="getAll" resultMap="PersonResultMap">
+    select * from person
+  </select>
+
+
+</mapper>
